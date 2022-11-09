@@ -2,6 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '3.0.0-RC1'
 	id 'io.spring.dependency-management' version '1.1.0'
 	id 'java'
+	id "com.github.node-gradle.node" version "3.5.0"
 }
 
 group = 'com.app.food.team'
@@ -19,6 +20,7 @@ repositories {
 	maven { url 'https://repo.spring.io/milestone' }
 }
 
+
 dependencies {
 
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -35,3 +37,68 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+
+
+
+
+
+// Frontend automation
+
+node {
+	version = '14.15.5'
+
+	// if true it will download node using the above parameters.
+	// otherwise it will try to use the globally installed node.
+	download = true
+
+	// Set the work directory to unpack node
+	workDir = file("${project.projectDir}/frontend/nodejs")
+
+	npmWorkDir = file("${project.projectDir}/frontend/npm")
+
+	// Set the work directory where node_modules should be located
+	nodeModulesDir = file("${project.projectDir}/frontend/")
+}
+
+
+task npmInstallProjectDependencies(type: NpmTask) {
+	dependsOn 'npmSetup'
+	logger.log(LogLevel.DEBUG, 'Installing Dependencies')
+	execOverrides {
+		it.ignoreExitValue = true
+		it.workingDir = "${project.projectDir}/frontend/"
+	}
+	args = ['install']
+}
+task npmBuild(type: NpmTask) {
+	dependsOn 'npmInstallProjectDependencies'
+	execOverrides {
+		it.workingDir = "${project.projectDir}/frontend/"
+	}
+	args = ['run', 'build']
+}
+task copyFrontEndToBuild(type: Copy) {
+	logger.log(LogLevel.DEBUG, "$projectDir/frontend/build/")
+	dependsOn 'npmBuild'
+	from "$projectDir/frontend/build/"
+	into "$buildDir/resources/main/static"
+}
+task npmStart(type: NpmTask) {
+	execOverrides {
+		it.workingDir = "${project.projectDir}/frontend/"
+	}
+	args = ['start']
+}
+
+processResources {
+	// we can use a conditional here
+
+	// When releasing to production:
+	dependsOn 'copyFrontEndToBuild'
+
+	// When developing:
+	dependsOn 'npmInstallProjectDependencies'
+}
+
+// you need to find a way to kill all node processes before starting

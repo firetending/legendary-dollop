@@ -5,7 +5,8 @@ npx create-react-app web-app --template typescript
 To start the front-end app do:
 npm start
 
-
+To set up the frontend, go to the gradle tab >> Tasks >> other
+and double-click processResources
 
 
 
