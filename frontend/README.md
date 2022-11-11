@@ -1,3 +1,15 @@
+## Manual method:
+cd frontend
+
+To install all dependencies:
+    npm install
+
+To serve the frontend:
+    npm start
+
+To stop the server:
+    ctrl+c
+
 ## All frontend documentation goes here:
 To create this project:
 npx create-react-app web-app --template typescript
