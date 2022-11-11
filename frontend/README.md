@@ -1,14 +1,38 @@
+## Manual method:
+cd frontend
+
+To install all dependencies:
+    npm install
+
+To serve the frontend:
+    npm start
+
+To stop the server:
+    ctrl+c
+
+
 ## All frontend documentation goes here:
 To create this project:
 npx create-react-app web-app --template typescript
 
-To start the front-end app do:
-npm start
+To set up the frontend for development go to the gradle tab >>
+npm and double-click npmInstallProjectDependencies
 
-To set up the frontend, go to the gradle tab >> Tasks >> other
-and double-click processResources
+To build the frontend for production go to the gradle tab >> Tasks >> other
+and double-click copyFrontEndToBuild
+(This task still does not work properly)
 
+To run the frontend you can go to the gradle tab >> npm and double-click
+npmStart
+Or in terminal go to frontend and run: npm start
 
+Before we set up the project or build the project for production
+we need to remove the following:
+    nodejs
+    node-modules
+    npm
+    build
+    package-lock.json
 
 
 
