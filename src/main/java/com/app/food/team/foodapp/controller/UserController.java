@@ -1,6 +1,7 @@
 package com.app.food.team.foodapp.controller;
 
 import com.app.food.team.foodapp.dto.Response;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +16,10 @@ import static org.springframework.http.HttpStatus.OK;
 @Slf4j
 @RestController
 @RequestMapping("/api/v1")
+@AllArgsConstructor
 public class UserController {
+    private final RegistrationService registrationService;
+
     @GetMapping("/ping")
     public ResponseEntity<Response> ping(){
         log.info("Processing ping request");
@@ -28,4 +32,17 @@ public class UserController {
                         .build()
         );
     }
+
+    @PostMapping
+    public String register(@RequestBody RegistrationRequest request) {
+        return registrationService.register(request);
+    }
+
+    @GetMapping(path = "confirm")
+    public String confirm(@RequestParam("token") String token) {
+        return registrationService.confirmToken(token);
+    }
+
 }
+
+
