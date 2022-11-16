@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -44,12 +45,9 @@ public class UserController {
     }
 
     @GetMapping(path = "/admin/home")
-    public String testApp(){
+    public String adminHome(){
         log.info("[UserController] ----> /admin/home");
-        final String currentUserName = SecurityContextHolder
-                .getContext()
-                .getAuthentication()
-                .getDetails().toString();
+        final String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
         return String.format("<h1>Hi Admin %s!</h1>", currentUserName);
     }
 
@@ -57,12 +55,13 @@ public class UserController {
     public String logout(HttpSession session){
         log.info("[UserController] ----> /logout");
         session.invalidate();
-        return String.format("<h1>Ciao %s !</h1>", session.getAttribute("name"));
+        return "<h1>Good Bye!</h1>";
     }
 
     @PostMapping(path = "/registration/register")
-    public String register(@RequestBody RegistrationRequest request) {
+    public String register(@RequestBody RegistrationRequest request, HttpSession session) {
         log.info("[UserController] ----> /registration/register");
+        log.info("<h1>%s is confirmed!</h1>", session.getAttribute("name"));
         return registrationService.register(request);
     }
 
