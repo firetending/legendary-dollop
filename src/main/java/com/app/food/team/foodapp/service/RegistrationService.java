@@ -2,15 +2,17 @@ package com.app.food.team.foodapp.service;
 
 
 import com.app.food.team.foodapp.dto.RegistrationRequest;
-import com.app.food.team.foodapp.enums.UserRole;
+import com.app.food.team.foodapp.enums.Role;
 import com.app.food.team.foodapp.model.ConfirmationToken;
 import com.app.food.team.foodapp.model.User;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 public class RegistrationService {
@@ -18,7 +20,7 @@ public class RegistrationService {
     private final UserService userService;
     private final EmailValidator emailValidator;
     private final ConfirmationTokenService confirmationTokenService;
-    private final EmailSender emailSender;
+    private final EmailServiceInterface emailServiceInterface;
 
     public String register(RegistrationRequest request) {
         boolean isValidEmail = emailValidator.
@@ -29,17 +31,22 @@ public class RegistrationService {
         }
 
         String token = userService.signUpUser(
-                new User(
-                        request.getFirstName(),
-                        request.getLastName(),
-                        request.getEmail(),
-                        request.getPassword(),
-                        UserRole.USER
-                )
+            User.builder()
+                .firstName(request.getFirstName())
+                .lastName(request.getLastName())
+                .email(request.getEmail())
+                .password(request.getPassword())
+                .role(Role.USER)
+                .build()
         );
 
         String link = "http://localhost:8080/api/v1/registration/confirm?token=" + token;
-        emailSender.send(
+        log.info("Confirm user with email:" +
+                 request.getEmail() +
+                 " using this URL: " +
+                link);
+
+        emailServiceInterface.send(
                 request.getEmail(),
                 buildEmail(request.getFirstName(), link));
         return token;

@@ -1,8 +1,10 @@
 ##All back-end documentation goes here:
-
+Please don't make changes directly to main branch
 
 
 implementation 'org.springframework.session:spring-session-core'
 
-developmentOnly 'org.springframework.boot:spring-boot-devtools'
 testImplementation 'org.springframework.security:spring-security-test'
+
+
+

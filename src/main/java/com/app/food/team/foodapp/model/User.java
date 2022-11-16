@@ -1,11 +1,9 @@
 package com.app.food.team.foodapp.model;
 
-import com.app.food.team.foodapp.enums.UserRole;
+import com.app.food.team.foodapp.enums.Role;
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,21 +13,23 @@ import java.util.Collections;
 
 @Getter
 @Setter
-@EqualsAndHashCode
+//@EqualsAndHashCode
 @NoArgsConstructor
+@SuperBuilder
+
 @Entity
 public class User implements UserDetails {
 
 
     @SequenceGenerator(
-            name = "student_sequence",
-            sequenceName = "student_sequence",
+            name = "user_sequence",
+            sequenceName = "user_sequence",
             allocationSize = 1
     )
     @Id
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "student_sequence"
+            generator = "user_sequence"
     )
     private Long id;
     private String firstName;
@@ -37,26 +37,31 @@ public class User implements UserDetails {
     private String email;
     private String password;
     @Enumerated(EnumType.STRING)
-    private UserRole userRole;
+    private Role role;
+
+    @Builder.Default
     private Boolean locked = false;
+
+    @Builder.Default
     private Boolean enabled = false;
 
-    public User(String firstName,
-                   String lastName,
-                   String email,
-                   String password,
-                   UserRole userRole) {
+    public User(
+            String firstName,
+            String lastName,
+            String email,
+            String password,
+            Role role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        this.userRole = userRole;
+        this.role = role;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         SimpleGrantedAuthority authority =
-                new SimpleGrantedAuthority(userRole.name());
+                new SimpleGrantedAuthority(role.name());
         return Collections.singletonList(authority);
     }
 

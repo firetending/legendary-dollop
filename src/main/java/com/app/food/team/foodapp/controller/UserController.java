@@ -1,12 +1,15 @@
 package com.app.food.team.foodapp.controller;
 
+import com.app.food.team.foodapp.dto.RegistrationRequest;
 import com.app.food.team.foodapp.dto.Response;
+import com.app.food.team.foodapp.service.RegistrationService;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -20,9 +23,9 @@ import static org.springframework.http.HttpStatus.OK;
 public class UserController {
     private final RegistrationService registrationService;
 
-    @GetMapping("/ping")
+    @GetMapping(path = "/ping")
     public ResponseEntity<Response> ping(){
-        log.info("Processing ping request");
+        log.info("[UserController] ----> /ping");
         return ResponseEntity.ok( // we can use .created here
                 Response.builder()
                         .timeStamp(now())
@@ -33,13 +36,39 @@ public class UserController {
         );
     }
 
-    @PostMapping
+    @GetMapping(path = "/user/home")
+    public String userHome(){
+        log.info("[UserController] ----> /user/home");
+        final String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+        return String.format("<h1>Hi User %s!</h1>", currentUserName);
+    }
+
+    @GetMapping(path = "/admin/home")
+    public String testApp(){
+        log.info("[UserController] ----> /admin/home");
+        final String currentUserName = SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getDetails().toString();
+        return String.format("<h1>Hi Admin %s!</h1>", currentUserName);
+    }
+
+    @GetMapping(path = "/logout")
+    public String logout(HttpSession session){
+        log.info("[UserController] ----> /logout");
+        session.invalidate();
+        return String.format("<h1>Ciao %s !</h1>", session.getAttribute("name"));
+    }
+
+    @PostMapping(path = "/registration/register")
     public String register(@RequestBody RegistrationRequest request) {
+        log.info("[UserController] ----> /registration/register");
         return registrationService.register(request);
     }
 
-    @GetMapping(path = "confirm")
+    @GetMapping(path = "/registration/confirm")
     public String confirm(@RequestParam("token") String token) {
+        log.info("[UserController] ----> /registration/confirm");
         return registrationService.confirmToken(token);
     }
 
