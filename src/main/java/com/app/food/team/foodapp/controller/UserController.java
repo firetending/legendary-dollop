@@ -48,16 +48,16 @@ public class UserController {
         Object userResponse = getUserResponse(auth.getPrincipal());
 
         return ResponseEntity.ok(
-                ResponseDto.builder()
-                        .timeStamp(now())
-                        .message("Hi Admin!")
-                        .status(OK)
-                        .statusCode(OK.value())
-                        .data(new HashMap<>(){{
-                            put("user", userResponse);
-                            put("isAuthenticated", auth.isAuthenticated());
-                        }})
-                        .build()
+            ResponseDto.builder()
+                .timeStamp(now())
+                .message("Hi Admin!")
+                .status(OK)
+                .statusCode(OK.value())
+                .data(new HashMap<>(){{
+                    put("user", userResponse);
+                    put("isAuthenticated", auth.isAuthenticated());
+                }})
+                .build()
         );
     }
 
@@ -95,7 +95,7 @@ public class UserController {
             Object userResponse = getUserResponse(auth.getPrincipal());
             responseDtoBuilder
                 .timeStamp(now())
-                .message("Registration was successful.")
+                .message("User Registration was successful.")
                 .status(OK)
                 .statusCode(OK.value())
                 .data(new HashMap<>(){{
@@ -107,7 +107,7 @@ public class UserController {
         } catch(IllegalStateException ise){
             responseDtoBuilder
                 .timeStamp(now())
-                .message("Confirmation failed.")
+                .message("Registration attempt failed.")
                 .status(HttpStatus.CONFLICT)
                 .statusCode(HttpStatus.CONFLICT.value())
                 .reason(ise.getMessage());
@@ -140,7 +140,7 @@ public class UserController {
         } catch(IllegalStateException ise) {
             responseDtoBuilder
                 .timeStamp(now())
-                .message("Registration failed.")
+                .message("Confirmation attempt failed.")
                 .status(HttpStatus.CONFLICT)
                 .statusCode(HttpStatus.CONFLICT.value())
                 .reason(ise.getMessage());
@@ -156,7 +156,7 @@ public class UserController {
 
 
     // -------------------------------------------------------
-
+    // Data controllers (they should be in another file or files)
     @GetMapping(path = "/user/data")
     public ResponseEntity<ResponseDto> userHome(){
         log.info("[UserController] ----> /user/data");

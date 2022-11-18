@@ -1,7 +1,15 @@
 ## All back-end documentation goes here:
 Please don't make changes directly to main branch
 
-## Spring
+## Documentation:
+To install a mock mail server for development:
+    npm install -g maildev
+    maildev --ip 127.0.0.1 --smtp 25
+For whatever reason spring is ignoring the mail config
+
+
+## Sending emails:
+https://www.quickprogrammingtips.com/spring-boot/how-to-send-email-from-spring-boot-applications.html
 
 
 ## Spring security docs:

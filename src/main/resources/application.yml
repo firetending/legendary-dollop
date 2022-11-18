@@ -9,6 +9,7 @@ spring:
     url: jdbc:mysql://localhost:3306/legendary-dollop
     username: app
     password: Password123
+
   jpa:
     hibernate:
       ddl-auto: create
@@ -18,20 +19,20 @@ spring:
         format_sql: true
     show-sql: true
 
-mail:
-  host: localhost
-  port: 1025
-  username: app
-  password: Password123
+  mail:
+    host: localhost
+    username: hello
+    password: hello
+    properties:
+      mail:
+        smtp:
+          port: 1025
+          ssl:
+            trust: "*"
+          auth: true
+          starttls:
+            enable: true
+          connectiontimeout: 5000
+          timeout: 3000
+          writetimeout: 5000
 
-  properties:
-    mail:
-      smtp:
-        ssl:
-          trust: "*"
-        auth: true
-        starttls:
-          enable: true
-        connectiontimeout: 5000
-        timeout: 3000
-        writetimeout: 5000
