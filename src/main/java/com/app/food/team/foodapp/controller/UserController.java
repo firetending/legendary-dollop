@@ -1,18 +1,22 @@
 package com.app.food.team.foodapp.controller;
 
-import com.app.food.team.foodapp.dto.RegistrationRequest;
-import com.app.food.team.foodapp.dto.Response;
+import com.app.food.team.foodapp.dto.RegistrationRequestDto;
+import com.app.food.team.foodapp.dto.ResponseDto;
+import com.app.food.team.foodapp.dto.UserDisplayDto;
+import com.app.food.team.foodapp.model.User;
 import com.app.food.team.foodapp.service.RegistrationService;
-import jakarta.servlet.ServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
+import java.security.Principal;
+import java.util.HashMap;
 
 import static java.time.LocalDateTime.now;
 import static org.springframework.http.HttpStatus.OK;
@@ -25,50 +29,177 @@ public class UserController {
     private final RegistrationService registrationService;
 
     @GetMapping(path = "/ping")
-    public ResponseEntity<Response> ping(){
+    public ResponseEntity<ResponseDto> ping(){
         log.info("[UserController] ----> /ping");
         return ResponseEntity.ok( // we can use .created here
-                Response.builder()
+            ResponseDto.builder()
+                .timeStamp(now())
+                .message("Service is up")
+                .status(OK)
+                .statusCode(OK.value())
+                .build()
+        );
+    }
+
+    @GetMapping(path = "/getLogin")
+    public ResponseEntity<ResponseDto> getlogin(){
+        log.info("[UserController] ----> /getLogin");
+        final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Object userResponse = getUserResponse(auth.getPrincipal());
+
+        return ResponseEntity.ok(
+                ResponseDto.builder()
                         .timeStamp(now())
-                        .message("Service is up")
+                        .message("Hi Admin!")
                         .status(OK)
                         .statusCode(OK.value())
+                        .data(new HashMap<>(){{
+                            put("user", userResponse);
+                            put("isAuthenticated", auth.isAuthenticated());
+                        }})
                         .build()
         );
     }
 
-    @GetMapping(path = "/user/home")
-    public String userHome(){
-        log.info("[UserController] ----> /user/home");
-        final String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
-        return String.format("<h1>Hi User %s!</h1>", currentUserName);
-    }
 
-    @GetMapping(path = "/admin/home")
-    public String adminHome(){
-        log.info("[UserController] ----> /admin/home");
-        final String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
-        return String.format("<h1>Hi Admin %s!</h1>", currentUserName);
-    }
 
     @GetMapping(path = "/logout")
-    public String logout(HttpSession session){
+    public ResponseEntity<ResponseDto> logout(HttpSession session){
         log.info("[UserController] ----> /logout");
+
+        final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Object userResponse = getUserResponse(auth.getPrincipal());
         session.invalidate();
-        return "<h1>Good Bye!</h1>";
+
+        return ResponseEntity.ok(
+            ResponseDto.builder()
+                .timeStamp(now())
+                .message("Good bye!")
+                .status(OK)
+                .statusCode(OK.value())
+                .data(new HashMap<>(){{
+                    put("user", userResponse);
+                }})
+                .build()
+        );
     }
 
+
     @PostMapping(path = "/registration/register")
-    public String register(@RequestBody RegistrationRequest request, HttpSession session) {
+    public ResponseEntity<ResponseDto> register(@RequestBody RegistrationRequestDto registrationRequestDto) {
         log.info("[UserController] ----> /registration/register");
-        log.info("<h1>%s is confirmed!</h1>", session.getAttribute("name"));
-        return registrationService.register(request);
+        ResponseDto.ResponseDtoBuilder<?, ?> responseDtoBuilder = ResponseDto.builder();
+        try {
+            String token = registrationService.register(registrationRequestDto);
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            Object userResponse = getUserResponse(auth.getPrincipal());
+            responseDtoBuilder
+                .timeStamp(now())
+                .message("Registration was successful.")
+                .status(OK)
+                .statusCode(OK.value())
+                .data(new HashMap<>(){{
+                    put("user", userResponse);
+                    put("token", token);
+                }})
+                .build();
+
+        } catch(IllegalStateException ise){
+            responseDtoBuilder
+                .timeStamp(now())
+                .message("Confirmation failed.")
+                .status(HttpStatus.CONFLICT)
+                .statusCode(HttpStatus.CONFLICT.value())
+                .reason(ise.getMessage());
+        }
+
+        return ResponseEntity.ok(
+            responseDtoBuilder.build()
+        );
     }
 
     @GetMapping(path = "/registration/confirm")
-    public String confirm(@RequestParam("token") String token) {
+    public ResponseEntity<ResponseDto> confirm(@RequestParam("token") String token) {
         log.info("[UserController] ----> /registration/confirm");
-        return registrationService.confirmToken(token);
+        ResponseDto.ResponseDtoBuilder<?, ?> responseDtoBuilder = ResponseDto.builder();
+        try {
+            registrationService.confirmToken(token);
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            Object userResponse = getUserResponse(auth.getPrincipal());
+            responseDtoBuilder
+                .timeStamp(now())
+                .message("User Confirmation was Successful.")
+                .status(OK)
+                .statusCode(OK.value())
+                .data(new HashMap<>(){{
+                    put("user", userResponse);
+                    put("token", token);
+                }})
+                .build();
+
+        } catch(IllegalStateException ise) {
+            responseDtoBuilder
+                .timeStamp(now())
+                .message("Registration failed.")
+                .status(HttpStatus.CONFLICT)
+                .statusCode(HttpStatus.CONFLICT.value())
+                .reason(ise.getMessage());
+        }
+
+        return ResponseEntity.ok(
+                responseDtoBuilder.build()
+        );
+
+    }
+
+
+
+
+    // -------------------------------------------------------
+
+    @GetMapping(path = "/user/data")
+    public ResponseEntity<ResponseDto> userHome(){
+        log.info("[UserController] ----> /user/data");
+        final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Object userResponse = getUserResponse(auth.getPrincipal());
+
+        return ResponseEntity.ok(
+                ResponseDto.builder()
+                        .timeStamp(now())
+                        .message("There you go!")
+                        .status(OK)
+                        .statusCode(OK.value())
+                        .data(new HashMap<>(){{
+                            put("user", userResponse);
+
+                        }})
+                        .build()
+        );
+    }
+
+
+    @GetMapping(path = "/admin/data")
+    public ResponseEntity<ResponseDto> adminHome(){
+        log.info("[UserController] ----> /admin/data");
+        final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Object userResponse = getUserResponse(auth.getPrincipal());
+
+        return ResponseEntity.ok(
+
+                ResponseDto.builder()
+                        .timeStamp(now())
+                        .message("There you go!")
+                        .status(OK)
+                        .statusCode(OK.value())
+                        .data(new HashMap<>(){{
+                            put("user", userResponse);
+                        }})
+                        .build()
+        );
+    }
+
+    private Object getUserResponse(Object principal){
+        return (principal instanceof User)? UserDisplayDto.createFromPrincipal((User) principal) : principal.toString();
     }
 
 }

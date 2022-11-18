@@ -7,20 +7,16 @@ import lombok.experimental.SuperBuilder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import java.util.Collection;
 import java.util.Collections;
 
 @Getter
 @Setter
-//@EqualsAndHashCode
+@EqualsAndHashCode
 @NoArgsConstructor
 @SuperBuilder
-
 @Entity
 public class User implements UserDetails {
-
-
     @SequenceGenerator(
             name = "user_sequence",
             sequenceName = "user_sequence",
