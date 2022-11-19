@@ -1,11 +1,12 @@
-import './App.css';
+import React from 'react';
 import Axios from 'axios';
 import { useState} from 'react';
 import RecipeTile from './RecipeTile';
+import './MenuCreationForm.css';
 
 
 
-function App() {
+function MenuCreationForm() {
 
   const [query, setQuery] = useState("");
   const [recipes, setRecipes] = useState([]);
@@ -28,20 +29,20 @@ function App() {
   }
 
   return (
-    <div className="app">
+    <div className="MenuCreationForm">
       <h1>🥞🍱🥗 Food Recipes 🍜🍤🍔</h1>
-      <form className="app__searchForm" onSubmit={onSubmit}>
+      <form className="MenuCreationForm__searchForm" onSubmit={onSubmit}>
         <input type="text"
-        className="app__input"
+        className="MenuCreationForm__input"
         placeholder='Enter ingredient'
         value={query}
         onChange={ (e)=> setQuery(e.target.value)}
         />
-        <input className="app__searchButton" type='submit' value="Search" />
+        <input className="MenuCreationForm__searchButton" type='submit' value="Search" />
 
-        <div className="app__healthLabels">
+        <div className="MenuCreationForm__healthLabels">
         <p>Please select :  </p>
-        <select className="app__healthLabels">
+        <select className="MenuCreationForm__healthLabels">
           <option onClick={() => sethealthLabels("dairy-free")}>Dairy free</option>
           <option onClick={() => sethealthLabels("gluten-free")}>Gluten free</option>
           <option onClick={() => sethealthLabels("vegan")}>Vegan</option>
@@ -49,10 +50,10 @@ function App() {
           <option onClick={() => sethealthLabels("pecatarian")}>Pecatarian</option>
         </select>
         </div>
+        </form>
 
-      </form>
 
-      <div className="app__recipes">
+      <div className="MenuCreationForm__recipes">
         {recipes.map((recipe) => {
           return < RecipeTile recipe={recipe}/>;
         })}
@@ -62,4 +63,4 @@ function App() {
   );
 }
 
-export default App;
+export default MenuCreationForm;
