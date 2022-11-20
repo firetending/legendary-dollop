@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import './adminstyles.css'
 
 class Sidebar extends Component {
     render() {

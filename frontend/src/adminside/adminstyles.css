@@ -1,0 +1,22 @@
+.sidebar {
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    padding-top: 0.5%;
+    left: 0;
+    padding-left: 0.5%;
+    padding-right: 1%;
+    overflow-x: hidden;
+    height: 100%;
+    background-color: gray;
+    text-align: left;
+}
+
+.menuList {
+    display: inline-block;
+}
+
+.menu {
+    outline: 2px solid black;
+
+}
