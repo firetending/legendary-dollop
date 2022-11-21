@@ -5,6 +5,7 @@ import com.app.food.team.foodapp.dto.RegistrationRequestDto;
 import com.app.food.team.foodapp.enums.Role;
 import com.app.food.team.foodapp.model.ConfirmationToken;
 import com.app.food.team.foodapp.model.User;
+import com.app.food.team.foodapp.service.interfaces.EmailServiceInterface;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
