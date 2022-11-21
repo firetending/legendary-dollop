@@ -14,4 +14,5 @@ public class RegistrationRequestDto {
     private final String lastName;
     private final String email;
     private final String password;
+
 }

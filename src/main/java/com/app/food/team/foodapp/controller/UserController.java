@@ -1,21 +1,28 @@
 package com.app.food.team.foodapp.controller;
 
+import com.app.food.team.foodapp.dto.AuthCredentialsRequestDto;
 import com.app.food.team.foodapp.dto.RegistrationRequestDto;
 import com.app.food.team.foodapp.dto.ResponseDto;
 import com.app.food.team.foodapp.dto.UserDisplayDto;
 import com.app.food.team.foodapp.model.User;
+import com.app.food.team.foodapp.repository.UserRepository;
 import com.app.food.team.foodapp.service.RegistrationService;
+import com.app.food.team.foodapp.service.UserService;
+import com.app.food.team.foodapp.util.JwtUtil;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.HashMap;
 
 import static java.time.LocalDateTime.now;
@@ -26,7 +33,10 @@ import static org.springframework.http.HttpStatus.OK;
 @RequestMapping("/api/v1")
 @AllArgsConstructor
 public class UserController {
+    private UserService userService;
     private final RegistrationService registrationService;
+    private final AuthenticationManager authenticationManager;
+    private final JwtUtil jwtUtil;
 
     @GetMapping(path = "/ping")
     public ResponseEntity<ResponseDto> ping(){
@@ -41,24 +51,55 @@ public class UserController {
         );
     }
 
-    @GetMapping(path = "/getLogin")
-    public ResponseEntity<ResponseDto> getlogin(){
-        log.info("[UserController] ----> /getLogin");
+    @PostMapping(path = "/auth/login")
+    public ResponseEntity<ResponseDto> login(@RequestBody @Valid AuthCredentialsRequestDto authCredentialsRequestDto){
+        log.info("[UserController] ----> /auth/login");
         final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Object userResponse = getUserResponse(auth.getPrincipal());
 
-        return ResponseEntity.ok(
-            ResponseDto.builder()
-                .timeStamp(now())
-                .message("Hi Admin!")
-                .status(OK)
-                .statusCode(OK.value())
-                .data(new HashMap<>(){{
-                    put("user", userResponse);
-                    put("isAuthenticated", auth.isAuthenticated());
-                }})
-                .build()
-        );
+        try {
+            Authentication authenticate = authenticationManager
+                    .authenticate(
+                            new UsernamePasswordAuthenticationToken(
+                                    authCredentialsRequestDto.getUsername(),
+                                    authCredentialsRequestDto.getPassword()
+                            )
+                    );
+
+            User user =  (User) userService.loadUserByUsername(authenticate.getPrincipal().toString()); //(User) authenticate.getPrincipal();
+
+            return ResponseEntity.ok()
+                    .header(
+                        HttpHeaders.AUTHORIZATION,
+                        jwtUtil.generateAccessToken(user)
+                    )
+                    .body(
+                        ResponseDto.builder()
+                            .timeStamp(now())
+                            .message("Login was successful.")
+                            .status(OK)
+                            .statusCode(OK.value())
+                            .data(new HashMap<>(){{
+                                put("user", userResponse);
+                                put("isAuthenticated", auth.isAuthenticated());
+                            }})
+                            .build()
+                    );
+        } catch (BadCredentialsException ex) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(
+                        ResponseDto.builder()
+                            .timeStamp(now())
+                            .message("Login attempt failed.")
+                            .status(HttpStatus.UNAUTHORIZED)
+                            .statusCode(HttpStatus.UNAUTHORIZED.value())
+                            .reason(ex.getMessage())
+                            .build()
+                    );
+
+        }
+
+
     }
 
 

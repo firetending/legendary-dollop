@@ -16,6 +16,7 @@ import java.util.Collections;
 @NoArgsConstructor
 @SuperBuilder
 @Entity
+@Table(name = "users") // MySQL uses a "user" table for something else
 public class User implements UserDetails {
     @SequenceGenerator(
             name = "user_sequence",
