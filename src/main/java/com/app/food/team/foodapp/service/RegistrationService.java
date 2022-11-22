@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.Errors;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.time.LocalDateTime;
 import static java.time.LocalDateTime.now;
@@ -24,14 +25,23 @@ public class RegistrationService {
     private final ConfirmationTokenService confirmationTokenService;
     private final EmailServiceInterface emailService;
 
-    public String register(RegistrationRequestDto request) {
-        boolean isValidEmail = emailValidator.
-                test(request.getEmail());
 
-        if (!isValidEmail) {
-            throw new IllegalStateException("email not valid");
+    public void registrationRequestVerification(RegistrationRequestDto request, Errors errors){
+//        if (!isValidEmail) {
+//            errors.rejectValue("email", "invalid.email", "Email is not valid");
+//            throw new IllegalStateException("Email not valid");
+//        }
+
+        if (userService.userExists(request.getEmail())) {
+            errors.rejectValue("email", "email.already.exists", "Passwords do not match");
         }
+        if (!request.getPassword().equals(request.getVerifyPassword())) {
+            errors.rejectValue("password", "passwords.mismatch", "Passwords do not match");
+        }
+        if (errors.hasErrors()){ throw new IllegalStateException("Registration request has errors"); }
+    }
 
+    public String register(RegistrationRequestDto request) {
         String token = userService.signUpUser(
             User.builder()
                 .firstName(request.getFirstName())
@@ -45,9 +55,9 @@ public class RegistrationService {
         final String BASE_URL = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
         String link = BASE_URL + "/api/v1/registration/confirm?token=" + token;
         log.info("Confirm user with email:" +
-                 request.getEmail() +
-                 " using this URL: " +
-                link
+             request.getEmail() +
+             " using this URL: " +
+             link
         );
 
         emailService.send(request.getEmail(), buildEmail(request.getFirstName(), link));

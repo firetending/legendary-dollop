@@ -35,16 +35,6 @@ public class UserService implements UserDetailsService {
     }
 
     public String signUpUser(User user) {
-        boolean userExists = userRepository
-                .findByEmail(user.getEmail())
-                .isPresent();
-
-        if (userExists) {
-            // TODO check of attributes are the same and
-            // TODO if email not confirmed send confirmation email.
-
-            throw new IllegalStateException("email already taken");
-        }
 
         String encodedPassword = bCryptPasswordEncoder
                 .encode(user.getPassword());
@@ -72,5 +62,11 @@ public class UserService implements UserDetailsService {
 
     public int enableUser(String email) {
         return userRepository.enableUser(email);
+    }
+
+    public boolean userExists(String email) {
+        return userRepository
+                .findByEmail(email)
+                .isPresent();
     }
 }

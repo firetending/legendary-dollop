@@ -8,7 +8,7 @@ import lombok.*;
 @EqualsAndHashCode
 @ToString
 public class AuthCredentialsRequestDto {
-    @Email(message = "User name must be your email")
+    @Email(message = "Username must be an email")
     private String username;
 
     private String password;
