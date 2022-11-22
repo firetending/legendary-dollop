@@ -1,25 +1,23 @@
 package com.app.food.team.foodapp.repository;
 
-import com.app.food.team.foodapp.model.ConfirmationToken;
+import com.app.food.team.foodapp.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Repository
 @Transactional(readOnly = true)
-public interface ConfirmationTokenRepository extends JpaRepository<ConfirmationToken, Long> {
-
-    Optional<ConfirmationToken> findByToken(String token);
+public interface UserRepository extends JpaRepository<User, Long> {
+    Optional<User> findByEmail(String email);
 
     @Transactional
     @Modifying
-    @Query("UPDATE ConfirmationToken c " +
-            "SET c.confirmedAt = ?2 " +
-            "WHERE c.token = ?1")
-    int updateConfirmedAt(String token, LocalDateTime confirmedAt);
+    @Query("UPDATE User u " +
+            "SET u.enabled = TRUE " +
+            "WHERE u.email = ?1")
+    int enableUser(String email);
 }
