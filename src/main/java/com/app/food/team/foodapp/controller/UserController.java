@@ -1,5 +1,6 @@
 package com.app.food.team.foodapp.controller;
 
+import com.app.food.team.foodapp.dto.LoginRequestDto;
 import com.app.food.team.foodapp.dto.RegistrationRequestDto;
 import com.app.food.team.foodapp.dto.ResponseDto;
 import com.app.food.team.foodapp.dto.UserViewDto;
@@ -48,7 +49,7 @@ public class UserController {
     }
 
     @PostMapping("token")
-    public String token(Authentication authentication){
+    public String token(@RequestBody @Valid LoginRequestDto loginRequestDto, Authentication authentication){
         log.info("Token requested for user: {}", authentication.getName());
         String token = jwtTokenService.generateJwtToken(authentication);
         log.info("Token granted {}", token);
