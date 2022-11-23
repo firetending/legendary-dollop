@@ -6,9 +6,7 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.springframework.security.core.GrantedAuthority;
 
-import java.security.Principal;
 import java.util.Collection;
-import java.util.List;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
@@ -18,7 +16,7 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 @JsonInclude(NON_NULL)
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDisplayDto {
+public class UserViewDto {
     private String firstName;
     private String lastName;
     private String email;
@@ -28,8 +26,8 @@ public class UserDisplayDto {
     private Boolean expired;
     Collection<? extends GrantedAuthority> authorities;
 
-    public static UserDisplayDto createFromPrincipal(User user){
-        return UserDisplayDto.builder()
+    public static UserViewDto createFromUser(User user){
+        return UserViewDto.builder()
             .firstName(user.getFirstName())
             .lastName(user.getLastName())
             .email(user.getEmail())

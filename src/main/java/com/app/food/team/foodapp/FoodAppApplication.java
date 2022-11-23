@@ -1,6 +1,7 @@
 package com.app.food.team.foodapp;
 
 
+import com.app.food.team.foodapp.config.RsaKeyPropertiesConfiguration;
 import com.app.food.team.foodapp.enums.Role;
 import com.app.food.team.foodapp.model.User;
 import com.app.food.team.foodapp.repository.UserRepository;
@@ -8,10 +9,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Slf4j
+@EnableConfigurationProperties(RsaKeyPropertiesConfiguration.class)
 @SpringBootApplication
 public class FoodAppApplication {
 

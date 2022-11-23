@@ -2,8 +2,9 @@ package com.app.food.team.foodapp.controller;
 
 import com.app.food.team.foodapp.dto.RegistrationRequestDto;
 import com.app.food.team.foodapp.dto.ResponseDto;
-import com.app.food.team.foodapp.dto.UserDisplayDto;
+import com.app.food.team.foodapp.dto.UserViewDto;
 import com.app.food.team.foodapp.model.User;
+import com.app.food.team.foodapp.service.JwtTokenService;
 import com.app.food.team.foodapp.service.RegistrationService;
 import com.app.food.team.foodapp.service.UserService;
 //import com.app.food.team.foodapp.util.JwtUtil;
@@ -15,8 +16,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.HashMap;
 import static java.time.LocalDateTime.now;
 import static org.springframework.http.HttpStatus.OK;
@@ -26,14 +29,14 @@ import static org.springframework.http.HttpStatus.OK;
 @RequestMapping("${request.mapping}")
 @AllArgsConstructor
 public class UserController {
+
     private UserService userService;
+    private final JwtTokenService jwtTokenService;
     private final RegistrationService registrationService;
 
-
-
-    @GetMapping(path = "/ping")
+    @GetMapping(path = "ping")
     public ResponseEntity<ResponseDto> ping(){
-        log.info("[UserController] ----> /ping");
+        log.info("[UserController] ----> ping");
         return ResponseEntity.ok( // we can use .created here
             ResponseDto.builder()
                 .timeStamp(now())
@@ -44,13 +47,20 @@ public class UserController {
         );
     }
 
+    @PostMapping("token")
+    public String token(Authentication authentication){
+        log.info("Token requested for user: {}", authentication.getName());
+        String token = jwtTokenService.generateJwtToken(authentication);
+        log.info("Token granted {}", token);
+        return token;
+    }
 
-    @GetMapping(path = "/auth/logout")
+    @GetMapping(path = "auth/logout")
     public ResponseEntity<ResponseDto> logout(HttpSession session){
-        log.info("[UserController] ----> /auth/logout");
+        log.info("[UserController] ----> auth/logout");
 
-        final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Object userResponse = getUserResponse(auth.getPrincipal());
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Object userResponse = getUserResponse(auth.getName());
         session.invalidate();
 
         return ResponseEntity.ok(
@@ -67,7 +77,7 @@ public class UserController {
     }
 
 
-    @PostMapping(path = "/registration/register")
+    @PostMapping(path = "registration/register")
     public ResponseEntity<ResponseDto> register(@RequestBody @Valid RegistrationRequestDto registrationRequestDto, Errors errors) {
         log.info("[UserController] ----> /registration/register");
         ResponseDto.ResponseDtoBuilder<?, ?> responseDtoBuilder = ResponseDto.builder();
@@ -75,8 +85,9 @@ public class UserController {
         try {
             registrationService.registrationRequestVerification(registrationRequestDto, errors);
             String token = registrationService.register(registrationRequestDto);
+
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            Object userResponse = getUserResponse(auth.getPrincipal());
+            Object userResponse = getUserResponse(auth.getName());
             responseDtoBuilder
                 .timeStamp(now())
                 .message("User Registration was successful.")
@@ -84,7 +95,7 @@ public class UserController {
                 .statusCode(OK.value())
                 .data(new HashMap<>(){{
                     put("user", userResponse);
-                    put("token", token);
+                    put("confirmationToken", token);
                 }})
                 .build();
 
@@ -105,22 +116,23 @@ public class UserController {
         );
     }
 
-    @GetMapping(path = "/registration/confirm")
+    @GetMapping(path = "registration/confirm")
     public ResponseEntity<ResponseDto> confirm(@RequestParam("token") String token) {
-        log.info("[UserController] ----> /registration/confirm");
+        log.info("[UserController] ----> registration/confirm");
         ResponseDto.ResponseDtoBuilder<?, ?> responseDtoBuilder = ResponseDto.builder();
+
         try {
             registrationService.confirmToken(token);
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            Object userResponse = getUserResponse(auth.getPrincipal());
+            Object userResponse = getUserResponse(auth.getName());
             responseDtoBuilder
                 .timeStamp(now())
                 .message("User Confirmation was Successful.")
                 .status(OK)
                 .statusCode(OK.value())
                 .data(new HashMap<>(){{
-                    put("user", userResponse);
-                    put("token", token);
+                    put("user", auth.getName());
+
                 }})
                 .build();
 
@@ -144,12 +156,11 @@ public class UserController {
 
     // -------------------------------------------------------
     // Data controllers (they should be in another file or files)
-    @GetMapping(path = "/user/data")
-    public ResponseEntity<ResponseDto> userHome(){
-        log.info("[UserController] ----> /user/data");
-        final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Object userResponse = getUserResponse(auth.getPrincipal());
+    @GetMapping(path = "user/data")
+    public ResponseEntity<ResponseDto> userData(Authentication authentication){
+        log.info("[UserController] ----> user/data");
 
+        Object userResponse = getUserResponse(authentication.getName());
         return ResponseEntity.ok(
                 ResponseDto.builder()
                         .timeStamp(now())
@@ -158,7 +169,7 @@ public class UserController {
                         .statusCode(OK.value())
                         .data(new HashMap<>(){{
                             put("user", userResponse);
-
+                            put("token", ((JwtAuthenticationToken) authentication).getToken().getTokenValue());
                         }})
                         .build()
         );
@@ -166,13 +177,11 @@ public class UserController {
 
 
     @GetMapping(path = "/admin/data")
-    public ResponseEntity<ResponseDto> adminHome(){
-        log.info("[UserController] ----> /admin/data");
-        final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Object userResponse = getUserResponse(auth.getPrincipal());
+    public ResponseEntity<ResponseDto> adminData(Authentication authentication){
+        log.info("[UserController] ----> admin/data");
 
+        Object userResponse = getUserResponse(authentication.getName());
         return ResponseEntity.ok(
-
                 ResponseDto.builder()
                         .timeStamp(now())
                         .message("There you go!")
@@ -180,13 +189,18 @@ public class UserController {
                         .statusCode(OK.value())
                         .data(new HashMap<>(){{
                             put("user", userResponse);
+                            put("token", ((JwtAuthenticationToken) authentication).getToken().getTokenValue());
                         }})
                         .build()
         );
     }
 
-    private Object getUserResponse(Object principal){
-        return (principal instanceof User)? UserDisplayDto.createFromPrincipal((User) principal) : principal.toString();
+
+    // put this in a service
+    private Object getUserResponse(String username){
+        return  userService.userExists(username)?
+                    UserViewDto.createFromUser((User) userService.loadUserByUsername(username))
+                    : username;
     }
 
 }
