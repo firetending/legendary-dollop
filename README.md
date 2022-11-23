@@ -14,7 +14,7 @@ To create private/public keys for JWT encoding:
      TODO:
      create proper response for login endpoint
      logout (invalidating jwt token)
-     Method authorization
+     Method authorization <Done>
      separate endpoints into registration, auth, and data
      increment expiration time of jwt token (get time from properties)
      create properties config

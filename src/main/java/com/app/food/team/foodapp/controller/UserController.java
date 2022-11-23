@@ -3,8 +3,6 @@ package com.app.food.team.foodapp.controller;
 import com.app.food.team.foodapp.dto.LoginRequestDto;
 import com.app.food.team.foodapp.dto.RegistrationRequestDto;
 import com.app.food.team.foodapp.dto.ResponseDto;
-import com.app.food.team.foodapp.dto.UserViewDto;
-import com.app.food.team.foodapp.model.User;
 import com.app.food.team.foodapp.service.JwtTokenService;
 import com.app.food.team.foodapp.service.RegistrationService;
 import com.app.food.team.foodapp.service.UserService;
@@ -53,6 +51,12 @@ public class UserController {
         );
     }
 
+    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
+    @GetMapping("adminEndPoint")
+    public String someAdminEndpoint(){
+        return "Hello Admin!";
+    }
+
     @PostMapping("auth/login")
     public String login(@RequestBody @Valid LoginRequestDto loginRequestDto){
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
@@ -62,18 +66,12 @@ public class UserController {
         return jwtTokenService.generateJwtToken(authentication);
     }
 
-    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
-    @GetMapping("adminEndPoint")
-    public String someAdminEndpoint(){
-        return "Hello Admin!";
-    }
-
     @GetMapping(path = "auth/logout")
     public ResponseEntity<ResponseDto> logout(HttpSession session){
         log.info("[UserController] ----> auth/logout");
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Object userResponse = getUserResponse(auth.getName());
+        Object userResponse = userService.getUserResponse(auth.getName());
         session.invalidate();
 
         return ResponseEntity.ok(
@@ -100,7 +98,7 @@ public class UserController {
             String token = registrationService.register(registrationRequestDto);
 
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            Object userResponse = getUserResponse(auth.getName());
+            Object userResponse = userService.getUserResponse(auth.getName());
             responseDtoBuilder
                 .timeStamp(now())
                 .message("User Registration was successful.")
@@ -116,8 +114,8 @@ public class UserController {
             responseDtoBuilder
                 .timeStamp(now())
                 .message("Registration attempt failed.")
-                .status(HttpStatus.CONFLICT)
-                .statusCode(HttpStatus.CONFLICT.value())
+                .status(HttpStatus.NOT_ACCEPTABLE)
+                .statusCode(HttpStatus.NOT_ACCEPTABLE.value())
                 .reason(ise.getMessage())
                 .data(new HashMap<>(){{
                     put("errors", errors.getAllErrors());
@@ -130,14 +128,14 @@ public class UserController {
     }
 
     @GetMapping(path = "registration/confirm")
-    public ResponseEntity<ResponseDto> confirm(@RequestParam("token") String token) {
+    public ResponseEntity<ResponseDto> confirm(@RequestParam("confirmation-token") String token) {
         log.info("[UserController] ----> registration/confirm");
         ResponseDto.ResponseDtoBuilder<?, ?> responseDtoBuilder = ResponseDto.builder();
 
         try {
             registrationService.confirmToken(token);
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            Object userResponse = getUserResponse(auth.getName());
+            Object userResponse = userService.getUserResponse(auth.getName());
             responseDtoBuilder
                 .timeStamp(now())
                 .message("User Confirmation was Successful.")
@@ -153,8 +151,8 @@ public class UserController {
             responseDtoBuilder
                 .timeStamp(now())
                 .message("Confirmation attempt failed.")
-                .status(HttpStatus.CONFLICT)
-                .statusCode(HttpStatus.CONFLICT.value())
+                .status(HttpStatus.NOT_ACCEPTABLE)
+                .statusCode(HttpStatus.NOT_ACCEPTABLE.value())
                 .reason(ise.getMessage());
         }
 
@@ -173,7 +171,7 @@ public class UserController {
     public ResponseEntity<ResponseDto> userData(Authentication authentication){
         log.info("[UserController] ----> user/data");
 
-        Object userResponse = getUserResponse(authentication.getName());
+        Object userResponse = userService.getUserResponse(authentication.getName());
         return ResponseEntity.ok(
                 ResponseDto.builder()
                         .timeStamp(now())
@@ -193,7 +191,7 @@ public class UserController {
     public ResponseEntity<ResponseDto> adminData(Authentication authentication){
         log.info("[UserController] ----> admin/data");
 
-        Object userResponse = getUserResponse(authentication.getName());
+        Object userResponse = userService.getUserResponse(authentication.getName());
         return ResponseEntity.ok(
                 ResponseDto.builder()
                         .timeStamp(now())
@@ -209,12 +207,8 @@ public class UserController {
     }
 
 
-    // put this in a service
-    private Object getUserResponse(String username){
-        return  userService.userExists(username)?
-                    UserViewDto.createFromUser((User) userService.loadUserByUsername(username))
-                    : username;
-    }
+
+
 
 }
 

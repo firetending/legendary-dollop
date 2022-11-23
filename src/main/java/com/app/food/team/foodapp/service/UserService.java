@@ -1,5 +1,6 @@
 package com.app.food.team.foodapp.service;
 
+import com.app.food.team.foodapp.dto.UserViewDto;
 import com.app.food.team.foodapp.model.ConfirmationToken;
 import com.app.food.team.foodapp.model.User;
 import com.app.food.team.foodapp.repository.UserRepository;
@@ -68,5 +69,11 @@ public class UserService implements UserDetailsService {
         return userRepository
                 .findByEmail(email)
                 .isPresent();
+    }
+
+    public Object getUserResponse(String username){
+        return  userExists(username)?
+                UserViewDto.createFromUser((User) loadUserByUsername(username))
+                : username;
     }
 }
