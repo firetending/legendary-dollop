@@ -18,6 +18,9 @@ spring:
         dialect: org.hibernate.dialect.MySQL8Dialect
         format_sql: true
     show-sql: true
+  security:
+    filter:
+      order: 10
 
   mail:
     host: localhost

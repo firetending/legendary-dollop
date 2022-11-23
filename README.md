@@ -11,17 +11,24 @@ To create private/public keys for JWT encoding:
     *** All this is good to know. but no longer necessary.
 
     --------------------------------------------------------
-     TODO:
-     create proper response for login endpoint
-     logout (invalidating jwt token)
+     
+     create proper response for login endpoint<Done>     
      Method authorization <Done>
-     separate endpoints into registration, auth, and data
-     increment expiration time of jwt token (get time from properties)
-     create properties config
-     create constants class
-     Front end login page
+     separate endpoints into registration, auth, and data <Done>
+     increment expiration time of jwt token (get time from properties) <Done>
+     create properties config <Done>
+     create constants class <Done>
 
-JWT authentication: https://www.youtube.com/watch?v=KYNR5js2cXE&t=1208s
+     TODO:
+     Front end login page
+     logout (invalidating jwt token)
+
+JWT authentication/authorization: 
+    https://www.youtube.com/watch?v=KYNR5js2cXE&t=1208s
+    Logging out:
+    https://stackabuse.com/spring-security-in-memory-invalidation-of-jwt-token-during-user-logout/
+    https://stackoverflow.com/questions/61473907/how-can-logout-using-spring-boot-jwt
+    https://www.freecodecamp.org/news/how-to-setup-jwt-authorization-and-authentication-in-spring/
 
 To install a mock mail server for development:
     npm install -g maildev

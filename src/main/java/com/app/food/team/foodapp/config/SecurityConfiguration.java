@@ -6,6 +6,7 @@ import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -32,14 +33,17 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
-
 public class SecurityConfiguration {
-    @Value("${request.mapping}")
-    private String requestMapping;
+
+    @Autowired
+    private PropertiesConfiguration propertiesConfiguration;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -61,17 +65,18 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+        String mapping = propertiesConfiguration.requestMapping();
         http
             .csrf(csrf -> csrf.disable())
             .cors(cors -> cors.disable())
             .authorizeHttpRequests(authorize -> authorize
                 .requestMatchers(
-                    requestMapping + "ping",
-                    requestMapping + "auth/**",
-                    requestMapping + "registration/**"
+                    mapping + "ping",
+                    mapping + "auth/**",
+                    mapping + "registration/**"
                 ).permitAll()
-                .requestMatchers(requestMapping + "admin/**").hasAuthority("SCOPE_ADMIN")
-                .requestMatchers(requestMapping + "user/**").hasAuthority("SCOPE_USER")
+                .requestMatchers(mapping + "data/admin/**").hasAuthority("SCOPE_ADMIN")
+                .requestMatchers(mapping + "data/user/**").hasAuthority("SCOPE_USER")
                 .anyRequest().authenticated()
             )
             .sessionManagement(session -> session
@@ -120,4 +125,43 @@ public class SecurityConfiguration {
 //                        .build()
 //        );
 //    }
+
+
+    // CORS configuration to avoid issues with the front end calls from a different address
+    // can this be done from annotation on the controller class?
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource(){
+        UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.setAllowCredentials(true);
+        corsConfiguration.setAllowedOrigins(Arrays.asList("http://localhost:3000","http://localhost:4200")); // React or Angular applications
+        corsConfiguration.setAllowedHeaders(Arrays.asList(
+                "Origin",
+                "Access-Control-Allow-Origin",
+                "Content-Type",
+                "Accept",
+                "Jwt-Token",
+                "Authorization",
+                "Origin, Accept",
+                "X-Requested-With",
+                "Access-Control-Request-Method",
+                "Access-Control-Request-Headers"
+        ));
+        corsConfiguration.setExposedHeaders(Arrays.asList(
+                "Origin",
+                "Access-Control-Allow-Origin",
+                "Content-Type",
+                "Accept",
+                "Jwt-Token",
+                "Authorization",
+                "Access-Control-Allow-Origin",
+                "Access-Control-Allow-Credentials",
+                "Filename"
+        ));
+        corsConfiguration.setAllowedMethods(Arrays.asList(
+                "GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"
+        ));
+        urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
+        return urlBasedCorsConfigurationSource;
+    }
 }

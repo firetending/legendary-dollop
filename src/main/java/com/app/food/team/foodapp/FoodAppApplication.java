@@ -1,7 +1,7 @@
 package com.app.food.team.foodapp;
 
 
-import com.app.food.team.foodapp.config.RsaKeyPropertiesConfiguration;
+import com.app.food.team.foodapp.config.PropertiesConfiguration;
 import com.app.food.team.foodapp.enums.Role;
 import com.app.food.team.foodapp.model.User;
 import com.app.food.team.foodapp.repository.UserRepository;
@@ -14,11 +14,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Slf4j
-@EnableConfigurationProperties(RsaKeyPropertiesConfiguration.class)
+@EnableConfigurationProperties(PropertiesConfiguration.class)
 @SpringBootApplication
 public class FoodAppApplication {
-
-
 
 	public static void main(String[] args) {
 		SpringApplication.run(FoodAppApplication.class, args);

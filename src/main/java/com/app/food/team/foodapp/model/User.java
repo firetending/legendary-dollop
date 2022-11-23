@@ -12,8 +12,9 @@ import java.util.Collections;
 
 @Getter
 @Setter
-@EqualsAndHashCode
 @NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode
 @SuperBuilder
 @Entity
 @Table(name = "users") // MySQL uses a "user" table for something else
@@ -41,19 +42,6 @@ public class User implements UserDetails {
 
     @Builder.Default
     private Boolean enabled = false;
-
-    public User(
-            String firstName,
-            String lastName,
-            String email,
-            String password,
-            Role role) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.role = role;
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

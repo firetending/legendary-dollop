@@ -1,6 +1,7 @@
 package com.app.food.team.foodapp.service;
 
 
+import com.app.food.team.foodapp.constants.AppConstants;
 import com.app.food.team.foodapp.dto.RegistrationRequestDto;
 import com.app.food.team.foodapp.enums.Role;
 import com.app.food.team.foodapp.model.ConfirmationToken;
@@ -11,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
 import java.time.LocalDateTime;
 import static java.time.LocalDateTime.now;
 
@@ -19,7 +20,6 @@ import static java.time.LocalDateTime.now;
 @Service
 @AllArgsConstructor
 public class RegistrationService {
-
     private final UserService userService;
     private final ConfirmationTokenService confirmationTokenService;
     private final EmailServiceInterface emailService;
@@ -45,15 +45,11 @@ public class RegistrationService {
                 .build()
         );
 
-        final String BASE_URL = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
-        String link = BASE_URL + "/api/v1/registration/confirm?token=" + token;
-        log.info("Confirm user with email:" +
-             request.getEmail() +
-             " using this URL: " +
-             link
-        );
 
-        emailService.send(request.getEmail(), buildEmail(request.getFirstName(), link));
+        String confirmationLink = AppConstants.BASE_URL + "/api/v1/registration/confirm?token=" + token;
+        log.info("Confirm user with email: {} using this URL: {}", request.getEmail(), confirmationLink);
+
+        emailService.send(request.getEmail(), buildEmail(request.getFirstName(), confirmationLink));
         return token;
     }
 

@@ -1,5 +1,6 @@
 package com.app.food.team.foodapp.service;
 
+import com.app.food.team.foodapp.config.PropertiesConfiguration;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -15,6 +16,8 @@ import java.util.stream.Collectors;
 @Service
 @AllArgsConstructor
 public class JwtTokenService {
+
+    private final PropertiesConfiguration propertiesConfiguration;
     private final JwtEncoder jwtEncoder;
 
     public String generateJwtToken(Authentication authentication){
@@ -27,7 +30,7 @@ public class JwtTokenService {
         JwtClaimsSet claims = JwtClaimsSet.builder()
                 .issuer("self")
                 .issuedAt(now)
-                .expiresAt(now.plus(1, ChronoUnit.HOURS))
+                .expiresAt(now.plus(propertiesConfiguration.validityTime(), ChronoUnit.HOURS))
                 .subject(authentication.getName())
                 .claim("scope", scope)
                 .build();
