@@ -15,6 +15,9 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
@@ -35,6 +38,8 @@ public class UserController {
     private final JwtTokenService jwtTokenService;
     private final RegistrationService registrationService;
 
+    private final AuthenticationManager authenticationManager;
+
     @GetMapping(path = "ping")
     public ResponseEntity<ResponseDto> ping(){
         log.info("[UserController] ----> ping");
@@ -48,12 +53,19 @@ public class UserController {
         );
     }
 
-    @PostMapping("token")
-    public String token(@RequestBody @Valid LoginRequestDto loginRequestDto, Authentication authentication){
-        log.info("Token requested for user: {}", authentication.getName());
-        String token = jwtTokenService.generateJwtToken(authentication);
-        log.info("Token granted {}", token);
-        return token;
+    @PostMapping("auth/login")
+    public String login(@RequestBody @Valid LoginRequestDto loginRequestDto){
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                loginRequestDto.getEmail(),
+                loginRequestDto.getPassword()
+        ));
+        return jwtTokenService.generateJwtToken(authentication);
+    }
+
+    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
+    @GetMapping("adminEndPoint")
+    public String someAdminEndpoint(){
+        return "Hello Admin!";
     }
 
     @GetMapping(path = "auth/logout")
@@ -84,7 +96,7 @@ public class UserController {
         ResponseDto.ResponseDtoBuilder<?, ?> responseDtoBuilder = ResponseDto.builder();
 
         try {
-            registrationService.registrationRequestVerification(registrationRequestDto, errors);
+            registrationService.registrationRequestValidation(registrationRequestDto, errors);
             String token = registrationService.register(registrationRequestDto);
 
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();

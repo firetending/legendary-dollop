@@ -21,17 +21,10 @@ import static java.time.LocalDateTime.now;
 public class RegistrationService {
 
     private final UserService userService;
-    private final EmailValidator emailValidator;
     private final ConfirmationTokenService confirmationTokenService;
     private final EmailServiceInterface emailService;
 
-
-    public void registrationRequestVerification(RegistrationRequestDto request, Errors errors){
-//        if (!isValidEmail) {
-//            errors.rejectValue("email", "invalid.email", "Email is not valid");
-//            throw new IllegalStateException("Email not valid");
-//        }
-
+    public void registrationRequestValidation(RegistrationRequestDto request, Errors errors){
         if (userService.userExists(request.getEmail())) {
             errors.rejectValue("email", "email.already.exists", "Passwords do not match");
         }

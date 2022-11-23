@@ -25,7 +25,10 @@ import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
+import org.springframework.security.oauth2.server.resource.web.BearerTokenAuthenticationEntryPoint;
+import org.springframework.security.oauth2.server.resource.web.access.BearerTokenAccessDeniedHandler;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -51,6 +54,7 @@ public class SecurityConfiguration {
     public AuthenticationManager authenticationManager(UserDetailsService userDetailsService){
         var authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(userDetailsService);
+        authProvider.setPasswordEncoder(bCryptPasswordEncoder);
         return new ProviderManager(authProvider);
     }
 
@@ -64,16 +68,19 @@ public class SecurityConfiguration {
                 .requestMatchers(
                     requestMapping + "ping",
                     requestMapping + "auth/**",
-                    requestMapping + "registration/**",
-                    requestMapping + "token"
+                    requestMapping + "registration/**"
                 ).permitAll()
                 .requestMatchers(requestMapping + "admin/**").hasAuthority("SCOPE_ADMIN")
                 .requestMatchers(requestMapping + "user/**").hasAuthority("SCOPE_USER")
                 .anyRequest().denyAll()
             )
-            .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
             .sessionManagement(session -> session
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            )
+            .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
+            .exceptionHandling(exception -> exception
+                .authenticationEntryPoint(new BearerTokenAuthenticationEntryPoint())
+                .accessDeniedHandler(new BearerTokenAccessDeniedHandler())
             )
             .userDetailsService(userService);
 
@@ -86,7 +93,7 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public JWKSource<SecurityContext> jwkSource() {
+    JWKSource<SecurityContext> jwkSource() {
         rsaKey = KeyGeneratorUtils.generateRsaKey();
         JWKSet jwkSet = new JWKSet(rsaKey);
         return (jwkSelector, securityContext) -> jwkSelector.select(jwkSet);
@@ -104,13 +111,13 @@ public class SecurityConfiguration {
 
 
     // For demo purposes when there is no users in users table
-    @Bean
-    public UserDetailsService userDetailsService() {
-        return new InMemoryUserDetailsManager(
-                User.withUsername("user1@hello.com")
-                        .password("{noop}password")
-                        .authorities("USER")
-                        .build()
-        );
-    }
+//    @Bean
+//    public UserDetailsService userDetailsService() {
+//        return new InMemoryUserDetailsManager(
+//                User.withUsername("user1@hello.com")
+//                        .password("password")
+//                        .authorities("USER")
+//                        .build()
+//        );
+//    }
 }

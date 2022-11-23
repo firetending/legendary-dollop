@@ -7,10 +7,19 @@ To create private/public keys for JWT encoding:
         openssl genrsa -out keypair.pem 2048
         openssl rsa -in keypair.pem -pubout -out public.pem
         openssl pkcs8 -topk8 -inform PEM -outform PEM -nocrypt -in keypair.pem -out private.pem
-    then remove keypair.pem
+    then remove keypair.pem    
+    *** All this is good to know. but no longer necessary.
 
-    These key files should not be added to git in the future
-    For production we should re-generate the keys and add them to gitignore
+    --------------------------------------------------------
+     TODO:
+     create proper response for login endpoint
+     logout (invalidating jwt token)
+     Method authorization
+     separate endpoints into registration, auth, and data
+     increment expiration time of jwt token (get time from properties)
+     create properties config
+     create constants class
+     Front end login page
 
 JWT authentication: https://www.youtube.com/watch?v=KYNR5js2cXE&t=1208s
 
