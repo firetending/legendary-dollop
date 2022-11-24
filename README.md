@@ -41,6 +41,7 @@ https://www.quickprogrammingtips.com/spring-boot/how-to-send-email-from-spring-b
 
 
 ## Spring security docs:
+https://www.danvega.dev/blog/2022/09/06/spring-security-jwt/
 https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter
 https://www.baeldung.com/java-config-spring-security
 https://spring.io/guides/gs/securing-web/
@@ -48,6 +49,9 @@ https://docs.spring.io/spring-security/reference/servlet/authorization/authorize
 https://github.com/spring-projects/spring-security-samples/blob/main/servlet/spring-boot/java/jwt/login/src/main/java/example/RestConfig.java
 https://www.javaavancado.com/wp-content/uploads/2016/05/Spring_Security_Completo.pdf
 https://docs.spring.io/spring-security/reference/servlet/exploits/csrf.html
+https://www.toptal.com/spring/spring-security-tutorial
+https://www.baeldung.com/spring-security-login-react
+https://www.freecodecamp.org/news/how-to-setup-jwt-authorization-and-authentication-in-spring/
 
 
 ## Spring Sessions:
