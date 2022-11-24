@@ -109,6 +109,10 @@ class MenuManagementPage extends Component {
         })
     }
 
+    searchMenus = (title) => {
+        //When the hardcoded state's data is replaced with the Menu Database, this will be coded.
+    }
+
     updateDietTags = (menuId) => {
         console.log(document.getElementsByName(menuId))
     }
@@ -121,6 +125,7 @@ class MenuManagementPage extends Component {
                 <Sidebar />
                 <main>
                     <h1 className='title'>Menu Management</h1>
+                    <p>Search <input type='text' /></p>
                     <div className="menuList">
                         <table>
                             <MenuList menuData={menus} dietTagData={dietTags} removeMenu={this.removeMenu} updateDietTags={this.updateDietTags} />
