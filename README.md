@@ -1,5 +1,8 @@
+
 ## All back-end documentation goes here:
 Please don't make changes directly to main branch
+
+This is a relay branch to test new features before merging to main.
 
 ## Documentation:
 To create private/public keys for JWT encoding:
@@ -70,8 +73,8 @@ https://sendgrid.com
 https://pepipost.com
 
 
+
 implementation 'org.springframework.session:spring-session-core'
-
-
-
+implementation 'org.springframework.boot:spring-boot-starter-mail'
+developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
