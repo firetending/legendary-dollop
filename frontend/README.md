@@ -1,4 +1,5 @@
-## Manual method:
+## All frontend documentation goes here:
+### Manual method:
 cd frontend
 
 To install all dependencies:
@@ -10,14 +11,17 @@ To serve the frontend:
 To stop the server:
     ctrl+c
 
-## All frontend documentation goes here:
+### React project creation:
 To create this project:
 npx create-react-app web-app --template typescript
 
 To start the front-end app do:
 npm start
 
-
+If you find issues running npm start
+try replacing the start script with this: react-scripts --openssl-legacy-provider start
+Just know you are now on insecure ssl
+https://stackoverflow.com/questions/69692842/error-message-error0308010cdigital-envelope-routinesunsupported
 
 
 

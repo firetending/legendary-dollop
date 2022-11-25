@@ -1,13 +1,36 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Merriweather&display=swap');
+
+* {
+  box-sizing: border-box;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+:root {
+  --primary: #58e65d;
+  --secondary: #553bcb;
+  --darkgrey: #22262a;
+  --lightgrey: #d3d3d3;
+  --grey: #808080;
+  --white: #f8f8f8;
+  --darkgreen:#196d1c;
+}
+
+ul {
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+  color: var(--white);
+}
+
+body {
+  color: #333;
+  font-family: 'Merriweather', serif;
+  line-height: 1.5;
+}
+
+.primary-color {
+  color: var(--primary);
 }
