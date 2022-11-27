@@ -3,10 +3,13 @@ import Sidebar from '../sidebar'
 import '../adminstyles.css'
 
 const MenuScrollList = (props) => {
-    const selectables = props.menuData.map((menu, index) => {
+    const selectables = props.menuListData.map((menu, index) => {
         return (
             <p>
-                <label><input type="radio" name="menuSelection" value={menu.id} />{menu.name} - {menu.orders} Orders</label>
+                <label>
+                    <input type="radio" name="menuSelection" onClick={props.selectMenu(menu.id)} />
+                    {menu.name} - {menu.orders} Orders
+                </label>
             </p>
         )
     })
@@ -15,26 +18,35 @@ const MenuScrollList = (props) => {
 }
 
 const ItemList = (props) => {
-    const items = props.menuData.map((item, index) => {
-        return (
-            <div className='menuItem'>
-                <p>{item.name}</p>
-            </div>
-        )
-    })
+    let reactLovesToBreak = props.menuData;
+    let listedItems;
+    console.log(reactLovesToBreak)
+    if (reactLovesToBreak === null || reactLovesToBreak.length <= 0) {
+        listedItems = <p>Click on a menu to see its orders.</p>
+    } else {
+        const items = reactLovesToBreak[0].items;
+        listedItems = items.map((item, index) => {
+            return (
+                <div className='menuItem'>
+                    <p>{item.name} ({item.orders})</p>
+                </div>
+            )
+        })
+    }
 
-    return <div className='itemList'>{items}</div>
+    return <div className='itemList'>{listedItems}</div>
 }
 
 class AdminDashboardPage extends Component {
 
+    //Generates an array of up to 15 food items with randomn numbers as names, each with their own amount of orders.
     fakeItems = () => {
         let itemAmount = Math.round(Math.random() * 15)
         let items = []
         while (itemAmount > 0) {
             items.push(
                 {
-                    name: `${Math.round(Math.random() * 100)}`,
+                    name: `Item ${Math.round(Math.random() * 100)}`,
                     orders: Math.round(Math.random() * 15)
                 }
             )
@@ -69,11 +81,28 @@ class AdminDashboardPage extends Component {
                 orders: 12,
                 items: this.fakeItems()
             },
-        ]
+            {
+                id: 4,
+                name: "Desert Menu",
+                orders: 34,
+                items: this.fakeItems()
+            },
+        ],
+        selectedMenu: []
+    }
+
+    //Selects a menu by id.
+    selectMenu = (id) => {
+        const { menus } = this.state;
+        this.setState({
+            selectedMenu: menus.filter((menu, i) => {
+                return menu.id === id
+            })
+        })
     }
 
     render() {
-        const { menus } = this.state
+        const { menus, selectedMenu } = this.state;
 
         return (
             <div className='adminDashboardPage'>
@@ -84,8 +113,8 @@ class AdminDashboardPage extends Component {
                         <h1 className='largetitle'>Hello, admin</h1>
                     </div>
                     <div className='bottom'>
-                        <MenuScrollList menuData={menus} />
-                        <ItemList menuData={menus} />
+                        <MenuScrollList menuListData={menus} selectMenu={this.selectMenu} />
+                        <ItemList menuData={selectedMenu} />
                     </div>
                 </main>
             </div>
