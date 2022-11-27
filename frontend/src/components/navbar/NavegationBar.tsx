@@ -21,7 +21,7 @@ const NavegationBar = ({ setShowLogin }: { setShowLogin: any }) => {
                 <Navbar.Brand href="#home">
                     <img alt="" src={Logo} width="30" height="30" className="d-inline-block align-top" />
                     {' '}
-                    <h1>React Bootstrap</h1>
+                    <h1>FoodApp</h1>
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarCollapse" />
                 <Navbar.Collapse id="navbarCollapse" className="justify-content-end">

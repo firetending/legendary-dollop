@@ -22,7 +22,7 @@ const LoginForm = ({ showLogin, setShowLogin }: {showLogin: boolean; setShowLogi
                 animation
             >                
                 <Modal.Header closeButton>
-                    <Modal.Title>Log in with your Email:</Modal.Title>
+                    <Modal.Title>Login with your Email:</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>                                     
                     <Form>                            
