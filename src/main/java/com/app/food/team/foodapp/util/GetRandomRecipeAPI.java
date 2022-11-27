@@ -1,14 +1,12 @@
 package com.app.food.team.foodapp.util;
 
-import com.app.food.team.foodapp.model.FoodItem;
 import com.app.food.team.foodapp.model.ResponseRecipeList;
 import com.google.gson.Gson;
-import org.springframework.lang.Nullable;
+import com.google.gson.GsonBuilder;
 
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
-import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 
@@ -24,7 +22,7 @@ public class GetRandomRecipeAPI {
                 .header("x-api-key","e2c5db0a94124421a628fdc66a0d6e62")
                 .GET()
                 .build();
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
         HttpClient httpClient = HttpClient.newHttpClient();
         HttpResponse<String> getResponse = httpClient.send(getRequest, BodyHandlers.ofString());
 //        System.out.println(getResponse.body());

@@ -1,25 +1,66 @@
 package com.app.food.team.foodapp.model;
 
+import com.google.gson.annotations.SerializedName;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
 
-//@Entity
-public class FoodItem {
-//    @Id
-//    @GeneratedValue
-//    private int itemId;
+import java.util.List;
 
-    private int id; //spoonacular id (for recipe)
+@Entity
+public class Item extends AbstractEntity {
+
+    @SerializedName("id") //for gson to map id field for deserialization
+    private int recipeId; //spoonacular id (for recipe)
     private String title;
     private String image;
+    private String imageType;
 
-    public int getId() {
-        return id;
+    private int servings;
+    private int readyInMinutes;
+    private String license;
+//        "sourceName": "Full Belly Sisters",
+    private String sourceUrl;
+    private String spoonacularSourceUrl;
+    private int aggregateLikes;
+    private double healthScore;
+    private double spoonacularScore;
+    private double pricePerServing;
+//        "analyzedInstructions": [],
+//        "cheap": false,
+//        "creditsText": "Full Belly Sisters",
+//        "cuisines": [],
+    private boolean dairyFree;
+//        "diets": [],
+//        "gaps": "no",
+    private boolean glutenFree;
+//        "instructions": "",
+    private boolean ketogenic;
+    private boolean lowFodmap;
+//        "occasions": [],
+    private boolean sustainable;
+    private boolean vegan;
+    private boolean vegetarian;
+    private boolean veryHealthy;
+    private boolean veryPopular;
+    private boolean whole30;
+//        "weightWatcherSmartPoints": 17,
+//        "dishTypes": [
+    //        "lunch",
+    //        "main course",
+    //        "main dish",
+    //        "dinner"
+//        ],
+    private List<ItemIngredient> extendedIngredients;
+    private String summary;
+
+
+
+
+    public int getRecipeId() {
+        return recipeId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setRecipeId(int recipeId) {
+        this.recipeId = recipeId;
     }
 
     public String getTitle() {
@@ -38,18 +79,218 @@ public class FoodItem {
         this.image = image;
     }
 
+    public String getImageType() {
+        return imageType;
+    }
+
+    public void setImageType(String imageType) {
+        this.imageType = imageType;
+    }
+
+    public int getServings() {
+        return servings;
+    }
+
+    public void setServings(int servings) {
+        this.servings = servings;
+    }
+
+    public int getReadyInMinutes() {
+        return readyInMinutes;
+    }
+
+    public void setReadyInMinutes(int readyInMinutes) {
+        this.readyInMinutes = readyInMinutes;
+    }
+
+    public String getLicense() {
+        return license;
+    }
+
+    public void setLicense(String license) {
+        this.license = license;
+    }
+
+    public String getSourceUrl() {
+        return sourceUrl;
+    }
+
+    public void setSourceUrl(String sourceUrl) {
+        this.sourceUrl = sourceUrl;
+    }
+
+    public String getSpoonacularSourceUrl() {
+        return spoonacularSourceUrl;
+    }
+
+    public void setSpoonacularSourceUrl(String spoonacularSourceUrl) {
+        this.spoonacularSourceUrl = spoonacularSourceUrl;
+    }
+
+    public int getAggregateLikes() {
+        return aggregateLikes;
+    }
+
+    public void setAggregateLikes(int aggregateLikes) {
+        this.aggregateLikes = aggregateLikes;
+    }
+
+    public double getHealthScore() {
+        return healthScore;
+    }
+
+    public void setHealthScore(double healthScore) {
+        this.healthScore = healthScore;
+    }
+
+    public double getSpoonacularScore() {
+        return spoonacularScore;
+    }
+
+    public void setSpoonacularScore(double spoonacularScore) {
+        this.spoonacularScore = spoonacularScore;
+    }
+
+    public double getPricePerServing() {
+        return pricePerServing;
+    }
+
+    public void setPricePerServing(double pricePerServing) {
+        this.pricePerServing = pricePerServing;
+    }
+
+    public boolean isDairyFree() {
+        return dairyFree;
+    }
+
+    public void setDairyFree(boolean dairyFree) {
+        this.dairyFree = dairyFree;
+    }
+
+    public boolean isGlutenFree() {
+        return glutenFree;
+    }
+
+    public void setGlutenFree(boolean glutenFree) {
+        this.glutenFree = glutenFree;
+    }
+
+    public boolean isKetogenic() {
+        return ketogenic;
+    }
+
+    public void setKetogenic(boolean ketogenic) {
+        this.ketogenic = ketogenic;
+    }
+
+    public boolean isLowFodmap() {
+        return lowFodmap;
+    }
+
+    public void setLowFodmap(boolean lowFodmap) {
+        this.lowFodmap = lowFodmap;
+    }
+
+    public boolean isSustainable() {
+        return sustainable;
+    }
+
+    public void setSustainable(boolean sustainable) {
+        this.sustainable = sustainable;
+    }
+
+    public boolean isVegan() {
+        return vegan;
+    }
+
+    public void setVegan(boolean vegan) {
+        this.vegan = vegan;
+    }
+
+    public boolean isVegetarian() {
+        return vegetarian;
+    }
+
+    public void setVegetarian(boolean vegetarian) {
+        this.vegetarian = vegetarian;
+    }
+
+    public boolean isVeryHealthy() {
+        return veryHealthy;
+    }
+
+    public void setVeryHealthy(boolean veryHealthy) {
+        this.veryHealthy = veryHealthy;
+    }
+
+    public boolean isVeryPopular() {
+        return veryPopular;
+    }
+
+    public void setVeryPopular(boolean veryPopular) {
+        this.veryPopular = veryPopular;
+    }
+
+    public boolean isWhole30() {
+        return whole30;
+    }
+
+    public void setWhole30(boolean whole30) {
+        this.whole30 = whole30;
+    }
+
+    public List<ItemIngredient> getExtendedIngredients() {
+        return extendedIngredients;
+    }
+
+    public void setExtendedIngredients(List<ItemIngredient> extendedIngredients) {
+        this.extendedIngredients = extendedIngredients;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
     @Override
     public String toString() {
-        return "FoodItem{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", image='" + image + '\'' +
+        return "Item{" +
+                "\nrecipeId=" + recipeId +
+                ",\ntitle='" + title + '\'' +
+                ",\nimage='" + image + '\'' +
+                ",\nimageType='" + imageType + '\'' +
+                ",\nservings=" + servings +
+                ",\nreadyInMinutes=" + readyInMinutes +
+                ",\nlicense=" + license +
+                ",\nsourceUrl='" + sourceUrl + '\'' +
+                ",\nspoonacularSourceUrl='" + spoonacularSourceUrl + '\'' +
+                ",\naggregateLikes=" + aggregateLikes +
+                ",\nhealthScore=" + healthScore +
+                ",\nspoonacularScore=" + spoonacularScore +
+                ",\npricePerServing=" + pricePerServing +
+                ",\ndairyFree=" + dairyFree +
+                ",\nglutenFree=" + glutenFree +
+                ",\nketogenic=" + ketogenic +
+                ",\nlowFodmap=" + lowFodmap +
+                ",\nsustainable=" + sustainable +
+                ",\nvegan=" + vegan +
+                ",\nvegetarian=" + vegetarian +
+                ",\nveryHealthy=" + veryHealthy +
+                ",\nveryPopular=" + veryPopular +
+                ",\nwhole30=" + whole30 +
+                ",\nextendedIngredients=" + extendedIngredients +
+                ",\nsummary='" + summary + '\'' +
                 '}';
     }
 }
 
 
-//EXAMPLE RESPONSE
+
+
+//FULL EXAMPLE RESPONSE
 //{
 //        "id": 716429,
 //        "title": "Pasta with Garlic, Scallions, Cauliflower & Breadcrumbs",
@@ -85,30 +326,35 @@ public class FoodItem {
 //        "whole30": false,
 //        "weightWatcherSmartPoints": 17,
 //        "dishTypes": [
-//        "lunch",
-//        "main course",
-//        "main dish",
-//        "dinner"
+//          "lunch",
+//          "main course",
+//          "main dish",
+//          "dinner"
 //        ],
+
+
 //        "extendedIngredients": [
-//        {
-//        "aisle": "Milk, Eggs, Other Dairy",
-//        "amount": 1.0,
-//        "consitency": "solid",
-//        "id": 1001,
-//        "image": "butter-sliced.jpg",
-//        "measures": {
-//        "metric": {
-//        "amount": 1.0,
-//        "unitLong": "Tbsp",
-//        "unitShort": "Tbsp"
+//          {
+    //        "aisle": "Milk, Eggs, Other Dairy",
+    //        "amount": 1.0,
+    //        "consitency": "solid",
+    //        "id": 1001,
+    //        "image": "butter-sliced.jpg",
+    //        "measures": {
+        //        "metric": {
+            //        "amount": 1.0,
+            //        "unitLong": "Tbsp",
+            //        "unitShort": "Tbsp"
+         //        },
+        //        "us": {
+            //        "amount": 1.0,
+            //        "unitLong": "Tbsp",
+            //        "unitShort": "Tbsp"
+        //        }
 //        },
-//        "us": {
-//        "amount": 1.0,
-//        "unitLong": "Tbsp",
-//        "unitShort": "Tbsp"
-//        }
-//        },
+
+
+
 //        "meta": [],
 //        "name": "butter",
 //        "original": "1 tbsp butter",
@@ -379,7 +625,11 @@ public class FoodItem {
 //        "unit": "cup"
 //        }
 //        ],
+
+
 //        "summary": "Pasta with Garlic, Scallions, Cauliflower & Breadcrumbs might be a good recipe to expand your main course repertoire. One portion of this dish contains approximately <b>19g of protein </b>,  <b>20g of fat </b>, and a total of  <b>584 calories </b>. For  <b>$1.63 per serving </b>, this recipe  <b>covers 23% </b> of your daily requirements of vitamins and minerals. This recipe serves 2. It is brought to you by fullbellysisters.blogspot.com. 209 people were glad they tried this recipe. A mixture of scallions, salt and pepper, white wine, and a handful of other ingredients are all it takes to make this recipe so scrumptious. From preparation to the plate, this recipe takes approximately  <b>45 minutes </b>. All things considered, we decided this recipe  <b>deserves a spoonacular score of 83% </b>. This score is awesome. If you like this recipe, take a look at these similar recipes: <a href=\"https://spoonacular.com/recipes/cauliflower-gratin-with-garlic-breadcrumbs-318375\">Cauliflower Gratin with Garlic Breadcrumbs</a>, < href=\"https://spoonacular.com/recipes/pasta-with-cauliflower-sausage-breadcrumbs-30437\">Pasta With Cauliflower, Sausage, & Breadcrumbs</a>, and <a href=\"https://spoonacular.com/recipes/pasta-with-roasted-cauliflower-parsley-and-breadcrumbs-30738\">Pasta With Roasted Cauliflower, Parsley, And Breadcrumbs</a>.",
+
+
 //        "winePairing": {
 //        "pairedWines": [
 //        "chardonnay",
