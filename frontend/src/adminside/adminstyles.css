@@ -25,3 +25,13 @@ main {
     outline: 2px solid black;
 
 }
+
+.bottom {
+    position: relative;
+    bottom: 11px;
+    background-color: rgb(194, 194, 194);
+}
+
+.itemList {
+    float: right
+}
