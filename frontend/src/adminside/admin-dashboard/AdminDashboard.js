@@ -7,7 +7,7 @@ const MenuScrollList = (props) => {
         return (
             <p>
                 <label>
-                    <input type="radio" name="menuSelection" onClick={props.selectMenu(menu.id)} />
+                    <input type="radio" name="menuSelection" onClick={() => props.selectMenu(menu.id)} />
                     {menu.name} - {menu.orders} Orders
                 </label>
             </p>
@@ -19,22 +19,20 @@ const MenuScrollList = (props) => {
 
 const ItemList = (props) => {
     let reactLovesToBreak = props.menuData;
-    let listedItems;
-    console.log(reactLovesToBreak)
     if (reactLovesToBreak === null || reactLovesToBreak.length <= 0) {
-        listedItems = <p>Click on a menu to see its orders.</p>
+        return <div className='itemList'><p>Click on a menu to see its orders.</p></div>
     } else {
         const items = reactLovesToBreak[0].items;
-        listedItems = items.map((item, index) => {
+        const listedItems = items.map((item, index) => {
             return (
                 <div className='menuItem'>
                     <p>{item.name} ({item.orders})</p>
                 </div>
             )
         })
-    }
 
-    return <div className='itemList'>{listedItems}</div>
+        return <div className='itemList'>{listedItems}</div>
+    }
 }
 
 class AdminDashboardPage extends Component {
