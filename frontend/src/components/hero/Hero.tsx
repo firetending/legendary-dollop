@@ -1,11 +1,11 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { FaDatabase, FaAsterisk, FaGoogle, FaFacebook, FaUniversity, FaHospital } from "react-icons/fa";
-import LoginForm from '../loginform/LoginForm';
+import LoginForm from '../login-form/LoginForm';
 import './Hero.scss';
 
 
-const Hero = ({ showLogin, setShowLogin }: { showLogin: boolean; setShowLogin: any }) => {
+const Hero = () => {
     return (
         <Container fluid className="hero">  
             <Row className="hero-offset">
@@ -25,7 +25,7 @@ const Hero = ({ showLogin, setShowLogin }: { showLogin: boolean; setShowLogin: a
                         
                     </Container>
                 </Col>
-                <LoginForm showLogin={ showLogin } setShowLogin={ setShowLogin }/>
+                
             </Row>
 
             <Row className="hero-description overlay">

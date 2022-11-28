@@ -4,15 +4,19 @@ import {FaBars, FaTimes} from 'react-icons/fa'
 import Logo from '../../images/logo1.png'
 import { Navbar, Nav, Container, Form, Button } from 'react-bootstrap';
 //import Navbar from 'react-bootstrap/Navbar';
+import LoginForm from '../login-form/LoginForm';
+import RegistrationForm from '../registration-form/RegistrationForm';
 import './NavegationBar.scss'
 
 
-const NavegationBar = ({ setShowLogin }: { setShowLogin: any }) => {
-    const [click, setClick] = useState(false);
-    const handleClick = () => setClick(!click);
-
+const NavegationBar = () => {
+    // const [click, setClick] = useState(false);
+    // const handleClick = () => setClick(!click);
+    const [showLogin, setShowLogin] = useState(false);
+    const [showRegistration, setShowRegistration] = useState(false);
     
-    const handleShow = () => setShowLogin(true);
+    const handleShowLogin = () => setShowLogin(true);
+    const handleShowRegistration = () => setShowRegistration(true);
 
     return (
         <Container fluid>
@@ -33,8 +37,8 @@ const NavegationBar = ({ setShowLogin }: { setShowLogin: any }) => {
                         <Nav.Link href="#">Home</Nav.Link>
                         <Nav.Link href="#">Menus</Nav.Link>
                         <Nav.Link href="#">About</Nav.Link>
-                        <Nav.Link href="#">Register</Nav.Link>
-                        <Nav.Link href="#" onClick={handleShow}>Login</Nav.Link>
+                        <Nav.Link href="#" onClick={handleShowRegistration}>Register</Nav.Link>
+                        <Nav.Link href="#" onClick={handleShowLogin}>Login</Nav.Link>
                     </Nav>  
                     <Form className="d-flex">
                         <Form.Control
@@ -48,6 +52,8 @@ const NavegationBar = ({ setShowLogin }: { setShowLogin: any }) => {
                 </Navbar.Collapse>           
             </Container>
         </Navbar>
+        <LoginForm showLogin={ showLogin } setShowLogin={ setShowLogin }/>
+        <RegistrationForm showRegistration={ showRegistration } setShowRegistration={ setShowRegistration }/>
         </Container>
 
 

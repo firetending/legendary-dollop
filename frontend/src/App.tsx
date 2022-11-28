@@ -9,28 +9,20 @@ import ThemeProvider from 'react-bootstrap/ThemeProvider';
 
 import './App.scss';
 
-// function App() {
-//   return (
-//     <>
-//     <Routes>
-//       <Route path='/' element={<Hero />}/>
-//     </Routes>
-//     </>
-//   );
-// }
-
 function App() {
-  const [showLogin, setShowLogin] = useState(false);
+
   return (
     <>
       <ThemeProvider
         breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
         minBreakpoint="xxs"
       >
-        <NavegationBar setShowLogin={setShowLogin}/>
-        <Hero showLogin={showLogin} setShowLogin={ setShowLogin }/>
+        
+        <NavegationBar/>
+        <Hero/>
         <Overview />
         <Footer/>
+
       </ThemeProvider>
     </>
   );
