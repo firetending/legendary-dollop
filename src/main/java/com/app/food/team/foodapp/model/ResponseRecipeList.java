@@ -2,6 +2,7 @@ package com.app.food.team.foodapp.model;
 
 import java.util.List;
 
+
 public class ResponseRecipeList {
     private List<Item> recipes;
 
