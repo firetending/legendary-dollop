@@ -19,6 +19,7 @@ import static org.springframework.http.HttpStatus.OK;
 
 @Slf4j
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*") // replace this with cors config in SecurityConfiguration
 @RequestMapping("${app.request-mapping}registration/")
 @AllArgsConstructor
 public class RegistrationController {

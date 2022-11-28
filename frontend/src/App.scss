@@ -1,3 +1,37 @@
+html{
+  background-color: rgb(33, 37, 41);
+}
+body{
+  width: 100%;
+
+  /* fixed background image*/
+  background-attachment: fixed !important;
+  background: url("./images/foodpic2.PNG") ;
+  background-size: cover;
+  background-position: left top;  
+
+  /* antialiasing */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  text-shadow: inset 0px 0px 2px rgba(0, 0, 0, 0);
+
+  .overlay{
+    box-shadow: 0px 0px 60px black;
+  }
+  p{
+    font-family: 'Open Sans', sans-serif;
+  }
+}
+
+
+
+
+
+
+
+
+
 
 // * {
 //   box-sizing: border-box;
@@ -6,6 +40,7 @@
 // }
 
 // :root {
+
 //   --primary: #58e65d;
 //   --secondary: #553bcb;
 //   --darkgrey: #22262a;

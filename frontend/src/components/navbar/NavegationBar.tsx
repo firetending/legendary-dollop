@@ -1,7 +1,7 @@
 import React, {useState} from "react"
 // import {Link} from 'react-router-dom'
 import {FaBars, FaTimes} from 'react-icons/fa' 
-import Logo from '../../images/FoodApp.png'
+import Logo from '../../images/logo1.png'
 import { Navbar, Nav, Container, Form, Button } from 'react-bootstrap';
 //import Navbar from 'react-bootstrap/Navbar';
 import './NavegationBar.scss'
@@ -15,11 +15,11 @@ const NavegationBar = ({ setShowLogin }: { setShowLogin: any }) => {
     const handleShow = () => setShowLogin(true);
 
     return (
-        <Container>
+        <Container fluid>
         <Navbar bg="dark" variant="dark" expand="md" fixed="top" collapseOnSelect>
             <Container fluid>
                 <Navbar.Brand href="#home">
-                    <img alt="" src={Logo} width="30" height="30" className="d-inline-block align-top" />
+                    <img alt="" src={Logo} className="d-inline-block align-top" />
                     {' '}
                     <h1>FoodApp</h1>
                 </Navbar.Brand>
@@ -52,21 +52,6 @@ const NavegationBar = ({ setShowLogin }: { setShowLogin: any }) => {
 
 
 
-
-        // <div className='navbar'>
-        //     <div className='logo'>
-        //         <img src={Logo} alt='logo' />
-        //     </div>
-        //     <ul className={click ? 'nav-menu active' : 'nav-menu'}>
-        //         <li className='nav-item'><a href='#'>Home</a></li>
-        //         <li className='nav-item'><a href='#'>Menus</a></li>
-        //         <li className='nav-item' onClick={handleShow}><a href='#'>Log In</a></li>
-        //         <li className='nav-item'><a href='#'>About Us</a></li>
-        //     </ul>
-        //     <div className="hamburger" onClick={handleClick}>
-        //         {click ? (<FaTimes size={30} style={{color: '#f8f8f8'}} />) : (<FaBars size={30} style={{color: '#f8f8f8'}} />)}                
-        //     </div>
-        // </div>
     )
 }
 

@@ -3,14 +3,33 @@ import React, {useState} from "react";
 import {FaBars, FaTimes, FaFacebook, FaGoogle, FaUniversity} from 'react-icons/fa';
 import './LoginForm.scss';
 import { Modal, Button, Form } from 'react-bootstrap';
-
+import useAxiosFetch from '../../hooks/useAxiosFetch';
 
 const LoginForm = ({ showLogin, setShowLogin }: {showLogin: boolean; setShowLogin: any}) => {
+    const [ data, error, loaded, doAxiosFetch ] = useAxiosFetch(
+        {
+            method: "POST",
+            url: "auth/login",
+            headers: {
+                'content-type': 'application/json'                
+            }, 
+            data: {
+                "email": "admin@hello.com",
+                "password": "password"
+            }
+        },
+    );
+
 
     const handleClose = () => { setShowLogin(false) };
-    const handleLogin = () => {
-        console.log("Starting Login");
+    const handleLogin = async () => {
+        console.log("Starting Login Call...");
+        doAxiosFetch();
+        //setShowLogin(false);
+        console.log("Done!");
+        
     };
+
     return (
         <>
             <Modal  
@@ -24,34 +43,37 @@ const LoginForm = ({ showLogin, setShowLogin }: {showLogin: boolean; setShowLogi
                 <Modal.Header closeButton>
                     <Modal.Title>Login with your Email:</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>                                     
-                    <Form>                            
-                        <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Label>Email address</Form.Label>
-                            <Form.Control type="email" placeholder="Enter email" />
-                            <Form.Text className="text-muted">
-                                We'll never share your email with anyone else.
-                            </Form.Text>                            
-                        </Form.Group>  
+                <Form>
+                    <Modal.Body>                                     
+                                                    
+                            <Form.Group className="mb-3" controlId="formBasicEmail">
+                                <Form.Label>Email address</Form.Label>
+                                <Form.Control type="email" placeholder="Enter email" required/>
+                                <Form.Text className="text-muted">
+                                    We'll never share your email with anyone else.
+                                </Form.Text>                            
+                            </Form.Group>  
 
-                        <Form.Group className="mb-3" controlId="formPassword">                                  
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" placeholder="Password" />                                
-                            <Form.Text className="text-muted">
-                                <a href="#">Forgot Password?</a>  
-                            </Form.Text>
-                        </Form.Group>                        
-                    </Form>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose} size="sm">
-                        Cancel
-                    </Button>
+                            <Form.Group className="mb-3" controlId="formPassword">                                  
+                                <Form.Label>Password</Form.Label>
+                                <Form.Control type="password" placeholder="Password" required/>                                
+                                <Form.Text className="text-muted">
+                                    <a href="#">Forgot Password?</a>  
+                                </Form.Text>
+                            </Form.Group>     
+                    
+                        
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={handleClose} size="sm">
+                            Cancel
+                        </Button>
 
-                    <Button variant="primary" onClick={handleLogin} type="submit" size="sm">
-                        Login
-                    </Button>
-                </Modal.Footer>                
+                        <Button variant="primary" onClick={handleLogin} type="submit" size="sm">
+                            Login
+                        </Button>
+                    </Modal.Footer>  
+                </Form>              
             </Modal>
         </>
 

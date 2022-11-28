@@ -3,6 +3,8 @@ import React from "react";
 import { useState } from "react"
 import NavegationBar from './components/navbar/NavegationBar';
 import Hero from "./components/hero/Hero";
+import Overview from "./components/overview/Overview";
+import Footer from "./components/footer/Footer";
 import ThemeProvider from 'react-bootstrap/ThemeProvider';
 
 import './App.scss';
@@ -27,7 +29,8 @@ function App() {
       >
         <NavegationBar setShowLogin={setShowLogin}/>
         <Hero showLogin={showLogin} setShowLogin={ setShowLogin }/>
-
+        <Overview />
+        <Footer/>
       </ThemeProvider>
     </>
   );

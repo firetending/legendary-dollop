@@ -1,79 +1,87 @@
-// .hero {
-//     width: 100%;
-//     height: 100vh;
-//     /* background: var(--grey); */
-//     background: url("../../images/foodpic2.PNG");
-    
-    
-// }
-
-// .container {
-//     max-width: 1240px;
-//     padding: 0 1rem;
-//     margin: auto;
-// }
-
-// .hero .content {
-//     display: grid;
-//     grid-template-columns: repeat(2, 1fr);
-// }
-
-// .col-1 {
-//     padding: 1rem 1rem 1rem 0;
-//     height: 70vh;
-//     display: flex;
-//     flex-direction: column;
-//     justify-content: center;
-// }
-
-// .col-1 h1 {
-//     font-size: 3rem; 
-//     font-weight: 700;
-//     color: var(--white);
-// }
-
-// .col-1 p {
-//     font-size: 1rem;
-//     color: var(--white);
-//     line-height: 1.4;
-//     margin-top: 1.2rem;
-// }
-
-// .col-1 .used-by p {
-//     color: var(--white);
-//     font-size: .7rem;
-//     margin: 2rem 0 1rem 0;
-// }
-
-// .col-1 .used-by .icons {
-//     color: var(--white);
-//     justify-content: space-between;
-//     display: flex;
-// }
 
 
-// @media screen and (max-width:940px) {
-//     .hero {
-//         height: auto;
-//         width: 100%;
-//     }
+.hero{
+    background-color: rgba(0, 0, 0, 0.4);
+    .hero-offset{
+        div{
+            height: 150px;
+            width: 100%;
+        }
+    }
+    .hero-header{
+        min-height: 400px;
+        text-align: center;
+        color: #ffffff;
+        h1{
+            font-size: 4em;
+            font-family: 'Lily Script One', sans-serif;
+            margin-bottom: 30px;
+            text-shadow: 0px 0px 100px rgb(255, 255, 255);
+        }
+        .hero-card{
+            width: 98%;
+            border-style: dashed;
+            border-color: white;
+            border-radius: 15px;
+            border-width: 1px;
+            padding: 15px;
+            background-color: rgb(49, 100, 83);
+            box-shadow: inset 0px 0px 70px rgba(0, 0, 0, 0.4);
 
-//     .hero .container {
-//         padding: 0 1rem;
-//     }
+            h2{
+                font-size: 1.7em;
+                font-family: 'Work Sans', sans-serif;
+                font-weight: 400;
+                font-style: normal;
+                word-spacing: 0.09em;
+                letter-spacing: 0.07em;            
+            }  
+            .hero-text{            
+                max-width: 100%;            
+                p{
+                    font-size: 1em;                           
+                }
+            } 
+            
+        }
+        
+    }
+    .hero-description{
+        margin-top: 30px;
+        background-color: #514a4a;
+        padding: 30px 2%;  
+        color: #ffffff;  
+        h2{
+            font-weight: 300;
+            font-style: normal;
+            font-family: 'Work Sans', sans-serif;
+        }    
+        p{
+            font-size: 1.2em;            
+            color: #c3bebe
+        }
+    }
+}
 
-//     .hero .content {
-//         grid-template-columns: 1fr;
-//     }
 
-//     .col-1 {
-//         height: 90vh; 
-//         padding: .2rem;
-//         max-width: 100%;
-//     }
-
-//     .hero h1 {
-//         font-size: 2.5rem;
-//     }
-// }
-
+@media screen and (min-width: 940px) {  
+    .hero{
+        .hero-header{        
+            h1{
+                font-size: 5em;           
+            }  
+            .hero-card{
+                width: 50% !important;
+                h2{
+                    font-size: 2.1em;                               
+                }  
+                .hero-text{            
+                    max-width: 90%;            
+                    p{
+                        font-size: 1.2em;                           
+                    }
+                }
+            }     
+        }   
+    }    
+}
