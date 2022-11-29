@@ -1,7 +1,7 @@
 import React from 'react';
 import Axios from 'axios';
 import { useState} from 'react';
-import RecipeTile from './RecipeTile';
+import {RecipeTile} from './RecipeTile';
 import './MenuCreationForm.css';
 
 
@@ -10,17 +10,22 @@ function MenuCreationForm() {
 
   const [query, setQuery] = useState("");
   const [recipes, setRecipes] = useState([]);
-  const [healthLabels, sethealthLabels] = useState("dairy-free");
+  const [healthLabel, sethealthLabel] = useState("dairy-free");
+
+    // const [addRecipe, setAddRecipe] = useState([]);
 
   var url = `https://api.edamam.com/search?q=${query}&
   app_id=${process.env.REACT_APP_YOUR_APP_ID}
-  &app_key=&${process.env.REACT_APP_YOUR_APP_KEY}
-  &health=${healthLabels}`;
+  &app_key=&${process.env.REACT_APP_YOUR_APP_KEY}&health=${healthLabel}`;
+
+  // useEffect( () => {
+  //     getRecipes();
+  // }, []);
 
   async function getRecipes(){
     var result = await Axios.get(url);
     setRecipes(result.data.hits);
-    console.log(result.data);
+    // console.log(result.data);
   }
 
   const onSubmit = (e) => {
@@ -28,9 +33,11 @@ function MenuCreationForm() {
     getRecipes();
   }
 
+
   return (
     <div className="MenuCreationForm">
-      <h1>🥞🍱🥗 Food Recipes 🍜🍤🍔</h1>
+      <h1>Food Recipes</h1>
+      <br />
       <form className="MenuCreationForm__searchForm" onSubmit={onSubmit}>
         <input type="text"
         className="MenuCreationForm__input"
@@ -38,26 +45,44 @@ function MenuCreationForm() {
         value={query}
         onChange={ (e)=> setQuery(e.target.value)}
         />
-        <input className="MenuCreationForm__searchButton" type='submit' value="Search" />
 
-        <div className="MenuCreationForm__healthLabels">
-        <p>Please select :  </p>
-        <select className="MenuCreationForm__healthLabels">
-          <option onClick={() => sethealthLabels("dairy-free")}>Dairy free</option>
-          <option onClick={() => sethealthLabels("gluten-free")}>Gluten free</option>
-          <option onClick={() => sethealthLabels("vegan")}>Vegan</option>
-          <option onClick={() => sethealthLabels("vegetarian")}>Vegetarian</option>
-          <option onClick={() => sethealthLabels("pecatarian")}>Pecatarian</option>
+
+        <div className="MenuCreationForm__healthLabel">
+        <label>Please Select: </label>
+
+        <select 
+          className="MenuCreationForm__healthLabel"
+          value={healthLabel}
+          onChange= { (e) => sethealthLabel(e.target.value)
+          }
+        >
+          <option value="dairy-free">Dairy free</option>
+          <option value="gluten-free" >Gluten free</option>
+          <option value="peanut-free" >Peanut Free</option>
+          <option value="shellfish-free">shellfish free</option>
+          <option value="low-sugar" >Low sugar</option>
+          <option value="vegan" >Vegan</option>
+          <option value="vegetarian" >Vegetarian</option> 
         </select>
-        </div>
+
+        
+        </div> 
+
+        <input className="MenuCreationForm__searchButton" type='submit' value="Search" />
         </form>
 
 
+
       <div className="MenuCreationForm__recipes">
-        {recipes.map((recipe) => {
-          return < RecipeTile recipe={recipe}/>;
-        })}
+        <ul>
+        {recipes.map((recipe) => (
+          <li key={recipe.id}>
+          <RecipeTile  recipe={recipe}/>;
+          </li>
+        ))}
+        </ul>
       </div>
+
 
     </div>
   );
