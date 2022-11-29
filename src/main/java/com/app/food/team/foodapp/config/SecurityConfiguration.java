@@ -149,6 +149,17 @@ public class SecurityConfiguration {
                 "Access-Control-Request-Headers"
         ));
         corsConfiguration.setExposedHeaders(Arrays.asList(
+                "Access-Control-Allow-Headers",
+                "Authorization",
+                "x-xsrf-token",
+                "Access-Control-Allow-Headers",
+                "Origin", "Accept", "X-Requested-With",
+                "Content-Type",
+                "Access-Control-Request-Method",
+                "Access-Control-Request-Headers",
+                "Status-Code"
+        ));
+        corsConfiguration.setExposedHeaders(Arrays.asList(
                 "Origin",
                 "Access-Control-Allow-Origin",
                 "Content-Type",

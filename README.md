@@ -33,6 +33,10 @@ JWT authentication/authorization:
     https://stackoverflow.com/questions/61473907/how-can-logout-using-spring-boot-jwt
     https://www.freecodecamp.org/news/how-to-setup-jwt-authorization-and-authentication-in-spring/
 
+## packaging front and back end together:
+https://siouan.github.io/frontend-gradle-plugin/configuration/
+https://dev.to/andriimaliuta/ways-to-use-react-in-spring-app-7k0
+
 To install a mock mail server for development:
     npm install -g maildev
     maildev --ip 127.0.0.1 --smtp 1025

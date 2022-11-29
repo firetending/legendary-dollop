@@ -3,29 +3,17 @@ import React, {useState} from "react";
 import {FaBars, FaTimes, FaFacebook, FaGoogle, FaUniversity} from 'react-icons/fa';
 import './RegistrationForm.scss';
 import { Modal, Button, Form, Container, Row, Col } from 'react-bootstrap';
-import useAxiosFetch from '../../hooks/useAxiosFetch';
+import useAxiosFetch from '../../utils/useAxiosFetch';
 
 
 const RegistrationForm = ({ showRegistration, setShowRegistration }: {showRegistration: boolean; setShowRegistration: any}) => {
-    const [ data, error, loaded, doAxiosFetch ] = useAxiosFetch(
-        {
-            method: "POST",
-            url: "auth/login",
-            headers: {
-                'content-type': 'application/json'                
-            }, 
-            data: {
-                "email": "admin@hello.com",
-                "password": "password"
-            }
-        },
-    );
+    //const [ data, headers, error, loaded ] = useAxiosFetch();
 
 
     const handleClose = () => { setShowRegistration(false) };
     const handleRegistration = async () => {
         console.log("Starting Registration Call...");
-        doAxiosFetch();
+        
         //setShowRegistration(false);
         console.log("Done!");        
     };
@@ -80,7 +68,7 @@ const RegistrationForm = ({ showRegistration, setShowRegistration }: {showRegist
                                     <Col md="6">
                                         <Form.Group className="mb-3" controlId="formVerifyPassword">                                  
                                             <Form.Label>Confirm Password</Form.Label>
-                                            <Form.Control type="password" placeholder="Password" required/>
+                                            <Form.Control type="password" placeholder="Re-type Password" required/>
                                         </Form.Group> 
                                     </Col>
                                 </Row>
@@ -92,7 +80,7 @@ const RegistrationForm = ({ showRegistration, setShowRegistration }: {showRegist
                             Cancel
                         </Button>
 
-                        <Button variant="primary" onClick={handleRegistration} type="submit" size="sm">
+                        <Button variant="primary" onSubmit={ (event) => false } onClick={handleRegistration} type="submit" size="sm">
                             Register
                         </Button>
                     </Modal.Footer>  
