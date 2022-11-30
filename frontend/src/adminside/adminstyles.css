@@ -27,11 +27,16 @@ main {
 }
 
 .bottom {
-    position: relative;
+    position: block;
     bottom: 11px;
     background-color: rgb(194, 194, 194);
 }
 
-.itemList {
-    float: right
+.scrollList {
+    height: 200px;
+    overflow-y: scroll;
 }
+
+/* .itemList {
+    float: right
+} */
