@@ -13,6 +13,8 @@ export const GlobalContext = createContext(initialState);
 export const GlobalProvider = (props) => {
     const [state, dispatch] = useReducer(AppReducer, initialState);
 
+    
+
     useEffect(() => {
         localStorage.setItem('menulist', JSON.stringify(state.menulist));
     }, [state]);
@@ -21,11 +23,16 @@ export const GlobalProvider = (props) => {
         dispatch({type: "ADD_RECIPE_TO_MENULIST", payload: recipe});
     }
 
+    const deleteRecipeFromMenulist = (calories) => {
+        dispatch({type: "DELETE_RECIPE_FROM_MENULIST", payload: calories});
+    }
+
     return (
         <GlobalContext.Provider
         value={{
             menulist: state.menulist,
-            addRecipeToMenulist
+            addRecipeToMenulist,
+            deleteRecipeFromMenulist
         }}
         >
             {props.children}

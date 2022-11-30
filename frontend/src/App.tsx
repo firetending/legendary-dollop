@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import MenuCreationForm from './components/MenuCreationForm';
 import {Menulist} from "./components/Menulist";
-import {GlobalProvider } from './context/GlobalState';
+import {GlobalProvider} from './context/GlobalState';
 
 
 function App() {

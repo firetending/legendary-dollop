@@ -16,7 +16,7 @@ const { menulist } = useContext(GlobalContext);
 
         <div>
         {menulist.map(recipe => (
-            <MenuCard key={recipe.id} 
+            <MenuCard key={recipe.recipe.calories} 
                       recipe={recipe} 
                       type="menulist" 
             />

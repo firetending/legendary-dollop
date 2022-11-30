@@ -5,15 +5,16 @@ import "./RecipeTile.css";
 
 export const RecipeTile = ({ recipe }) => {
 
-  const { addRecipeToMenulist, menulist } = useContext(GlobalContext);
+  const { addRecipeToMenulist, menulist} = useContext(GlobalContext);
+  
+  let storedRecipe = menulist.find( o => o.recipe.calories === recipe.recipe.calories);
 
-  // let storedRecipe = menulist.find( o => o.id === recipe.id);
-
-  // const menulistDisabled = storedRecipe ? true : false;
+  const menulistDisabled = storedRecipe ? true : false;
 
   
   return (
     // recipe["recipe"]["image"].match(/\.(jpeg|jpg|gif|png)$/) != null && (
+      <div>
     <div className="recipeTile">
 
     <div>
@@ -34,7 +35,7 @@ export const RecipeTile = ({ recipe }) => {
         <div>
           <button
           className='btn'
-          // disabled = {menulistDisabled}
+          disabled = {menulistDisabled}
           onClick = { () => addRecipeToMenulist(recipe)}
           > Add to Meun List
           </button>
@@ -42,8 +43,7 @@ export const RecipeTile = ({ recipe }) => {
             
 
 
- 
-   
+        </div>
     </div>
   );
 }

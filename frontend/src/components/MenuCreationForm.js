@@ -12,25 +12,24 @@ function MenuCreationForm() {
   const [recipes, setRecipes] = useState([]);
   const [healthLabel, sethealthLabel] = useState("dairy-free");
 
-    // const [addRecipe, setAddRecipe] = useState([]);
-
   var url = `https://api.edamam.com/search?q=${query}&
   app_id=${process.env.REACT_APP_YOUR_APP_ID}
   &app_key=&${process.env.REACT_APP_YOUR_APP_KEY}&health=${healthLabel}`;
 
-  // useEffect( () => {
-  //     getRecipes();
-  // }, []);
-
   async function getRecipes(){
     var result = await Axios.get(url);
-    setRecipes(result.data.hits);
+    if(!result.errors) {
+      setRecipes(result.data.hits);
+    }else {
+      setRecipes([]);
+    }
     // console.log(result.data);
   }
 
   const onSubmit = (e) => {
     e.preventDefault();
     getRecipes();
+    setQuery(e.target.value);
   }
 
 
@@ -38,7 +37,7 @@ function MenuCreationForm() {
     <div className="MenuCreationForm">
       <h1>Food Recipes</h1>
       <br />
-      <form className="MenuCreationForm__searchForm" onSubmit={onSubmit}>
+      <form className="MenuCreationForm__searchForm" onSubmit={onSubmit} >
         <input type="text"
         className="MenuCreationForm__input"
         placeholder='Enter ingredient'
@@ -74,6 +73,7 @@ function MenuCreationForm() {
 
 
       <div className="MenuCreationForm__recipes">
+
         <ul>
         {recipes.map((recipe) => (
           <li key={recipe.id}>
@@ -81,6 +81,7 @@ function MenuCreationForm() {
           </li>
         ))}
         </ul>
+
       </div>
 
 
