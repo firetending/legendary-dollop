@@ -2,21 +2,62 @@ import React, {useState} from "react";
 // import {Link} from 'react-router-dom';
 import {FaBars, FaTimes, FaFacebook, FaGoogle, FaUniversity} from 'react-icons/fa';
 import './RegistrationForm.scss';
-import { Modal, Button, Form, Container, Row, Col } from 'react-bootstrap';
-import useAxiosFetch from '../../utils/useAxiosFetch';
-
+import { Modal, Button, Form, Container, Row, Col, Alert} from 'react-bootstrap';
+import doAxiosFetch from '../../utils/doAxiosFetch';
+import { capitalizeFirstCharacter } from "../../utils/stringTools";
+ 
 
 const RegistrationForm = ({ showRegistration, setShowRegistration }: {showRegistration: boolean; setShowRegistration: any}) => {
-    //const [ data, headers, error, loaded ] = useAxiosFetch();
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [verifyPassword, setVerifyPassword] = useState("");
+    const [hasError, setHasError] = useState(false);
+    const [axiosResponseData, setAxiosResponseData] = useState<any>(null);
 
 
-    const handleClose = () => { setShowRegistration(false) };
-    const handleRegistration = async () => {
+    const handleClose = () => { setShowRegistration(false) };    
+    const handleRegistration = async (event: React.FormEvent<HTMLButtonElement>) => {
         console.log("Starting Registration Call...");
+        event.preventDefault();   
         
-        //setShowRegistration(false);
-        console.log("Done!");        
+        console.log("First Name: " + firstName);
+        console.log("Last Name: " + lastName);
+        console.log("Password: " + password);
+        console.log("Verify: " + verifyPassword);
+        
+        doAxiosFetch({
+                method: "POST",
+                url: "http://localhost:8081/api/v1/registration/register", 
+                headers: {
+                    'content-type': 'application/json'                
+                }, 
+                data: {
+                    "firstName": firstName,
+                    "lastName": lastName,
+                    "email": email,
+                    "password": password,
+                    "verifyPassword": verifyPassword
+                },
+                
+        }).then((result: any) => { 
+            console.log('Result: ' + JSON.stringify(result));
+
+            const data = result.data;
+            setAxiosResponseData(data);
+            if(data === null || data['statusCode'] !== 200){                
+                setHasError(true); 
+            } else {
+                // set access token
+                setShowRegistration(false);
+            }              
+            console.log('Done!');   
+        });             
     };
+
+
+    //data.data.errors[0].code.replaceAll('.', ' ')
 
     return (
         <>
@@ -38,13 +79,25 @@ const RegistrationForm = ({ showRegistration, setShowRegistration }: {showRegist
                                     <Col md="6">
                                         <Form.Group className="mb-3" controlId="formFistName">
                                             <Form.Label>First Name</Form.Label>
-                                            <Form.Control type="text" placeholder="Enter First Name" required/>                                                            
+                                            <Form.Control 
+                                                type="text" 
+                                                placeholder="Enter First Name" 
+                                                value={firstName} 
+                                                onChange={ (event) => setFirstName(event.target.value) }
+                                                required
+                                            />                                                            
                                         </Form.Group>
                                     </Col>
                                     <Col md="6">
                                         <Form.Group className="mb-3" controlId="formLastName">
                                             <Form.Label>Last Name</Form.Label>
-                                            <Form.Control type="text" placeholder="Enter Last Name" required/>                                                            
+                                            <Form.Control 
+                                                type="text" 
+                                                placeholder="Enter Last Name" 
+                                                value={lastName} 
+                                                onChange={ (event) => setLastName(event.target.value) }
+                                                required
+                                            />                                                            
                                         </Form.Group>   
                                     </Col>                             
                                 </Row>
@@ -53,7 +106,13 @@ const RegistrationForm = ({ showRegistration, setShowRegistration }: {showRegist
                                     <Col>              
                                     <Form.Group className="mb-3" controlId="formBasicEmail">
                                         <Form.Label>Email address</Form.Label>
-                                        <Form.Control type="email" placeholder="Enter email" required/>                                                            
+                                        <Form.Control 
+                                            type="email" 
+                                            placeholder="Enter email" 
+                                            value={email} 
+                                            onChange={ (event) => setEmail(event.target.value) }
+                                            required
+                                        />                                                            
                                     </Form.Group>
                                 </Col> 
                                 </Row>  
@@ -62,16 +121,52 @@ const RegistrationForm = ({ showRegistration, setShowRegistration }: {showRegist
                                     <Col md="6">
                                         <Form.Group className="mb-3" controlId="formPassword">                                  
                                             <Form.Label>Password</Form.Label>
-                                            <Form.Control type="password" placeholder="Password" required/>
+                                            <Form.Control 
+                                                type="password" 
+                                                placeholder="Password" 
+                                                value={password} 
+                                                onChange={ (event) => setPassword(event.target.value) }
+                                                required
+                                            />
                                         </Form.Group> 
                                     </Col>
                                     <Col md="6">
                                         <Form.Group className="mb-3" controlId="formVerifyPassword">                                  
                                             <Form.Label>Confirm Password</Form.Label>
-                                            <Form.Control type="password" placeholder="Re-type Password" required/>
+                                            <Form.Control 
+                                                type="password" 
+                                                placeholder="Re-type Password" 
+                                                value={verifyPassword} 
+                                                onChange={ (event) => setVerifyPassword(event.target.value) }
+                                                required
+                                            />
                                         </Form.Group> 
                                     </Col>
                                 </Row>
+                                <Row>
+                                    { hasError &&                                 
+                                        <Col>
+                                            <Alert variant="danger" onClose={() => setHasError(false)} dismissible>
+                                                <Alert.Heading>
+                                                    {
+                                                        axiosResponseData !== null && axiosResponseData.data !== null &&
+                                                        <>{axiosResponseData.message}</>
+                                                    }
+                                                </Alert.Heading>
+                                                <p>
+                                                    {
+                                                        axiosResponseData !== null && axiosResponseData.data !== null &&
+                                                        axiosResponseData.data.errors.map((error: any) => { 
+                                                            const message = error.defaultMessage.replaceAll('.', ' ');                                                    
+                                                            return <><span key={ Math.random() * 10}><b>{ capitalizeFirstCharacter(error.field)}</b> { ':  ' + capitalizeFirstCharacter(message) }</span><br/></>;
+                                                        })
+                                                    }
+                                                </p>
+                                                
+                                            </Alert> 
+                                        </Col>                                
+                                    } 
+                                </Row> 
                             </Container>
                             
                     </Modal.Body>

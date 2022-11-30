@@ -26,7 +26,7 @@ public class RegistrationService {
 
     public void registrationRequestValidation(RegistrationRequestDto request, Errors errors){
         if (userService.userExists(request.getEmail())) {
-            errors.rejectValue("email", "email.already.exists", "Passwords do not match");
+            errors.rejectValue("email", "email.already.exists", "Email already Exist");
         }
         if (!request.getPassword().equals(request.getVerifyPassword())) {
             errors.rejectValue("password", "passwords.mismatch", "Passwords do not match");

@@ -2,25 +2,31 @@ import React, {useState} from "react";
 // import {Link} from 'react-router-dom';
 import {FaBars, FaTimes, FaFacebook, FaGoogle, FaUniversity} from 'react-icons/fa';
 import './LoginForm.scss';
-import { Modal, Button, Form, Container, Row, Col, Alert } from 'react-bootstrap';
+import { Modal, Button, Form, Container, Row, Col, Alert, InputGroup } from 'react-bootstrap';
 import doAxiosFetch from '../../utils/doAxiosFetch';
 
 const LoginForm = ({ showLogin, setShowLogin }: {showLogin: boolean; setShowLogin: any}) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [hasError, setHasError] = useState(false);
+    const [hasError, setHasError] = useState(false);  
+    const [validated, setValidated] = useState(false); 
     
+    const handleSubmit = (event: any) => {
+        const form = event.currentTarget;
+        if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        setValidated(true);
+    };
 
     const handleClose = () => { setShowLogin(false) };
+
     const handleLogin = async (event: React.FormEvent<HTMLButtonElement>) => {
         console.log("Starting Login Call...");
-        event.preventDefault();
-
-        console.log('Email:' + email);
-        console.log('Password:' + password);
+        //event.preventDefault();        
         
-        doAxiosFetch(
-            {
+        doAxiosFetch({
                 method: "POST",
                 url: "http://localhost:8081/api/v1/auth/login", 
                 headers: {
@@ -31,9 +37,7 @@ const LoginForm = ({ showLogin, setShowLogin }: {showLogin: boolean; setShowLogi
                     "password": password
                 },
                 
-            }
-
-        ).then((result: any) => { 
+        }).then((result: any) => { 
             console.log('Result: ' + JSON.stringify(result));
 
             const data = result.data;
@@ -44,8 +48,7 @@ const LoginForm = ({ showLogin, setShowLogin }: {showLogin: boolean; setShowLogi
                 setShowLogin(false);
             }   
             console.log('Done!');   
-        });
-             
+        });             
     };
 
     return (
@@ -61,33 +64,42 @@ const LoginForm = ({ showLogin, setShowLogin }: {showLogin: boolean; setShowLogi
                 <Modal.Header closeButton>
                     <Modal.Title>Login with your Email:</Modal.Title>
                 </Modal.Header>
-                <Form>
+                <Form noValidate validated={validated} onSubmit={handleSubmit}>
                     <Modal.Body>
                         <Container fluid>   
                             <Row>  
                                 <Col>           
                                     <Form.Group className="mb-3" controlId="formBasicEmail">
                                         <Form.Label>Email address</Form.Label>
-                                        <Form.Control 
-                                            type="email" 
-                                            placeholder="Enter email" 
-                                            value={email} 
-                                            onChange={ (event) => setEmail(event.target.value) }
-                                            required
-                                        />
-                                        <Form.Text className="text-muted">
-                                            We'll never share your email with anyone else.
-                                        </Form.Text>                            
+                                        <InputGroup hasValidation>
+                                            <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
+                                            <Form.Control 
+                                                type="email" 
+                                                placeholder="Enter email" 
+                                                value={email} 
+                                                onChange={ (event) => setEmail(event.target.value) }
+                                                required
+                                            />
+                                            <Form.Control.Feedback type="invalid">
+                                                Please choose your username (email).
+                                            </Form.Control.Feedback>
+                                        </InputGroup>                           
                                     </Form.Group>  
 
                                     <Form.Group className="mb-3" controlId="formPassword">                                  
                                         <Form.Label>Password</Form.Label>
-                                        <Form.Control 
-                                            type="password" 
-                                            placeholder="Password" 
-                                            value={password}
-                                            onChange={ (event) => setPassword(event.target.value) }
-                                            required/>                                
+                                        <InputGroup hasValidation>
+                                            <Form.Control 
+                                                type="password" 
+                                                placeholder="Password" 
+                                                value={password}
+                                                onChange={ (event) => setPassword(event.target.value) }
+                                                required
+                                            />                                
+                                            <Form.Control.Feedback type="invalid">
+                                                    Please enter your password.
+                                                </Form.Control.Feedback>
+                                        </InputGroup>
                                         <Form.Text className="text-muted">
                                             <a href="#">Forgot Password?</a>  
                                         </Form.Text>
