@@ -6,19 +6,29 @@ let headers: any = null;
 let error: any = null; 
 let loaded: any = false; 
 
+const setData = (dataInput: any) => {
+  data = dataInput;
+}
+const setHeaders = (headersInput: any) => {
+  headers = headersInput;
+}
+const setError = (errorInput: any) => {
+  error = errorInput;
+}
+const setLoaded = (loadedInput: any) => {
+  loaded = loadedInput;
+}
+
+const resetResponse = () => {
+  setData(null);
+  setHeaders(null);
+  setError(null);
+  setLoaded(false);
+}
+
+
 const doAxiosFetch = async(params: AxiosRequestConfig<any>): Promise<Object> => { 
-  const setData = (dataInput: any) => {
-    data = dataInput;
-  }
-  const setHeaders = (headersInput: any) => {
-    headers = headersInput;
-  }
-  const setError = (errorInput: any) => {
-    error = errorInput;
-  }
-  const setLoaded = (loadedInput: any) => {
-    loaded = loadedInput;
-  }
+  resetResponse();
   await axios.request(params)        
       .then((response: any) => { 
         setData(response.data);
@@ -32,11 +42,9 @@ const doAxiosFetch = async(params: AxiosRequestConfig<any>): Promise<Object> => 
       'data': data, 
       'headers': headers, 
       'error': error, 
-      'loaded': loaded, 
-      'doAxiosFetch': doAxiosFetch
+      'loaded': loaded      
     });
-  });
-  
+  });  
 };
 
 export default doAxiosFetch;

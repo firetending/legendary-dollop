@@ -18,9 +18,7 @@ const LoginForm = ({ showLogin, setShowLogin }: {showLogin: boolean; setShowLogi
 
         console.log('Email:' + email);
         console.log('Password:' + password);
-
-
-        //const [data, headers, error, loaded];
+        
         doAxiosFetch(
             {
                 method: "POST",
@@ -34,14 +32,15 @@ const LoginForm = ({ showLogin, setShowLogin }: {showLogin: boolean; setShowLogi
                 },
                 
             }
-        ).then((result: any) => { 
 
+        ).then((result: any) => { 
             console.log('Result: ' + JSON.stringify(result));
 
             const data = result.data;
             if(data === null || data['statusCode'] !== 200){
                 setHasError(true); 
             } else {
+                // set access token
                 setShowLogin(false);
             }   
             console.log('Done!');   
