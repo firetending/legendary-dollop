@@ -22,7 +22,7 @@ const NavegationBar = () => {
         <Container fluid>
         <Navbar bg="dark" variant="dark" expand="md" fixed="top" collapseOnSelect>
             <Container fluid>
-                <Navbar.Brand href="#home">
+                <Navbar.Brand href="/home">
                     <img alt="" src={Logo} className="d-inline-block align-top" />
                     {' '}
                     <h1>FoodApp</h1>
@@ -34,7 +34,7 @@ const NavegationBar = () => {
                         //style={{ maxHeight: '100px' }}
                         //navbarScroll
                     >  
-                        <Nav.Link href="#">Home</Nav.Link>
+                        <Nav.Link href="/home">Home</Nav.Link>
                         <Nav.Link href="#">Menus</Nav.Link>
                         <Nav.Link href="#">About</Nav.Link>
                         <Nav.Link href="#" onClick={handleShowRegistration}>Register</Nav.Link>

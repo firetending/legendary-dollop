@@ -10,8 +10,6 @@ const LoginForm = ({ showLogin, setShowLogin }: {showLogin: boolean; setShowLogi
     const [password, setPassword] = useState("");
     const [hasError, setHasError] = useState(false);  
     const [validated, setValidated] = useState(false); 
-    
-
 
     const handleClose = () => { setShowLogin(false) };
 
