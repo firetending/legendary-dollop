@@ -3,13 +3,19 @@ package com.app.food.team.foodapp.model;
 import com.google.gson.JsonObject;
 
 public class ResponseWrapper {
-    private JsonObject recipe;
+    private Item recipe;
 
-    public JsonObject getRecipe() {
+    public ResponseWrapper() {
+    }
+    public ResponseWrapper(Item recipe) {
+        this.recipe = recipe;
+    }
+
+    public Item getRecipe() {
         return recipe;
     }
 
-    public void setRecipe(JsonObject recipe) {
+    public void setRecipe(Item recipe) {
         this.recipe = recipe;
     }
 

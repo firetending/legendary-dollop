@@ -1,24 +1,26 @@
 package com.app.food.team.foodapp.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "ingredients")
+@NoArgsConstructor
+//@AllArgsConstructor
 public class ItemIngredient extends AbstractEntity {
 
-    @ManyToOne
-    @JoinColumn(insertable = false,updatable = false)
-    private Item item;
-    private String text;
-    private int quantity;
-    private String measure;
-    private String food;
-    private int weight;
-    private String foodId;
-
+    @ManyToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(insertable = false,updatable = false)
+    private @Getter @Setter Item item;
+    private @Getter @Setter String text;
+    private @Getter @Setter int quantity;
+    private @Getter @Setter String measure;
+    private @Getter @Setter String food;
+    private @Getter @Setter int weight;
+    private @Getter @Setter String foodId;
 
     @Override
     public String toString() {

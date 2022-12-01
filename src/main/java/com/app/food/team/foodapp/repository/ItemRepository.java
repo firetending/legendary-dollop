@@ -6,4 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ItemRepository extends CrudRepository<Item,Integer> {
+    boolean existsByUri(String uri);
+
+    Item findByUri(String uri);
 }

@@ -14,7 +14,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("item")
+@RequestMapping("api/item")
 public class ItemController {
 
     @Autowired
@@ -30,9 +30,14 @@ public class ItemController {
         // edamam recipe json is an outer object {"recipe":{recipe Json object}}
         // using a wrapper class to let gson deserialize the inner object
 //        ResponseWrapper responseObj = gson.fromJson(itemJson, ResponseWrapper.class);
-        Item newItem = gson.fromJson(responseObj.getRecipe(),Item.class);
+//        Item newItem = gson.fromJson(responseObj.getRecipe(),Item.class);
 //        newItem.setExternalId(); //has to parse id from uri field
-        itemRepo.save(newItem);
+        Item newItem = responseObj.getRecipe();
+        newItem.setExternalId();
+        if (!itemRepo.existsByUri(newItem.getUri())) {
+            itemRepo.save(newItem);
+            return newItem;
+        }
         return newItem;
     }
 }

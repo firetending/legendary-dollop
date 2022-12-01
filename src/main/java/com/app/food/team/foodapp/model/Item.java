@@ -1,23 +1,21 @@
 package com.app.food.team.foodapp.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
-
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
 import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name = "items")
+@AllArgsConstructor @NoArgsConstructor
 public class Item extends AbstractEntity {
 
-//    @SerializedName("id") //for gson to map id field for deserialization
-
-    private String uri; //edamam path, have to parse id after #  http://www.edamam.com/ontologies/edamam.owl#recipe_b5e1c34c9042a35a534069f438ec86fc
-    private String externalId;
-    private String label; //title
-    private String image;
+    private String externalId; //parse from uri; api doc says field exists but doesn't respond with it
+    private @NonNull @Getter @Setter @EqualsAndHashCode.Include String uri; //edamam path, have to parse id after #  http://www.edamam.com/ontologies/edamam.owl#recipe_b5e1c34c9042a35a534069f438ec86fc
+    private @NonNull @Getter @Setter String label; //title
+    @Column(length=3000)
+    private @NonNull @Getter @Setter String image;
     //        "images": {
     //        "THUMBNAIL": {
     //        "url": "string",
@@ -43,13 +41,18 @@ public class Item extends AbstractEntity {
     //        "source": "string",
     //        "url": "string",
     //        "shareAs": "string",
-    private int yield;
-    private List<String> dietLabels;
-    private List<String> healthLabels;
-    private List<String> cautions;
-    private List<String> ingredientLines;
-    @OneToMany //(mappedBy = "itemId")
-    private Set<ItemIngredient> ingredients;
+    private @Getter @Setter int yield;
+
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    private @NonNull @Getter @Setter TagDietLabel[] dietLabels;
+//    @ManyToOne
+//    private @NonNull @Getter @Setter Set<TagHealthLabel> healthLabels;
+//    @ManyToOne
+//    private @NonNull @Getter @Setter Set<TagCautionLabel> cautions;
+//    @Column(length = 1000)
+//    private @NonNull @Getter @Setter List<String> ingredientLines;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private @NonNull @Getter @Setter ItemIngredient[] ingredients;
     //        [
         //        {
         //        "text": "string",
@@ -60,18 +63,21 @@ public class Item extends AbstractEntity {
         //        "foodId": "string"
         //        }
     //        ],
-    private int calories;
-    private int glycemicIndex;
+    private @Getter @Setter int calories;
+    private @Getter @Setter int glycemicIndex;
 //    private int totalCO2Emissions;
     //        "co2EmissionsClass": "A+",
-    private float totalWeight;
-    private List<String> cuisineType;
-    private List<String> mealType;
-    private List<String> dishType;
+    private @Getter @Setter float totalWeight;
+//    @ManyToOne
+//    private @NonNull @Getter @Setter Set<TagCuisineType> cuisineType;
+//    @ManyToOne
+//    private @NonNull @Getter @Setter Set<TagMealType> mealType;
+//    @ManyToOne
+//    private @NonNull @Getter @Setter Set<TagDishType> dishType;
     //        "instructions": [
     //        "string"
     //        ],
-    private List<String> tags;
+    private @NonNull @Getter @Setter List<String> tags;
     //        "externalId": "string",
     //        "totalNutrients": {},
     //        "totalDaily": {},
@@ -90,33 +96,51 @@ public class Item extends AbstractEntity {
 
 //this.externalId = uri.substring(uri.indexOf('#'),uri.length()-1);
 
-
     public void setExternalId() {
         this.externalId = this.uri.substring(this.uri.indexOf('#')+1);
     }
+    public String getExternalId() { return externalId;}
 
     @Override
-    public String toString() {
-        return "Item{" +
-                "\nexternalId='" + externalId + '\'' +
-                ",\nuri='" + uri + '\'' +
-                ",\nlabel='" + label + '\'' +
-                ",\nimage='" + image + '\'' +
-                ",\nyield=" + yield +
-                ",\ndietLabels=" + dietLabels +
-                ",\nhealthLabels=" + healthLabels +
-                ",\ncautions=" + cautions +
-                ",\ningredientLines=" + ingredientLines +
-                ",\ningredients=" + ingredients +
-                ",\ncalories=" + calories +
-                ",\nglycemicIndex=" + glycemicIndex +
-                ",\ntotalWeight=" + totalWeight +
-                ",\ncuisineType=" + cuisineType +
-                ",\nmealType=" + mealType +
-                ",\ndishType=" + dishType +
-                ",\ntags=" + tags +
-                '}';
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        Item item = (Item) o;
+
+        return getUri().equals(item.getUri());
     }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + getUri().hashCode();
+        return result;
+    }
+
+//    @Override
+//    public String toString() {
+//        return "Item{" +
+//                "\nexternalId='" + externalId + '\'' +
+//                ",\nuri='" + uri + '\'' +
+//                ",\nlabel='" + label + '\'' +
+//                ",\nimage='" + image + '\'' +
+//                ",\nyield=" + yield +
+//                ",\ndietLabels=" + dietLabels +
+//                ",\nhealthLabels=" + healthLabels +
+//                ",\ncautions=" + cautions +
+//                ",\ningredientLines=" + ingredientLines +
+//                ",\ningredients=" + ingredients +
+//                ",\ncalories=" + calories +
+//                ",\nglycemicIndex=" + glycemicIndex +
+//                ",\ntotalWeight=" + totalWeight +
+//                ",\ncuisineType=" + cuisineType +
+//                ",\nmealType=" + mealType +
+//                ",\ndishType=" + dishType +
+//                ",\ntags=" + tags +
+//                '}';
+//    }
 }
 
 

@@ -42,11 +42,11 @@ public class GetRecipeByIdEdamam {
         // parse response into Item object
         // response is an outer object {"recipe":{recipe Json object}}
         // using a wrapper class to let gson deserialize the inner object
-        ResponseWrapper responseObj = gson.fromJson(getResponse.body(), ResponseWrapper.class);
-        Item newItem = gson.fromJson(responseObj.getRecipe(),Item.class);
-        newItem.setExternalId(); //has to parse id from uri field
+//        ResponseWrapper responseObj = gson.fromJson(getResponse.body(), ResponseWrapper.class);
+//        Item newItem = gson.fromJson(responseObj.getRecipe(),Item.class);
+//        newItem.setExternalId(); //has to parse id from uri field
 
 
-        System.out.println(newItem);
+//        System.out.println(newItem);
     }
 }
