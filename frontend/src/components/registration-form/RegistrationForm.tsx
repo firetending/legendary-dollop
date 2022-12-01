@@ -1,8 +1,8 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 // import {Link} from 'react-router-dom';
 import {FaBars, FaTimes, FaFacebook, FaGoogle, FaUniversity} from 'react-icons/fa';
 import './RegistrationForm.scss';
-import { Modal, Button, Form, Container, Row, Col, Alert} from 'react-bootstrap';
+import { Modal, Button, Form, Container, Row, Col, Alert, InputGroup} from 'react-bootstrap';
 import doAxiosFetch from '../../utils/doAxiosFetch';
 import { capitalizeFirstCharacter } from "../../utils/stringTools";
  
@@ -15,18 +15,24 @@ const RegistrationForm = ({ showRegistration, setShowRegistration }: {showRegist
     const [verifyPassword, setVerifyPassword] = useState("");
     const [hasError, setHasError] = useState(false);
     const [axiosResponseData, setAxiosResponseData] = useState<any>(null);
+    const [validated, setValidated] = useState(false);
 
+    const handleClose = () => { setShowRegistration(false) };  
+    
+    const handleSubmit = (event: any) => {
+        const form = event.currentTarget;
+        event.preventDefault();
+        event.stopPropagation();
 
-    const handleClose = () => { setShowRegistration(false) };    
-    const handleRegistration = async (event: React.FormEvent<HTMLButtonElement>) => {
-        console.log("Starting Registration Call...");
-        event.preventDefault();   
-        
-        console.log("First Name: " + firstName);
-        console.log("Last Name: " + lastName);
-        console.log("Password: " + password);
-        console.log("Verify: " + verifyPassword);
-        
+        if (form.checkValidity() === true) {
+            handleRegistration();           
+        } 
+        setValidated(true);        
+    };
+
+    const handleRegistration = async () => {
+        console.log("Starting Registration Call...");                   
+             
         doAxiosFetch({
                 method: "POST",
                 url: "http://localhost:8081/api/v1/registration/register", 
@@ -72,32 +78,42 @@ const RegistrationForm = ({ showRegistration, setShowRegistration }: {showRegist
                 <Modal.Header closeButton>
                     <Modal.Title>Register New Account:</Modal.Title>
                 </Modal.Header>
-                <Form>
+                <Form noValidate validated={validated} onSubmit={handleSubmit}>
                     <Modal.Body>  
                             <Container fluid> 
                                 <Row>  
                                     <Col md="6">
                                         <Form.Group className="mb-3" controlId="formFistName">
                                             <Form.Label>First Name</Form.Label>
-                                            <Form.Control 
-                                                type="text" 
-                                                placeholder="Enter First Name" 
-                                                value={firstName} 
-                                                onChange={ (event) => setFirstName(event.target.value) }
-                                                required
-                                            />                                                            
+                                            <InputGroup hasValidation>
+                                                <Form.Control 
+                                                    type="text" 
+                                                    placeholder="Enter First Name" 
+                                                    value={firstName} 
+                                                    onChange={ (event) => setFirstName(event.target.value) }
+                                                    required
+                                                /> 
+                                                <Form.Control.Feedback type="invalid">
+                                                    Please enter your first name.
+                                                </Form.Control.Feedback>
+                                            </InputGroup>                                                           
                                         </Form.Group>
                                     </Col>
                                     <Col md="6">
                                         <Form.Group className="mb-3" controlId="formLastName">
                                             <Form.Label>Last Name</Form.Label>
-                                            <Form.Control 
-                                                type="text" 
-                                                placeholder="Enter Last Name" 
-                                                value={lastName} 
-                                                onChange={ (event) => setLastName(event.target.value) }
-                                                required
-                                            />                                                            
+                                            <InputGroup hasValidation>
+                                                <Form.Control 
+                                                    type="text" 
+                                                    placeholder="Enter Last Name" 
+                                                    value={lastName} 
+                                                    onChange={ (event) => setLastName(event.target.value) }
+                                                    required
+                                                />  
+                                                <Form.Control.Feedback type="invalid">
+                                                    Please enter your last name.
+                                                </Form.Control.Feedback>
+                                            </InputGroup>                                                           
                                         </Form.Group>   
                                     </Col>                             
                                 </Row>
@@ -106,13 +122,19 @@ const RegistrationForm = ({ showRegistration, setShowRegistration }: {showRegist
                                     <Col>              
                                     <Form.Group className="mb-3" controlId="formBasicEmail">
                                         <Form.Label>Email address</Form.Label>
-                                        <Form.Control 
-                                            type="email" 
-                                            placeholder="Enter email" 
-                                            value={email} 
-                                            onChange={ (event) => setEmail(event.target.value) }
-                                            required
-                                        />                                                            
+                                        <InputGroup hasValidation>
+                                            <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
+                                            <Form.Control 
+                                                type="email" 
+                                                placeholder="Enter email" 
+                                                value={email} 
+                                                onChange={ (event) => setEmail(event.target.value) }
+                                                required
+                                            />   
+                                            <Form.Control.Feedback type="invalid">
+                                                Please choose an username (email).
+                                            </Form.Control.Feedback>
+                                        </InputGroup>                                                           
                                     </Form.Group>
                                 </Col> 
                                 </Row>  
@@ -121,27 +143,49 @@ const RegistrationForm = ({ showRegistration, setShowRegistration }: {showRegist
                                     <Col md="6">
                                         <Form.Group className="mb-3" controlId="formPassword">                                  
                                             <Form.Label>Password</Form.Label>
-                                            <Form.Control 
-                                                type="password" 
-                                                placeholder="Password" 
-                                                value={password} 
-                                                onChange={ (event) => setPassword(event.target.value) }
-                                                required
-                                            />
-                                        </Form.Group> 
+                                            <InputGroup hasValidation>                                                
+                                                <Form.Control 
+                                                    type="password" 
+                                                    placeholder="Password" 
+                                                    value={password} 
+                                                    onChange={ (event) => setPassword(event.target.value) }
+                                                    required
+                                                />
+                                                <Form.Control.Feedback type="invalid">
+                                                        Please, enter a password (8 to 128 characters long)
+                                                </Form.Control.Feedback>
+                                            </InputGroup>
+                                        </Form.Group>                                         
                                     </Col>
+
                                     <Col md="6">
                                         <Form.Group className="mb-3" controlId="formVerifyPassword">                                  
                                             <Form.Label>Confirm Password</Form.Label>
-                                            <Form.Control 
-                                                type="password" 
-                                                placeholder="Re-type Password" 
-                                                value={verifyPassword} 
-                                                onChange={ (event) => setVerifyPassword(event.target.value) }
-                                                required
-                                            />
+                                            <InputGroup hasValidation>                                                
+                                                <Form.Control 
+                                                    type="password" 
+                                                    placeholder="Re-type Password" 
+                                                    value={verifyPassword} 
+                                                    onChange={ (event) => setVerifyPassword(event.target.value) }
+                                                    required
+                                                />
+                                                <Form.Control.Feedback type="invalid">
+                                                    Please, make sure this field matches the password.
+                                                </Form.Control.Feedback>
+                                            </InputGroup>
+
                                         </Form.Group> 
                                     </Col>
+                                </Row>
+                                <Row>
+                                    <Form.Group className="mb-3">
+                                        <Form.Check
+                                            required
+                                            label="Agree to terms and conditions"
+                                            feedback="You must agree before submitting."
+                                            feedbackType="invalid"
+                                        />
+                                    </Form.Group>
                                 </Row>
                                 <Row>
                                     { hasError &&                                 
@@ -150,15 +194,15 @@ const RegistrationForm = ({ showRegistration, setShowRegistration }: {showRegist
                                                 <Alert.Heading>
                                                     {
                                                         axiosResponseData !== null && axiosResponseData.data !== null &&
-                                                        <>{axiosResponseData.message}</>
+                                                        <>{axiosResponseData.message || 'Unknown Error.'}</>
                                                     }
                                                 </Alert.Heading>
                                                 <p>
                                                     {
                                                         axiosResponseData !== null && axiosResponseData.data !== null &&
                                                         axiosResponseData.data.errors.map((error: any) => { 
-                                                            const message = error.defaultMessage.replaceAll('.', ' ');                                                    
-                                                            return <><span key={ Math.random() * 10}><b>{ capitalizeFirstCharacter(error.field)}</b> { ':  ' + capitalizeFirstCharacter(message) }</span><br/></>;
+                                                            const message = error.defaultMessage.replaceAll('.', ' ');
+                                                            return <><span key={ Math.random() * 10 }><b>{ capitalizeFirstCharacter(error.field) }</b> { ':  ' + capitalizeFirstCharacter(message) }</span><br/></>;
                                                         })
                                                     }
                                                 </p>
@@ -175,7 +219,7 @@ const RegistrationForm = ({ showRegistration, setShowRegistration }: {showRegist
                             Cancel
                         </Button>
 
-                        <Button variant="primary" onSubmit={ (event) => false } onClick={handleRegistration} type="submit" size="sm">
+                        <Button variant="primary" type="submit" size="sm">
                             Register
                         </Button>
                     </Modal.Footer>  

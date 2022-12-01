@@ -11,21 +11,23 @@ const LoginForm = ({ showLogin, setShowLogin }: {showLogin: boolean; setShowLogi
     const [hasError, setHasError] = useState(false);  
     const [validated, setValidated] = useState(false); 
     
-    const handleSubmit = (event: any) => {
-        const form = event.currentTarget;
-        if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
-        setValidated(true);
-    };
+
 
     const handleClose = () => { setShowLogin(false) };
 
-    const handleLogin = async (event: React.FormEvent<HTMLButtonElement>) => {
-        console.log("Starting Login Call...");
-        //event.preventDefault();        
-        
+    const handleSubmit = (event: any) => {
+        const form = event.currentTarget;
+        event.preventDefault();
+        event.stopPropagation();
+
+        if (form.checkValidity() === true) {
+            handleLogin();           
+        } 
+        setValidated(true);        
+    };
+
+    const handleLogin = async () => {
+        console.log("Starting Login Call...");       
         doAxiosFetch({
                 method: "POST",
                 url: "http://localhost:8081/api/v1/auth/login", 
@@ -124,7 +126,7 @@ const LoginForm = ({ showLogin, setShowLogin }: {showLogin: boolean; setShowLogi
                             Cancel
                         </Button>
 
-                        <Button variant="primary" onSubmit={ (event) => false } onClick={handleLogin} type="submit" size="sm">
+                        <Button variant="primary" onSubmit={ (event) => false } type="submit" size="sm">
                             Login
                         </Button>
 
