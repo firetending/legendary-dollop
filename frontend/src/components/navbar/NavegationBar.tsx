@@ -35,8 +35,8 @@ const NavegationBar = () => {
                         //navbarScroll
                     >  
                         <Nav.Link href="/home">Home</Nav.Link>
-                        <Nav.Link href="#">Menus</Nav.Link>
-                        <Nav.Link href="#">About</Nav.Link>
+                        <Nav.Link href="/main">Menus</Nav.Link>
+                        <Nav.Link href="/about">About</Nav.Link>
                         <Nav.Link href="#" onClick={handleShowRegistration}>Register</Nav.Link>
                         <Nav.Link href="#" onClick={handleShowLogin}>Login</Nav.Link>
                     </Nav>  

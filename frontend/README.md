@@ -32,7 +32,7 @@ try replacing the start script with this: react-scripts --openssl-legacy-provide
 Just know you are now on insecure ssl
 https://stackoverflow.com/questions/69692842/error-message-error0308010cdigital-envelope-routinesunsupported
 
-
+## Download React Developer Tools
 
 ## React-Bootstrap:
 https://www.javatpoint.com/react-bootstrap-modal
@@ -44,6 +44,16 @@ https://blog.openreplay.com/integrating-axios-with-react-hooks/#:~:text=To%20int
 
 ## Axios:
 https://blog.openreplay.com/integrating-axios-with-react-hooks/#:~:text=To%20integrate%20Axios%20instances%20with%20React%2C%20you%20can,back%20to%20the%20default%20one%20available%20under%20axios.
+
+
+## Route redirecting
+{/*{ <Navigate to="/home" /> }*/ }
+
+
+
+
+
+
 
 
 # Getting Started with Create React App

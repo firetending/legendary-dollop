@@ -48,7 +48,8 @@ public class RegistrationController {
                 .statusCode(OK.value())
                 .data(new HashMap<>(){{
                     put("user", userResponse);
-                    put("confirmationToken", token);
+                    //put("confirmationToken", token);
+                    put("request", registrationRequestDto);
                 }})
                 .build();
 
@@ -62,6 +63,7 @@ public class RegistrationController {
                 .data(new HashMap<>(){{
                     put("errors", errors.getAllErrors());
                     put("exception", e.getMessage());
+                    put("request", registrationRequestDto);
                 }});
         }
 
@@ -86,7 +88,7 @@ public class RegistrationController {
                 .statusCode(OK.value())
                 .data(new HashMap<>(){{
                     put("user", auth.getName());
-
+                    put("confirmation-token", token);
                 }})
                 .build();
 
@@ -100,6 +102,7 @@ public class RegistrationController {
                 .data(new HashMap<>(){{
                     put("errors", null);
                     put("Exception", ise.getMessage());
+                    put("confirmation-token", token);
                 }});
         }
 

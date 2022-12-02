@@ -34,7 +34,6 @@ import static org.springframework.http.HttpStatus.OK;
 public class AuthController {
 
     private final UserService userService;
-
     private final ValidationService validationService;
     private final JwtTokenService jwtTokenService;
     private final AuthenticationManager authenticationManager;
@@ -58,6 +57,7 @@ public class AuthController {
                     .data(new HashMap<>() {{
                         put("user", userResponse);
                         put("accessToken", jwtTokenService.generateJwtToken(authentication));
+                        put("request", loginRequestDto);
                     }});
 
         } catch(Exception e) {
@@ -70,6 +70,7 @@ public class AuthController {
                     .data(new HashMap<>(){{
                         put("errors", errors.getAllErrors());
                         put("exception", e.getMessage());
+                        put("request", loginRequestDto);
                     }});
 
         }

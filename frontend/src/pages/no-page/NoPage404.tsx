@@ -2,12 +2,11 @@
 import React from "react";
 import { useState } from "react"
 import NavegationBar from '../../components/navbar/NavegationBar';
-import Hero from "../../components/hero/Hero";
-import Overview from "../../components/overview/Overview";
 import Footer from "../../components/footer/Footer";
 import ThemeProvider from 'react-bootstrap/ThemeProvider';
+import { Modal, Button, Form, Container, Row, Col, Alert, InputGroup} from 'react-bootstrap';
 
-const MainView = () => {
+const NoPage404 = () => {
 
   return (
     <>
@@ -16,11 +15,18 @@ const MainView = () => {
         minBreakpoint="xxs"
       >        
         <NavegationBar/>
-          <h1>Hello World!</h1>
+        <Container>
+          <Row>
+            <h1>Oops! Wrong turn. (404)</h1>
+          </Row>
+          <Row>
+            <h3>This page doesn't exist</h3>
+          </Row>
+        </Container>          
         <Footer/>
       </ThemeProvider>
     </>
   );
 }
 
-export default MainView;
+export default NoPage404;

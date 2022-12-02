@@ -16,8 +16,10 @@ const RegistrationForm = ({ showRegistration, setShowRegistration }: {showRegist
     const [hasError, setHasError] = useState(false);
     const [axiosResponseData, setAxiosResponseData] = useState<any>(null);
     const [validated, setValidated] = useState(false);
+    const [showConfirmation, setShowConfirmation] = useState(false);
 
-    const handleClose = () => { setShowRegistration(false) };  
+    const handleCloseRegistration = () => { setShowRegistration(false) };  
+    const handleCloseConfirmation = () => { setShowConfirmation(false) }; 
     
     const handleSubmit = (event: any) => {
         const form = event.currentTarget;
@@ -55,8 +57,9 @@ const RegistrationForm = ({ showRegistration, setShowRegistration }: {showRegist
             if(data === null || data['statusCode'] !== 200){                
                 setHasError(true); 
             } else {
-                // set access token
+                
                 setShowRegistration(false);
+                setShowConfirmation(true);
             }              
             console.log('Done!');   
         });             
@@ -69,7 +72,7 @@ const RegistrationForm = ({ showRegistration, setShowRegistration }: {showRegist
         <>
             <Modal  
                 show={showRegistration} 
-                onHide={handleClose} 
+                onHide={handleCloseRegistration} 
                 centered
                 size='lg'
                 fullscreen='false'
@@ -217,7 +220,7 @@ const RegistrationForm = ({ showRegistration, setShowRegistration }: {showRegist
                             
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={handleClose} size="sm">
+                        <Button variant="secondary" onClick={handleCloseRegistration} size="sm">
                             Cancel
                         </Button>
 
@@ -226,6 +229,32 @@ const RegistrationForm = ({ showRegistration, setShowRegistration }: {showRegist
                         </Button>
                     </Modal.Footer>  
                 </Form>              
+            </Modal>
+
+
+            <Modal  
+                show={showConfirmation} 
+                onHide={handleCloseConfirmation} 
+                centered
+                size='lg'
+                fullscreen='false'
+                animation
+            >                
+                <Modal.Header closeButton>
+                    <Modal.Title>Confirmation Required:</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <h3>{axiosResponseData.message}</h3>
+                    <p>
+                        <b>Congratulatios, {capitalizeFirstCharacter(axiosResponseData.data.request.firstName)}!</b> Your brand new FoodApp account is waiting for you.
+                        In short you will receive an email from us at ({axiosResponseData.data.request.email}) with a link that will allow you to confirm your email. Please click on that link to activate your account.
+                    </p>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="primary" type="submit" onClick={handleCloseConfirmation} size="sm">
+                        OK
+                    </Button>
+                </Modal.Footer>
             </Modal>
         </>
     );

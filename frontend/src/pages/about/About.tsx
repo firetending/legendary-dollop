@@ -2,12 +2,11 @@
 import React from "react";
 import { useState } from "react"
 import NavegationBar from '../../components/navbar/NavegationBar';
-import Hero from "../../components/hero/Hero";
-import Overview from "../../components/overview/Overview";
 import Footer from "../../components/footer/Footer";
 import ThemeProvider from 'react-bootstrap/ThemeProvider';
+import { Modal, Button, Form, Container, Row, Col, Alert, InputGroup} from 'react-bootstrap';
 
-const MainView = () => {
+const About = () => {
 
   return (
     <>
@@ -16,11 +15,14 @@ const MainView = () => {
         minBreakpoint="xxs"
       >        
         <NavegationBar/>
-          <h1>Hello World!</h1>
+        <Container>
+          <h1>ABOUT</h1>
+        </Container>          
         <Footer/>
+        
       </ThemeProvider>
     </>
   );
 }
 
-export default MainView;
+export default About;
