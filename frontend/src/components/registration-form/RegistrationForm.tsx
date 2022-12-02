@@ -198,13 +198,15 @@ const RegistrationForm = ({ showRegistration, setShowRegistration }: {showRegist
                                                     }
                                                 </Alert.Heading>
                                                 <p>
+                                                    <span><b>{axiosResponseData.data.exception}:</b></span><br/>
                                                     {
-                                                        axiosResponseData !== null && axiosResponseData.data !== null &&
+                                                        axiosResponseData !== null && axiosResponseData.data !== null && axiosResponseData.data.errors !== null &&
                                                         axiosResponseData.data.errors.map((error: any) => { 
                                                             const message = error.defaultMessage.replaceAll('.', ' ');
-                                                            return <><span key={ Math.random() * 10 }><b>{ capitalizeFirstCharacter(error.field) }</b> { ':  ' + capitalizeFirstCharacter(message) }</span><br/></>;
+                                                            return <><span key={ Math.random() * 10 }><b>{ capitalizeFirstCharacter(error.field) }:</b> { ' ' + capitalizeFirstCharacter(message) }</span><br/></>;
                                                         })
                                                     }
+                                                    
                                                 </p>
                                                 
                                             </Alert> 

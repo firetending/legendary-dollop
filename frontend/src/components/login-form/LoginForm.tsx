@@ -4,12 +4,14 @@ import {FaBars, FaTimes, FaFacebook, FaGoogle, FaUniversity} from 'react-icons/f
 import './LoginForm.scss';
 import { Modal, Button, Form, Container, Row, Col, Alert, InputGroup } from 'react-bootstrap';
 import doAxiosFetch from '../../utils/doAxiosFetch';
+import { capitalizeFirstCharacter } from "../../utils/stringTools";
 
 const LoginForm = ({ showLogin, setShowLogin }: {showLogin: boolean; setShowLogin: any}) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [hasError, setHasError] = useState(false);  
     const [validated, setValidated] = useState(false); 
+    const [axiosResponseData, setAxiosResponseData] = useState<any>(null);
 
     const handleClose = () => { setShowLogin(false) };
 
@@ -41,6 +43,7 @@ const LoginForm = ({ showLogin, setShowLogin }: {showLogin: boolean; setShowLogi
             console.log('Result: ' + JSON.stringify(result));
 
             const data = result.data;
+            setAxiosResponseData(data);
             if(data === null || data['statusCode'] !== 200){
                 setHasError(true); 
             } else {
@@ -110,10 +113,31 @@ const LoginForm = ({ showLogin, setShowLogin }: {showLogin: boolean; setShowLogi
                                 { hasError &&                                 
                                     <Col>
                                         <Alert variant="danger" onClose={() => setHasError(false)} dismissible>
-                                            <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
-                                            <p>Incorrect Credentials</p>
+                                            <Alert.Heading>
+                                                {
+                                                    axiosResponseData !== null && axiosResponseData.data !== null &&
+                                                    <>{axiosResponseData.message || 'Unknown Error.'}</>
+                                                }
+                                            </Alert.Heading>
+                                            <p>
+                                                <span>
+                                                    <b>
+                                                        { axiosResponseData.data.exception}:
+                                                    </b>
+                                                    { (axiosResponseData.data.exception === "User is disabled") && " (Please confirm your account)" }
+                                                </span><br/>
+                                                {
+                                                    axiosResponseData !== null && axiosResponseData.data !== null && axiosResponseData.data.errors !== null  &&                                             
+                                                    axiosResponseData.data.errors.map((error: any) => { 
+                                                        const message = error.defaultMessage.replaceAll('.', ' ');
+                                                        return <><span key={ Math.random() * 10 }><b>{ capitalizeFirstCharacter(error.field) }:</b> { ' ' + capitalizeFirstCharacter(message) }</span><br/></>;
+                                                    })
+                                                    
+                                                }                                                
+                                            </p>
+                                            
                                         </Alert> 
-                                    </Col>                                
+                                    </Col>                                  
                                 } 
                             </Row>                            
                         </Container>

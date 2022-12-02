@@ -4,9 +4,11 @@ import com.app.food.team.foodapp.dto.LoginRequestDto;
 import com.app.food.team.foodapp.dto.ResponseDto;
 import com.app.food.team.foodapp.service.JwtTokenService;
 import com.app.food.team.foodapp.service.UserService;
+import com.app.food.team.foodapp.service.ValidationService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.Errors;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -30,7 +33,9 @@ import static org.springframework.http.HttpStatus.OK;
 @AllArgsConstructor
 public class AuthController {
 
-    private UserService userService;
+    private final UserService userService;
+
+    private final ValidationService validationService;
     private final JwtTokenService jwtTokenService;
     private final AuthenticationManager authenticationManager;
 
@@ -39,9 +44,7 @@ public class AuthController {
         log.info("[UserController] ----> auth/login");
         ResponseDto.ResponseDtoBuilder<?, ?> responseDtoBuilder = ResponseDto.builder();
         try {
-            if (errors.hasErrors()) {
-                throw new IllegalStateException("Login error");
-            }
+            validationService.loginRequestValidation(loginRequestDto, errors);
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                     loginRequestDto.getEmail(),
                     loginRequestDto.getPassword()
@@ -57,15 +60,16 @@ public class AuthController {
                         put("accessToken", jwtTokenService.generateJwtToken(authentication));
                     }});
 
-        } catch(IllegalStateException ie) {
+        } catch(Exception e) {
             responseDtoBuilder
                     .timeStamp(now())
-                    .message("Registration attempt failed.")
+                    .message("Login attempt failed.")
                     .status(HttpStatus.NOT_ACCEPTABLE)
                     .statusCode(HttpStatus.NOT_ACCEPTABLE.value())
-                    .reason(ie.getMessage())
+                    .reason(e.getMessage())
                     .data(new HashMap<>(){{
-                        put("errors", "Bad credentials");
+                        put("errors", errors.getAllErrors());
+                        put("exception", e.getMessage());
                     }});
 
         }
