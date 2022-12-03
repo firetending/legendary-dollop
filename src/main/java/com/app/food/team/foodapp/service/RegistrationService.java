@@ -24,15 +24,7 @@ public class RegistrationService {
     private final ConfirmationTokenService confirmationTokenService;
     private final EmailServiceInterface emailService;
 
-    public void registrationRequestValidation(RegistrationRequestDto request, Errors errors){
-        if (userService.userExists(request.getEmail())) {
-            errors.rejectValue("email", "email.already.exists", "Passwords do not match");
-        }
-        if (!request.getPassword().equals(request.getVerifyPassword())) {
-            errors.rejectValue("password", "passwords.mismatch", "Passwords do not match");
-        }
-        if (errors.hasErrors()){ throw new IllegalStateException("Registration request has errors"); }
-    }
+
 
     public String register(RegistrationRequestDto request) {
         String token = userService.signUpUser(
@@ -46,7 +38,7 @@ public class RegistrationService {
         );
 
 
-        String confirmationLink = AppConstants.BASE_URL + "/api/v1/registration/confirm?token=" + token;
+        String confirmationLink = AppConstants.CONFIRMATION_BASE_URL + "confirmation?confirmation-token=" + token;
         log.info("Confirm user with email: {} using this URL: {}", request.getEmail(), confirmationLink);
 
         emailService.send(request.getEmail(), buildEmail(request.getFirstName(), confirmationLink));

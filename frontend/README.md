@@ -13,15 +13,48 @@ To stop the server:
 
 ### React project creation:
 To create this project:
-npx create-react-app web-app --template typescript
+    npx create-react-app web-app --template typescript
 
 To start the front-end app do:
-npm start
+    npm start
+
+To install react-bootstrap:
+    npm install react-bootstrap bootstrap
+
+To install SASS:
+    npm i node-sass
+
+    https://www.npmjs.com/package/node-sass
+    https://github.com/nodejs/node-gyp#on-windows   
 
 If you find issues running npm start
 try replacing the start script with this: react-scripts --openssl-legacy-provider start
 Just know you are now on insecure ssl
 https://stackoverflow.com/questions/69692842/error-message-error0308010cdigital-envelope-routinesunsupported
+
+## Download React Developer Tools
+
+## React-Bootstrap:
+https://www.javatpoint.com/react-bootstrap-modal
+https://react-bootstrap.github.io/forms/overview/
+
+## React hooks:
+https://reactjs.org/docs/hooks-reference.html
+https://blog.openreplay.com/integrating-axios-with-react-hooks/#:~:text=To%20integrate%20Axios%20instances%20with%20React%2C%20you%20can,back%20to%20the%20default%20one%20available%20under%20axios.
+
+## Axios:
+https://blog.openreplay.com/integrating-axios-with-react-hooks/#:~:text=To%20integrate%20Axios%20instances%20with%20React%2C%20you%20can,back%20to%20the%20default%20one%20available%20under%20axios.
+
+
+## TODO:
+
+Add confirmation page
+point to it from the confirmation email
+
+add account name on the navbar
+add a dropdown with logout link
+add profile page
+
 
 
 

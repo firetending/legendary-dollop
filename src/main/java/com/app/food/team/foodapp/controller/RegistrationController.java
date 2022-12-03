@@ -4,6 +4,7 @@ import com.app.food.team.foodapp.dto.RegistrationRequestDto;
 import com.app.food.team.foodapp.dto.ResponseDto;
 import com.app.food.team.foodapp.service.RegistrationService;
 import com.app.food.team.foodapp.service.UserService;
+import com.app.food.team.foodapp.service.ValidationService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,12 +20,14 @@ import static org.springframework.http.HttpStatus.OK;
 
 @Slf4j
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*") // replace this with cors config in SecurityConfiguration
 @RequestMapping("${app.request-mapping}registration/")
 @AllArgsConstructor
 public class RegistrationController {
 
     private UserService userService;
     private final RegistrationService registrationService;
+    private final ValidationService validationService;
 
 
     @PostMapping(path = "register")
@@ -33,7 +36,7 @@ public class RegistrationController {
         ResponseDto.ResponseDtoBuilder<?, ?> responseDtoBuilder = ResponseDto.builder();
 
         try {
-            registrationService.registrationRequestValidation(registrationRequestDto, errors);
+            validationService.registrationRequestValidation(registrationRequestDto, errors);
             String token = registrationService.register(registrationRequestDto);
 
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -45,19 +48,22 @@ public class RegistrationController {
                 .statusCode(OK.value())
                 .data(new HashMap<>(){{
                     put("user", userResponse);
-                    put("confirmationToken", token);
+                    //put("confirmationToken", token);
+                    put("request", registrationRequestDto);
                 }})
                 .build();
 
-        } catch(IllegalStateException ise){
+        } catch(Exception e){
             responseDtoBuilder
                 .timeStamp(now())
                 .message("Registration attempt failed.")
                 .status(HttpStatus.NOT_ACCEPTABLE)
                 .statusCode(HttpStatus.NOT_ACCEPTABLE.value())
-                .reason(ise.getMessage())
+                .reason(e.getMessage())
                 .data(new HashMap<>(){{
                     put("errors", errors.getAllErrors());
+                    put("exception", e.getMessage());
+                    put("request", registrationRequestDto);
                 }});
         }
 
@@ -82,7 +88,7 @@ public class RegistrationController {
                 .statusCode(OK.value())
                 .data(new HashMap<>(){{
                     put("user", auth.getName());
-
+                    put("confirmation-token", token);
                 }})
                 .build();
 
@@ -92,7 +98,11 @@ public class RegistrationController {
                 .message("Confirmation attempt failed.")
                 .status(HttpStatus.NOT_ACCEPTABLE)
                 .statusCode(HttpStatus.NOT_ACCEPTABLE.value())
-                .reason(ise.getMessage());
+                .reason(ise.getMessage())
+                .data(new HashMap<>(){{
+                    put("Exception", ise.getMessage());
+                    put("confirmation-token", token);
+                }});
         }
 
         return ResponseEntity.ok(

@@ -68,7 +68,7 @@ public class SecurityConfiguration {
         String mapping = propertiesConfiguration.requestMapping();
         http
             .csrf(csrf -> csrf.disable())
-            .cors(cors -> cors.disable())
+            //.cors(cors -> cors.disable())
             .authorizeHttpRequests(authorize -> authorize
                 .requestMatchers(
                     mapping + "ping",
@@ -126,11 +126,12 @@ public class SecurityConfiguration {
 //        );
 //    }
 
-
+    // this is not working
+    // see: https://stackoverflow.com/questions/60610175/access-to-xmlhttprequest-at-http-localhost8080-from-origin-http-localhost
     // CORS configuration to avoid issues with the front end calls from a different address
     // can this be done from annotation on the controller class?
     @Bean
-    public CorsConfigurationSource corsConfigurationSource(){
+    public CorsConfiguration corsConfiguration(){
         UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         corsConfiguration.setAllowCredentials(true);
@@ -148,6 +149,17 @@ public class SecurityConfiguration {
                 "Access-Control-Request-Headers"
         ));
         corsConfiguration.setExposedHeaders(Arrays.asList(
+                "Access-Control-Allow-Headers",
+                "Authorization",
+                "x-xsrf-token",
+                "Access-Control-Allow-Headers",
+                "Origin", "Accept", "X-Requested-With",
+                "Content-Type",
+                "Access-Control-Request-Method",
+                "Access-Control-Request-Headers",
+                "Status-Code"
+        ));
+        corsConfiguration.setExposedHeaders(Arrays.asList(
                 "Origin",
                 "Access-Control-Allow-Origin",
                 "Content-Type",
@@ -162,6 +174,6 @@ public class SecurityConfiguration {
                 "GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"
         ));
         urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
-        return urlBasedCorsConfigurationSource;
+        return corsConfiguration;
     }
 }

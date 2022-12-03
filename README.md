@@ -33,10 +33,22 @@ JWT authentication/authorization:
     https://stackoverflow.com/questions/61473907/how-can-logout-using-spring-boot-jwt
     https://www.freecodecamp.org/news/how-to-setup-jwt-authorization-and-authentication-in-spring/
 
+## packaging front and back end together:
+https://siouan.github.io/frontend-gradle-plugin/configuration/
+https://dev.to/andriimaliuta/ways-to-use-react-in-spring-app-7k0
+
 To install a mock mail server for development:
+    Go outside the project folder and:
     npm install -g maildev
     maildev --ip 127.0.0.1 --smtp 1025
-For whatever reason spring is ignoring the mail config
+
+If you get error: 'maildev' is not recognized as an internal or external command
+You can add C:\Users\Your_User_Name\AppData\Roaming\npm to your environment Path variable or
+You can go to C:\Users\Your_User_Name\AppData\Roaming\npm where Your_User_Name is your own.
+Double Click on maildev.cmd The terminal will open with something like this:
+MailDev webapp running at http://0.0.0.0:1080
+MailDev SMTP Server running at 0.0.0.0:1025
+Finally, In your browser, you can open the web application through 127.0.0.1:1080
 
 
 ## Sending emails:
