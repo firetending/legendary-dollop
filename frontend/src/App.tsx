@@ -1,26 +1,51 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
-import MenuCreationForm from './components/MenuCreationForm';
-import {Menulist} from "./components/Menulist";
-import {GlobalProvider} from './context/GlobalState';
 
+import { BrowserRouter, Router, Routes, Route, Navigate } from 'react-router-dom';
 
-function App() {
-  return (
-    <GlobalProvider>
-    <Router>
+import { useState } from 'react';
+import ThemeProvider from 'react-bootstrap/ThemeProvider';
+import HomePage from "./pages/home-page/HomePage";
+import MainView from "./pages/main-view/MainView";
+import About from "./pages/about/About";
+import ConfirmationPage from "./pages/confirmation/ConfirmationPage";
+import NoPage404 from "./pages/no-page/NoPage404";
 
-      <Routes>
+import NavegationBar from './components/navbar/NavegationBar';
 
-        <Route path="/menucreationform" element={<MenuCreationForm />} />
+        import MenuCreationForm from './components/MenuCreationForm';
+        import {Menulist} from "./components/Menulist";
+        import {GlobalProvider} from './context/GlobalState';
 
-        <Route path="/menulist" element={<Menulist />} />
+import './App.scss';
 
-      </Routes>
+        function App() {
 
-    </Router> 
-    </GlobalProvider> 
-  );
-}
+        return (
+<>
+  <ThemeProvider
+          breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
+  minBreakpoint="xxs"
+  >
+  <GlobalProvider>
+  <BrowserRouter>
+    <Routes>
+      <Route path="/" element={ <Navigate to="/home" /> } />
 
-export default App;
+      <Route path="home" element={<HomePage />} />
+      <Route path="main" element={<MainView />} />
+      <Route path="about" element={<About />} />
+      <Route path="confirmation" element={<ConfirmationPage />} />
+      <Route path="*" element={<NoPage404 />} />
+
+      <Route path="/menucreationform" element={<MenuCreationForm />} />
+      <Route path="/menulist" element={<Menulist />} />
+
+    </Routes>
+  </BrowserRouter>
+  </GlobalProvider>
+</ThemeProvider>
+        </>
+        );
+        }
+
+        export default App
+

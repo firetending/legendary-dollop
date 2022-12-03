@@ -1,0 +1,30 @@
+
+nav.navbar{
+    box-shadow: 0px 20px 100px black;
+    .navbar-nav{    
+        margin-right: 3% !important;
+        //flex-direction: row-reverse !important;
+        justify-content: flex-end;    
+    }
+}
+
+.navbar-brand{
+    margin-left: 1%;
+    display: flex !important;
+    img{
+        filter: invert(100%);
+        display: block;
+        width: 40px;
+        height: 40px;
+    }
+    h1{        
+        display: block;
+        margin-left: 6%;
+        margin-bottom: 0;
+        font-size: 1.7em;
+        font-family: 'Lily Script One', sans-serif;
+    }
+}
+
+
+
