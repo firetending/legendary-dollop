@@ -38,7 +38,7 @@ public class RegistrationService {
         );
 
 
-        String confirmationLink = AppConstants.BASE_URL + "/api/v1/registration/confirm?confirmation-token=" + token;
+        String confirmationLink = AppConstants.CONFIRMATION_BASE_URL + "confirmation?confirmation-token=" + token;
         log.info("Confirm user with email: {} using this URL: {}", request.getEmail(), confirmationLink);
 
         emailService.send(request.getEmail(), buildEmail(request.getFirstName(), confirmationLink));

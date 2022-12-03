@@ -9,22 +9,17 @@ import { Modal, Button, Form, Container, Row, Col, Alert, InputGroup} from 'reac
 const NoPage404 = () => {
 
   return (
-    <>
-      <ThemeProvider
-        breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
-        minBreakpoint="xxs"
-      >        
-        <NavegationBar/>
-        <Container>
-          <Row>
-            <h1>Oops! Wrong turn. (404)</h1>
-          </Row>
-          <Row>
-            <h3>This page doesn't exist</h3>
-          </Row>
-        </Container>          
-        <Footer/>
-      </ThemeProvider>
+    <>     
+      <NavegationBar/>
+      <Container>
+        <Row>
+          <h1>Oops! Wrong turn. (404)</h1>
+        </Row>
+        <Row>
+          <h3>This page doesn't exist</h3>
+        </Row>
+      </Container>          
+      <Footer/>
     </>
   );
 }

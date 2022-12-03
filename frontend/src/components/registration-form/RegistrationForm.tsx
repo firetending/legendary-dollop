@@ -244,11 +244,16 @@ const RegistrationForm = ({ showRegistration, setShowRegistration }: {showRegist
                     <Modal.Title>Confirmation Required:</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <h3>{axiosResponseData.message}</h3>
-                    <p>
-                        <b>Congratulatios, {capitalizeFirstCharacter(axiosResponseData.data.request.firstName)}!</b> Your brand new FoodApp account is waiting for you.
-                        In short you will receive an email from us at ({axiosResponseData.data.request.email}) with a link that will allow you to confirm your email. Please click on that link to activate your account.
-                    </p>
+                    {
+                        axiosResponseData !== null && axiosResponseData.message !== null &&
+                        <>
+                            <h3>{ axiosResponseData.message}</h3>
+                            <p>
+                                <b>Congratulatios, {capitalizeFirstCharacter(axiosResponseData.data.request.firstName)}!</b> Your brand new FoodApp account is waiting for you.
+                                In short you will receive an email from us at ({axiosResponseData.data.request.email}) with a link that will allow you to confirm your email. Please click on that link to activate your account.
+                            </p>
+                        </>
+                    }
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="primary" type="submit" onClick={handleCloseConfirmation} size="sm">

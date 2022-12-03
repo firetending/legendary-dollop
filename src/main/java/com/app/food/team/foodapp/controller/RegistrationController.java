@@ -100,7 +100,6 @@ public class RegistrationController {
                 .statusCode(HttpStatus.NOT_ACCEPTABLE.value())
                 .reason(ise.getMessage())
                 .data(new HashMap<>(){{
-                    put("errors", null);
                     put("Exception", ise.getMessage());
                     put("confirmation-token", token);
                 }});

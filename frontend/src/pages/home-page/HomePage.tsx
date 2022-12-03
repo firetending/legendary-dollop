@@ -11,17 +11,11 @@ import ThemeProvider from 'react-bootstrap/ThemeProvider';
 const HomePage = () => {
 
   return (
-    <>
-      <ThemeProvider
-        breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
-        minBreakpoint="xxs"
-      >        
+    <>       
         <NavegationBar />
         <Hero />
         <Overview />
         <Footer />
-
-      </ThemeProvider>
     </>
   );
 }

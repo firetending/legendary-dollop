@@ -9,18 +9,12 @@ import { Modal, Button, Form, Container, Row, Col, Alert, InputGroup} from 'reac
 const About = () => {
 
   return (
-    <>
-      <ThemeProvider
-        breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
-        minBreakpoint="xxs"
-      >        
-        <NavegationBar/>
-        <Container>
-          <h1>ABOUT</h1>
-        </Container>          
-        <Footer/>
-        
-      </ThemeProvider>
+    <>           
+      <NavegationBar/>
+      <Container>
+        <h1>ABOUT</h1>
+      </Container>          
+      <Footer/>      
     </>
   );
 }

@@ -10,15 +10,10 @@ import ThemeProvider from 'react-bootstrap/ThemeProvider';
 const MainView = () => {
 
   return (
-    <>
-      <ThemeProvider
-        breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
-        minBreakpoint="xxs"
-      >        
-        <NavegationBar/>
-          <h1>Hello World!</h1>
-        <Footer/>
-      </ThemeProvider>
+    <>           
+      <NavegationBar/>
+        <h1>Hello World!</h1>
+      <Footer/>
     </>
   );
 }

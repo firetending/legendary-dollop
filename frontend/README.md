@@ -46,8 +46,21 @@ https://blog.openreplay.com/integrating-axios-with-react-hooks/#:~:text=To%20int
 https://blog.openreplay.com/integrating-axios-with-react-hooks/#:~:text=To%20integrate%20Axios%20instances%20with%20React%2C%20you%20can,back%20to%20the%20default%20one%20available%20under%20axios.
 
 
-## Route redirecting
-{/*{ <Navigate to="/home" /> }*/ }
+## TODO:
+
+Add confirmation page
+point to it from the confirmation email
+
+add account name on the navbar
+add a dropdown with logout link
+add profile page
+
+
+
+
+
+
+
 
 
 
