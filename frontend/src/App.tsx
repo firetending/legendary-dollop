@@ -20,32 +20,32 @@ import './App.scss';
         function App() {
 
         return (
-<>
-  <ThemeProvider
-          breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
-  minBreakpoint="xxs"
-  >
-  <GlobalProvider>
-  <BrowserRouter>
-    <Routes>
-      <Route path="/" element={ <Navigate to="/home" /> } />
+                <>
+                  <ThemeProvider
+                          breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
+                  minBreakpoint="xxs"
+                  >
+                  <GlobalProvider>
+                  <BrowserRouter>
+                    <Routes>
+                      <Route path="/" element={ <Navigate to="/home" /> } />
 
-      <Route path="home" element={<HomePage />} />
-      <Route path="main" element={<MainView />} />
-      <Route path="about" element={<About />} />
-      <Route path="confirmation" element={<ConfirmationPage />} />
-      <Route path="*" element={<NoPage404 />} />
+                      <Route path="home" element={<HomePage />} />
+                      <Route path="main" element={<MainView />} />
+                      <Route path="about" element={<About />} />
+                      <Route path="confirmation" element={<ConfirmationPage />} />
+                      <Route path="*" element={<NoPage404 />} />
 
-      <Route path="/menucreationform" element={<MenuCreationForm />} />
-      <Route path="/menulist" element={<Menulist />} />
+                      <Route path="/menucreationform" element={<MenuCreationForm />} />
+                      <Route path="/menulist" element={<Menulist />} />
 
-    </Routes>
-  </BrowserRouter>
-  </GlobalProvider>
-</ThemeProvider>
-        </>
-        );
-        }
+                    </Routes>
+                  </BrowserRouter>
+                  </GlobalProvider>
+                </ThemeProvider>
+               </>
+       );
+}
 
-        export default App
+export default App
 
