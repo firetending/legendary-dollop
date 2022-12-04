@@ -1,8 +1,15 @@
+server:
+  port: 8081
+  error:
+    include-message: always
+    include-binding-errors: always
+
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/food-app
     username: app
     password: Password123
+
   jpa:
     hibernate:
       ddl-auto: update #use 'create' to drop tables everytime, or 'update' for persistence
@@ -11,3 +18,24 @@ spring:
         dialect: org.hibernate.dialect.MySQL8Dialect
         format_sql: true
     show-sql: true
+  security:
+    filter:
+      order: 10
+
+  mail:
+    host: localhost
+    username: hello
+    password: hello
+    properties:
+      mail:
+        smtp:
+          port: 1025
+          ssl:
+            trust: "*"
+          auth: true
+          starttls:
+            enable: true
+          connectiontimeout: 5000
+          timeout: 3000
+          writetimeout: 5000
+
