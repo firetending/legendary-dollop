@@ -12,7 +12,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update #use 'create' to drop tables everytime, or 'update' for persistence
+      ddl-auto: create #use 'create' to drop tables everytime, or 'update' for persistence
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect

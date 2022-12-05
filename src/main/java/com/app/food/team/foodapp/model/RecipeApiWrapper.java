@@ -1,13 +1,11 @@
 package com.app.food.team.foodapp.model;
 
-import com.google.gson.JsonObject;
-
-public class ResponseWrapper {
+public class RecipeApiWrapper {
     private Item recipe;
 
-    public ResponseWrapper() {
+    public RecipeApiWrapper() {
     }
-    public ResponseWrapper(Item recipe) {
+    public RecipeApiWrapper(Item recipe) {
         this.recipe = recipe;
     }
 

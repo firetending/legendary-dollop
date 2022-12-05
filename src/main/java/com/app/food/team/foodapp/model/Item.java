@@ -96,8 +96,9 @@ public class Item extends AbstractEntity {
 
 //this.externalId = uri.substring(uri.indexOf('#'),uri.length()-1);
 
-    public void setExternalId() {
+    public boolean setExternalId() {
         this.externalId = this.uri.substring(this.uri.indexOf('#')+1);
+        return true;
     }
     public String getExternalId() { return externalId;}
 

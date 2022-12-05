@@ -1,13 +1,7 @@
 package com.app.food.team.foodapp.util;
 
-import com.app.food.team.foodapp.model.Item;
-import com.app.food.team.foodapp.model.ResponseWrapper;
-import com.app.food.team.foodapp.repository.ItemRepository;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import org.hibernate.Session;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.net.URI;
 import java.net.http.HttpClient;
