@@ -3,6 +3,8 @@ package com.app.food.team.foodapp.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -52,7 +54,7 @@ public class Item extends AbstractEntity {
 //    @Column(length = 1000)
 //    private @NonNull @Getter @Setter List<String> ingredientLines;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private @NonNull @Getter @Setter ItemIngredient[] ingredients;
+    private @NonNull @Getter @Setter List<ItemIngredient> ingredients = new ArrayList<>();
     //        [
         //        {
         //        "text": "string",
