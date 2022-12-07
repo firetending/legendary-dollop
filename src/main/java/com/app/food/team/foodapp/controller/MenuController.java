@@ -6,6 +6,7 @@ import com.app.food.team.foodapp.dto.ResponseDto;
 import com.app.food.team.foodapp.model.Item;
 import com.app.food.team.foodapp.model.Menu;
 import com.app.food.team.foodapp.model.RecipeApiWrapper;
+import com.app.food.team.foodapp.repository.ItemRepository;
 import com.app.food.team.foodapp.repository.MenuRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,18 +32,29 @@ public class MenuController {
 
     @Autowired
     private MenuRepository menuRepo;
+    @Autowired
+    private ItemRepository itemRepo;
 
-    @PostMapping(path = "menu", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity createItemIfNotExists(@RequestBody List<RecipeApiWrapper> data) {
+    @PostMapping(path = "menu/new", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity createNewMenu(@RequestBody List<RecipeApiWrapper> data) {
         log.info("[ItemController] ----> /data/menu");
 
         // MenuConvertDto unwraps the recipe objects and saves a set of them in a menu
         MenuConverterDto menuData = new MenuConverterDto(data);
+        List<Item> menuDataItems = menuData.getMenuItems();
+        //check if recipes exist in database; fill in existing recipes where possible
+        for (int i = 0; i<menuDataItems.size(); i++) {
+            String checkExternalId = menuDataItems.get(i).getExternalId();
+            if (itemRepo.existsByExternalId(checkExternalId)) {
+                menuDataItems.set(i,itemRepo.findByExternalId(checkExternalId));
+            }
+        }
         Menu newMenu = menuData.getMenu();
 
         //declarations for ResponseDto builder variables
         String message = "";
         int internalId;
+
         //save new menu
         menuRepo.save(newMenu);
         message = "New menu saved!";
@@ -59,6 +71,11 @@ public class MenuController {
         );
     }
 
+    @GetMapping(path = "menu/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Menu> getAllMenus() {
+        return menuRepo.findAll();
+    }
+
     // example arguments
     // @RequestHeader(value="User-Agent") String userAgent
     // @RequestParam(value = "ID", defaultValue = "") String id
@@ -67,7 +84,6 @@ public class MenuController {
     public List<RecipeApiWrapper> getItemByInternalId(@RequestParam(value = "internalId") int internalId){
         log.info("[ItemController] ----> data/item");
 
-        ;
         Optional<Menu> optionalMenu = menuRepo.findById(internalId);
         Menu menu = new Menu();
         if (optionalMenu.isPresent()) {

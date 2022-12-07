@@ -24,9 +24,8 @@ public class MenuConverterDto {
     public MenuConverterDto(List<RecipeApiWrapper> data) {
         this.wrappedMenuItems = data;
         for (RecipeApiWrapper wrappedRecipe : wrappedMenuItems) {
-            RecipeDto recipeDto = new RecipeDto(wrappedRecipe.getRecipe());
-
-            menuItems.add(recipeDto.getRecipe());
+                RecipeDto recipeDto = new RecipeDto(wrappedRecipe.getRecipe());
+                menuItems.add(recipeDto.getRecipe());
         }
         this.menu = new Menu(menuItems);
     }

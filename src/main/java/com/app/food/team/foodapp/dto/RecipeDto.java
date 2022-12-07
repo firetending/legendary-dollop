@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
@@ -17,7 +18,7 @@ import java.util.Map;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
-@Data
+//@Data
 //@SuperBuilder // https://en.wikipedia.org/wiki/Builder_pattern#Java
 @JsonInclude(NON_NULL)  // https://www.javaguides.net/2019/04/jackson-jsoninclude-example.html
 public class RecipeDto {
@@ -27,8 +28,7 @@ public class RecipeDto {
     protected @Getter @Setter ItemIngredient[] ingredients;
 
     // TODO if item already exists, replace recipe with existing persistent item
-    public RecipeDto(Item recipe) {
-
+    public RecipeDto(@NotNull Item recipe) {
         this.recipe = recipe;
         this.externalIdWasSet = recipe.setExternalId();
 //        this.dietLabels = this.recipe.getDietLabels();
