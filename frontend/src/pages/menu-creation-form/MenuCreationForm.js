@@ -1,9 +1,8 @@
 import React from 'react';
 import Axios from 'axios';
-import { useState} from 'react';
-import {RecipeTile} from './RecipeTile';
+import { useState } from 'react';
+import { RecipeTile } from '../../components/recipe-tile/RecipeTile';
 import './MenuCreationForm.css';
-
 
 
 function MenuCreationForm() {

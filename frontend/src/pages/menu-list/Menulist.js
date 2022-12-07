@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
-import { GlobalContext } from '../context/GlobalState';
-import { MenuCard } from "./MenuCard";
+import { GlobalContext } from '../../context/GlobalState';
+import { MenuCard } from "../../components/menu-card/MenuCard";
 
 export const Menulist = () => {
 

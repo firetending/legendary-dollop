@@ -10,9 +10,9 @@ import ConfirmationPage from "./pages/confirmation/ConfirmationPage";
 import NoPage404 from "./pages/no-page/NoPage404";
 
 import NavegationBar from './components/navbar/NavegationBar';
-import MenuCreationForm from './components/MenuCreationForm';
-import {Menulist} from "./components/Menulist";
-import {GlobalProvider} from './context/GlobalState';
+import MenuCreationForm from './pages/menu-creation-form/MenuCreationForm';
+import { Menulist } from "./pages/menu-list/Menulist";
+import { GlobalProvider } from './context/GlobalState';
 import './App.scss';
 
 function App() {
