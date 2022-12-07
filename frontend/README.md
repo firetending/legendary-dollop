@@ -48,12 +48,12 @@ https://blog.openreplay.com/integrating-axios-with-react-hooks/#:~:text=To%20int
 
 ## TODO:
 
-Add confirmation page
-point to it from the confirmation email
+- Add confirmation page <70%>
+- point to it from the confirmation email <Done>
 
-add account name on the navbar
-add a dropdown with logout link
-add profile page
+- add account name on the navbar
+- add a dropdown with logout link
+- add profile page
 
 
 
