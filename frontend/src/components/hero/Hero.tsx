@@ -3,6 +3,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import { FaDatabase, FaAsterisk, FaGoogle, FaFacebook, FaUniversity, FaHospital } from "react-icons/fa";
 import LoginForm from '../login-form/LoginForm';
 import './Hero.scss';
+import { Outlet } from "react-router-dom";
 
 
 const Hero = () => {
@@ -36,6 +37,7 @@ const Hero = () => {
                     </p>
                 </Col>
             </Row>
+            <Outlet />
         </Container>
 
 

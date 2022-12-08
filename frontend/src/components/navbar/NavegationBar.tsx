@@ -1,5 +1,5 @@
 import React, {useState} from "react"
-// import {Link} from 'react-router-dom'
+import {Link, Outlet} from 'react-router-dom'
 import {FaBars, FaTimes} from 'react-icons/fa' 
 import Logo from '../../images/logo1.png'
 import { Navbar, Nav, Container, Form, Button } from 'react-bootstrap';
@@ -19,6 +19,7 @@ const NavegationBar = () => {
     const handleShowRegistration = () => setShowRegistration(true);
 
     return (
+        
         <Container fluid>
         <Navbar bg="dark" variant="dark" expand="md" fixed="top" collapseOnSelect>
             <Container fluid>
@@ -36,7 +37,7 @@ const NavegationBar = () => {
                     >  
                         <Nav.Link href="#">Home</Nav.Link>
                         <Nav.Link href="#">Menus</Nav.Link>
-                        <Nav.Link href="#">About</Nav.Link>
+                        <Nav.Link as={Link} to="/dashboard" href="#">About</Nav.Link>
                         <Nav.Link href="#" onClick={handleShowRegistration}>Register</Nav.Link>
                         <Nav.Link href="#" onClick={handleShowLogin}>Login</Nav.Link>
                     </Nav>  
@@ -54,8 +55,10 @@ const NavegationBar = () => {
         </Navbar>
         <LoginForm showLogin={ showLogin } setShowLogin={ setShowLogin }/>
         <RegistrationForm showRegistration={ showRegistration } setShowRegistration={ setShowRegistration }/>
+        <Outlet />
         </Container>
-
+        
+        
 
 
     )
