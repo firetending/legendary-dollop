@@ -92,10 +92,10 @@ developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
 
 
-## API endpoints
+# API endpoints:
 "api/v1/" determined by app.request-mapping in application.properties
 
-### getAllMenus
+## getAllMenus
 url: http://localhost:8081/api/v1/data/menu/all
 method: GET
 params: none
@@ -106,7 +106,7 @@ example:
 curl --location --request GET 'http://localhost:8081/api/v1/data/menu/all' \
 --header 'Authorization: Bearer eyJraWQ...'
 
-### createNewMenu
+## createNewMenu
 url: http://localhost:8081/api/v1/data/menu/new
 method: POST
 authentication: required
