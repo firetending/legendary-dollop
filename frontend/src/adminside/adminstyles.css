@@ -32,11 +32,6 @@ main {
     background-color: rgb(194, 194, 194);
 }
 
-.scrollList {
-    height: 200px;
-    overflow-y: scroll;
-}
-
 /* .itemList {
     float: right
 } */

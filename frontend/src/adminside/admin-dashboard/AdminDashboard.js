@@ -15,6 +15,15 @@ const MenuScrollList = (props) => {
         )
     })
 
+    selectables.unshift(
+        <p>
+            <label>
+                <input type="radio" name="menuSelection" />
+                All Menus - {props.getAllOrders(props.menuListData)} Orders
+            </label>
+        </p>
+    )
+
     return <div className='scrollList'><ul>{selectables}</ul></div>
 }
 
@@ -47,6 +56,7 @@ class AdminDashboardPage extends Component {
             items.push(
                 {
                     name: `Item ${Math.round(Math.random() * 100)}`,
+                    description: 'Food Item',
                     orders: Math.round(Math.random() * 8)
                 }
             )
@@ -55,10 +65,20 @@ class AdminDashboardPage extends Component {
         return items
     }
 
+    //Takes in an array of food items and returns the sum of all of their orders added together.
     getTotalOrders = (array) => {
         let totalOrders = 0
         for (let item of array) {
             totalOrders += item.orders
+        }
+        return totalOrders
+    }
+
+    //Takes in an array of menus and returns the sum of all their orders added together.
+    getAllOrders = (array) => {
+        let totalOrders = 0
+        for (let menu of array) {
+            totalOrders += this.getTotalOrders(menu.items)
         }
         return totalOrders
     }
@@ -109,6 +129,18 @@ class AdminDashboardPage extends Component {
         })
     }
 
+    selectAllMenus = () => {
+        const { menus } = this.state;
+        this.setState({
+            selectedMenu: {
+                id: -1,
+                name: "All Menus",
+                orders: 0,
+                items: 'a'
+            }
+        })
+    }
+
     render() {
         const { menus, selectedMenu } = this.state;
 
@@ -120,15 +152,16 @@ class AdminDashboardPage extends Component {
                         <h1 className='title'>Dashboard</h1>
                         <h1 className='largetitle'>Hello, admin</h1>
                     </div>
+                    <h2>{this.getAllOrders(menus)} New Orders</h2>
                     <div className='bottom'>
                         <table>
                             <tr>
-                                <th>Menus</th>
-                                <th>Orders</th>
+                                <th>Menus</th><a href=''>Manage Menus</a>
+                                <th>Orders</th><a href=''>Order List</a>
                             </tr>
                             <tr>
                                 <td className='scrollList'>
-                                    <MenuScrollList menuListData={menus} selectMenu={this.selectMenu} getTotalOrders={this.getTotalOrders} />
+                                    <MenuScrollList menuListData={menus} selectMenu={this.selectMenu} getTotalOrders={this.getTotalOrders} getAllOrders={this.getAllOrders} />
                                 </td>
                                 <td className='scrollList'>
                                     <ItemList menuData={selectedMenu} />
