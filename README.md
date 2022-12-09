@@ -95,7 +95,7 @@ developmentOnly 'org.springframework.boot:spring-boot-devtools'
 # API endpoints:
 "api/v1/" determined by app.request-mapping in application.properties
 
-## getAllMenus
+## getAllMenus:
 url: http://localhost:8081/api/v1/data/menu/all
 method: GET
 params: none
@@ -105,6 +105,14 @@ returns: JSON
 example:
 curl --location --request GET 'http://localhost:8081/api/v1/data/menu/all' \
 --header 'Authorization: Bearer eyJraWQ...'
+
+## getAllMenuMetadata
+description: returns just id, title, and various date fields for displaying in a list
+url: http://localhost:8081/api/v1/data/menu/metadata
+method: GET
+params: none
+authentication: required
+returns: JSON
 
 ## getMenuById
 url: http://localhost:8081/api/v1/data/menu?id=<int>

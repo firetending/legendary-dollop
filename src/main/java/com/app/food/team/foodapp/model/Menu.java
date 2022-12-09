@@ -1,15 +1,10 @@
 package com.app.food.team.foodapp.model;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @Entity
 @Table(name = "menus")
@@ -19,20 +14,52 @@ public class Menu extends AbstractEntity {
 
     //TODO organization id, @ManyToOne
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private @NonNull @Getter @Setter List<Item> menuItems = new ArrayList<>();
+    private @NonNull @Getter List<Item> menuItems = new ArrayList<>();
 
-    private String title;
-    private Date createdDateTime;
-    private Date editedDateTime;
-    private Date startDate;
-    private Date endDate;
+    private @Getter @Setter String title;
+    @Temporal(TemporalType.TIMESTAMP)
+    private final @Getter LocalDateTime createdDateTime;
+    @Temporal(TemporalType.TIMESTAMP)
+    private @Getter @Setter LocalDateTime editedDateTime;
+    @Temporal(TemporalType.TIMESTAMP)
+    private @Getter @Setter LocalDateTime startDateTime;
+    @Temporal(TemporalType.TIMESTAMP)
+    private @Getter @Setter LocalDateTime endDateTime;
 
     public Menu(List<Item> menuItems) {
         this.menuItems = menuItems;
+        this.createdDateTime = LocalDateTime.now();
+        setEditedDateTime();
+        this.title = generateRandomString();
     }
 
     public Menu() {
+        this.createdDateTime = LocalDateTime.now();
+        setEditedDateTime();
+        this.title = generateRandomString();
+    }
 
+    public void setMenuItems(List<Item> menuItems) {
+        this.menuItems = menuItems;
+        setEditedDateTime();
+    }
+
+    private void setEditedDateTime() {
+        this.editedDateTime = LocalDateTime.now();;
+    }
+
+    private String generateRandomString() {
+        int leftLimit = 48; // numeral '0'
+        int rightLimit = 122; // letter 'z'
+        int targetStringLength = 10;
+        Random random = new Random();
+
+        String generatedString = random.ints(leftLimit, rightLimit + 1)
+                .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
+                .limit(targetStringLength)
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
+        return generatedString;
     }
 }
 

@@ -1,6 +1,7 @@
 package com.app.food.team.foodapp.controller;
 
 import com.app.food.team.foodapp.dto.MenuConverterDto;
+import com.app.food.team.foodapp.dto.MenuMetadataDTO;
 import com.app.food.team.foodapp.dto.ResponseDto;
 import com.app.food.team.foodapp.model.Item;
 import com.app.food.team.foodapp.model.Menu;
@@ -110,17 +111,17 @@ public class MenuController {
         return menuRepo.findAll();
     }
 
-//    @GetMapping(path = "menu/all", produces = MediaType.APPLICATION_JSON_VALUE)
-//    public String getAllMenuMetadata() {
-//        menuRepo.findAll()
-//        return "";
-//    }
+    @GetMapping(path = "menu/metadata", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String getAllMenuMetadata() {
+        return new Gson().toJson(menuRepo.getAllMenuMetadata());
+    }
 
     @GetMapping(path = "menu", produces = MediaType.APPLICATION_JSON_VALUE)
     public String getMenuById(@RequestParam int id) {
         Optional<Menu> optExistingMenu = menuRepo.findById(id);
         String responseJson = "";
         if (optExistingMenu.isPresent()) {
+            //serializing with GSON to specify fields to @Expose
             responseJson = new Gson().toJson(new MenuConverterDto(optExistingMenu.get()));
         } else {
             responseJson = "No menu with that id was found";
