@@ -20,9 +20,14 @@
             margin: 0 auto 15px auto;
         }
     }
+    h2{
+        font-family: 'Work Sans', sans-serif;
+        font-weight: 400;
+    }
     h2.app-name{
         font-family: 'Lily Script One', sans-serif;
         font-size: 5em;
+        
     }
     
     .recomendations{
@@ -53,8 +58,8 @@
     text-decoration: none;
     font-family: 'Work Sans', sans-serif;
     
-    width: 90px !important;
-    height: 90px !important;
+    width: 100px !important;
+    height: 100px !important;
     background-color: rgb(23, 147, 126);
     border-radius: 50%;
     margin: 50px auto;

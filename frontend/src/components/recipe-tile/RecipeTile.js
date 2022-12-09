@@ -1,10 +1,10 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import { GlobalContext } from '../../context/GlobalState';
 import "./RecipeTile.css";
 
 
 export const RecipeTile = ({ recipe }) => {
-  const { addRecipeToMenulist, menulist } = useContext(GlobalContext);  
+  const { addRecipeToMenulist, deleteRecipeFromMenulist, menulist } = useContext(GlobalContext);  
   let storedRecipe = menulist.find( o => o.recipe.calories === recipe.recipe.calories);
   const menulistDisabled = storedRecipe ? true : false;
   

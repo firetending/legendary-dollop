@@ -1,12 +1,15 @@
-import React, {useState} from "react";
+import React, { useState, useContext } from "react";
 // import {Link} from 'react-router-dom';
-import {FaBars, FaTimes, FaFacebook, FaGoogle, FaUniversity} from 'react-icons/fa';
-import './LoginForm.scss';
+import { FaBars, FaTimes, FaFacebook, FaGoogle, FaUniversity } from 'react-icons/fa';
+import { GlobalContext } from '../../context/GlobalState';
 import { Modal, Button, Form, Container, Row, Col, Alert, InputGroup } from 'react-bootstrap';
 import doAxiosFetch from '../../utils/doAxiosFetch';
 import { capitalizeFirstCharacter } from "../../utils/stringTools";
+import './LoginForm.scss';
 
 const LoginForm = ({ showLogin, setShowLogin }: {showLogin: boolean; setShowLogin: any}) => {
+    const { setLoginData, globalAppData } = useContext<any>(GlobalContext);
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [hasError, setHasError] = useState(false);  
@@ -47,11 +50,12 @@ const LoginForm = ({ showLogin, setShowLogin }: {showLogin: boolean; setShowLogi
             if(data === null || data['statusCode'] !== 200){
                 setHasError(true); 
             } else {
-                // set access token
+                setLoginData(data);
+                console.log('GlobalAppData: ' + JSON.stringify(globalAppData));
                 setShowLogin(false);
             }   
             console.log('Done!');   
-        });             
+        }).catch(error => console.log('Error: ' + error));             
     };
 
     return (
@@ -112,31 +116,35 @@ const LoginForm = ({ showLogin, setShowLogin }: {showLogin: boolean; setShowLogi
                             <Row>
                                 { hasError &&                                 
                                     <Col>
-                                        <Alert variant="danger" onClose={() => setHasError(false)} dismissible>
-                                            <Alert.Heading>
-                                                {
-                                                    axiosResponseData !== null && axiosResponseData.data !== null &&
-                                                    <>{axiosResponseData.message || 'Unknown Error.'}</>
-                                                }
-                                            </Alert.Heading>
-                                            <p>
-                                                <span>
-                                                    <b>
-                                                        { axiosResponseData.data.exception}:
-                                                    </b>
-                                                    { (axiosResponseData.data.exception === "User is disabled") && " (Please confirm your account)" }
-                                                </span><br/>
-                                                {
-                                                    axiosResponseData !== null && axiosResponseData.data !== null && axiosResponseData.data.errors !== null  &&                                             
-                                                    axiosResponseData.data.errors.map((error: any) => { 
-                                                        const message = error.defaultMessage.replaceAll('.', ' ');
-                                                        return <><span key={ Math.random() * 10 }><b>{ capitalizeFirstCharacter(error.field) }:</b> { ' ' + capitalizeFirstCharacter(message) }</span><br/></>;
-                                                    })
+                                        {
+                                            axiosResponseData !== null && axiosResponseData.data !== null &&
+                                            <Alert variant="danger" onClose={() => setHasError(false)} dismissible>
+                                                <Alert.Heading>
                                                     
-                                                }                                                
-                                            </p>
-                                            
-                                        </Alert> 
+                                                        <>{ axiosResponseData.message || 'Unknown Error.' }</>
+                                                    
+                                                </Alert.Heading>
+                                                
+                                                    <p>
+                                                        
+                                                        <span>
+                                                            <b>
+                                                                { axiosResponseData.data.exception}:
+                                                            </b>
+                                                            { (axiosResponseData.data.exception === "User is disabled") && " (Please confirm your account)" }
+                                                        </span><br/>
+                                                        {
+                                                            axiosResponseData !== null && axiosResponseData.data !== null && axiosResponseData.data.errors !== null  &&                                             
+                                                            axiosResponseData.data.errors.map((error: any) => { 
+                                                                const message = error.defaultMessage.replaceAll('.', ' ');
+                                                                return <><span key={ Math.random() * 10 }><b>{ capitalizeFirstCharacter(error.field) }:</b> { ' ' + capitalizeFirstCharacter(message) }</span><br/></>;
+                                                            })
+                                                            
+                                                        }                                                
+                                                    </p>
+                                                
+                                            </Alert> 
+                                        }
                                     </Col>                                  
                                 } 
                             </Row>                            
