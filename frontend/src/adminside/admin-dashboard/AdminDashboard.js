@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Sidebar from '../sidebar'
-import '../adminstyles.css'
+import { Image, Card, Container, Row, Col } from 'react-bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 // Displays every menu in a list and allows the user to select a menu.
 const MenuScrollList = (props) => {
@@ -36,13 +37,27 @@ const ItemList = (props) => {
         const items = reactLovesToBreak[0].items;
         const listedItems = items.map((item) => {
             return (
-                <div className='menuItem'>
-                    <label>{item.name} ({item.orders})</label>
-                </div>
+                <Card border="light" style={{ width: '30rem' }} className='menuItem'>
+                    <Card.Body>
+                        <Container fluid style={{ padding: '0px' }}>
+                            <Row>
+                                <Col xs={3}><Image rounded thumbnail src={item.image} />
+                                </Col>
+                                <Col>
+                                    <Card.Title>{item.name}</Card.Title>
+                                    <Card.Subtitle>{item.orders} Orders</Card.Subtitle>
+                                    <Card.Text>{item.description}</Card.Text>
+                                </Col>
+                            </Row>
+                        </Container>
+                    </Card.Body>
+                </Card>
             )
         })
 
-        return <div className='itemList'>{listedItems}</div>
+        return (
+            <Row className='itemList'>{listedItems}</Row>
+        )
     }
 }
 
@@ -56,7 +71,8 @@ class AdminDashboardPage extends Component {
             items.push(
                 {
                     name: `Item ${Math.round(Math.random() * 100)}`,
-                    description: 'Food Item',
+                    description: 'Food Food Food Food Food Food Food Food Food Food Food Food Food Food Food Food Food Food Food',
+                    image: 'https://picsum.photos/100',
                     orders: Math.round(Math.random() * 8)
                 }
             )
@@ -145,32 +161,36 @@ class AdminDashboardPage extends Component {
         const { menus, selectedMenu } = this.state;
 
         return (
-            <div className='adminDashboardPage'>
-                <Sidebar />
-                <main>
-                    <div className='top'>
-                        <h1 className='title'>Dashboard</h1>
-                        <h1 className='largetitle'>Hello, admin</h1>
-                    </div>
-                    <h2>{this.getAllOrders(menus)} New Orders</h2>
-                    <div className='bottom'>
-                        <table>
-                            <tr>
-                                <th>Menus</th><a href=''>Manage Menus</a>
-                                <th>Orders</th><a href=''>Order List</a>
-                            </tr>
-                            <tr>
-                                <td className='scrollList'>
-                                    <MenuScrollList menuListData={menus} selectMenu={this.selectMenu} getTotalOrders={this.getTotalOrders} getAllOrders={this.getAllOrders} />
-                                </td>
-                                <td className='scrollList'>
-                                    <ItemList menuData={selectedMenu} />
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </main>
-            </div>
+            <Container fluid>
+                <Row>
+                    <Col md="auto" className='sidebar'>
+                        <Sidebar />
+                    </Col>
+                    <Col>
+                        <div className='top'>
+                            <h1 className='title'>Dashboard</h1>
+                            <h1 className='largetitle'>Hello, admin</h1>
+                        </div>
+                        <h2>{this.getAllOrders(menus)} New Orders</h2>
+                        <div className='bottom'>
+                            <Container>
+                                <Row>
+                                    <th>Menus</th><a href=''>Manage Menus</a>
+                                    <th>Orders</th><a href=''>Order List</a>
+                                </Row>
+                                <Row>
+                                    <Col md='auto'>
+                                        <MenuScrollList menuListData={menus} selectMenu={this.selectMenu} getTotalOrders={this.getTotalOrders} getAllOrders={this.getAllOrders} />
+                                    </Col>
+                                    <Col>
+                                        <ItemList menuData={selectedMenu} />
+                                    </Col>
+                                </Row>
+                            </Container>
+                        </div>
+                    </Col>
+                </Row>
+            </Container>
         )
     }
 }
