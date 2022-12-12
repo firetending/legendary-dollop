@@ -1,0 +1,30 @@
+.user-profile {
+    
+}
+
+.name-card {
+            width: 98%;
+            border-style: solid;
+            border-color: white;
+            border-radius: 15px;
+            border-width: 1px;
+            padding: 15px;
+            background-color: rgb(49, 100, 83);
+            box-shadow: inset 0px 0px 70px rgba(0, 0, 0, 0.4);
+            color: #ffffff;
+
+            h2{
+                font-size: 1.7em;
+                font-family: 'Work Sans', sans-serif;
+                font-weight: 400;
+                font-style: normal;
+                word-spacing: 0.09em;
+                letter-spacing: 0.07em;            
+            }  
+            .hero-text{            
+                max-width: 100%;            
+                p{
+                    font-size: 1em;                           
+                }
+            } 
+}

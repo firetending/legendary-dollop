@@ -9,7 +9,7 @@ import RegistrationForm from '../registration-form/RegistrationForm';
 import './NavegationBar.scss'
 
 
-const NavegationBar = () => {
+const NavegationLoggedIn = () => {
     // const [click, setClick] = useState(false);
     // const handleClick = () => setClick(!click);
     const [showLogin, setShowLogin] = useState(false);
@@ -51,7 +51,11 @@ const NavegationBar = () => {
                         <Button variant="outline-success">Search</Button>
                     </Form>
                 </Navbar.Collapse> 
-                          
+                <Navbar.Collapse className="justify-content-end">
+                    <Navbar.Text>
+                        Signed in as: <a href="#login" >Adam Steiger</a>
+                    </Navbar.Text>
+                </Navbar.Collapse>         
             </Container>
         </Navbar>
         <LoginForm showLogin={ showLogin } setShowLogin={ setShowLogin }/>
@@ -65,4 +69,4 @@ const NavegationBar = () => {
     )
 }
 
-export default NavegationBar;
+export default NavegationLoggedIn;
