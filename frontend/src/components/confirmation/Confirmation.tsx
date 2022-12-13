@@ -5,6 +5,7 @@ import { FaDatabase, FaAsterisk, FaGoogle, FaFacebook, FaUniversity, FaHospital 
 import { useSearchParams,  useNavigate } from 'react-router-dom';
 import { GlobalContext } from '../../context/GlobalState';
 import doAxiosFetch from '../../utils/doAxiosFetch';
+import isEmpty from "../../utils/extraTools";
 import './Confirmation.scss';
 
 
@@ -17,9 +18,9 @@ const Confirmation = () => {
     const [axiosResponseData, setAxiosResponseData] = useState<any>(null);
     let navigate = useNavigate(); 
     
-    const confirmUser = (): void => {
+    const confirmUser = async (): Promise<void> => {
       console.log('Starting Confirmation...');
-      setToken(queryParameters.get("confirmation-token"));      
+      setToken(await queryParameters.get("confirmation-token"));      
        
   
       doAxiosFetch({
@@ -39,14 +40,17 @@ const Confirmation = () => {
     };
 
     useEffect(() => {      
+      confirmUser();
+    }, []);
+
+    useEffect(() => {      
       
-      const timer: any = counter > -2 && setInterval(() => setCounter(counter - 1), 1000);
+      const timer: any = axiosResponseData !== null && counter > -2 && setInterval(() => setCounter(counter - 1), 1000);
 
       return () => { 
         clearInterval(timer);
         console.log('Counter: ' + counter);
-        if(counter <= 0){   
-               
+        if(counter <= 0){
           navigate("/home");
         }     
       };
@@ -54,20 +58,24 @@ const Confirmation = () => {
    
       
     return (
+      
         <Container fluid>
           <Row className="confirmation-section">
-            <Col>
-              <h2>Account Confirmation was successful</h2>
-              <p>
-                <b>
-                  Congratulations! Your account has been confirmed using Access Token: {token}
-                </b>
-                <br/>
-                You will be redirected in {counter} seconds
-              </p>
-            </Col>
+            { 
+              !axiosResponseData !== null &&
+              <Col>
+                <h2>Account Confirmation was successful</h2>
+                <p>
+                  <b>
+                    Congratulations! Your account has been confirmed using Access Token: {token}
+                  </b>
+                  <br/>
+                  You will be redirected in {counter} seconds
+                </p>
+              </Col>
+            }
           </Row>
-        </Container>  
+        </Container>        
     );
 };
 
