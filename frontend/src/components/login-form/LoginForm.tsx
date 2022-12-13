@@ -4,7 +4,7 @@ import { FaBars, FaTimes, FaFacebook, FaGoogle, FaUniversity } from 'react-icons
 import { GlobalContext } from '../../context/GlobalState';
 import { Modal, Button, Form, Container, Row, Col, Alert, InputGroup } from 'react-bootstrap';
 import doAxiosFetch from '../../utils/doAxiosFetch';
-import { capitalizeFirstCharacter } from "../../utils/stringTools";
+import { capitalizeFirstCharacter, isEmpty } from "../../utils/extraTools";
 import './LoginForm.scss';
 
 const LoginForm = ({ showLogin, setShowLogin }: {showLogin: boolean; setShowLogin: any}) => {
@@ -50,9 +50,9 @@ const LoginForm = ({ showLogin, setShowLogin }: {showLogin: boolean; setShowLogi
             if(data === null || data['statusCode'] !== 200){
                 setHasError(true); 
             } else {
-                setLoginData(data);
+                setLoginData(data);     
                 console.log('GlobalAppData: ' + JSON.stringify(globalAppData));
-                setShowLogin(false);
+                setShowLogin(false);           
             }   
             console.log('Done!');   
         }).catch(error => console.log('Error: ' + error));             
@@ -117,24 +117,23 @@ const LoginForm = ({ showLogin, setShowLogin }: {showLogin: boolean; setShowLogi
                                 { hasError &&                                 
                                     <Col>
                                         {
-                                            axiosResponseData !== null && axiosResponseData.data !== null &&
+                                            !isEmpty(axiosResponseData) && !isEmpty(axiosResponseData.data) &&
                                             <Alert variant="danger" onClose={() => setHasError(false)} dismissible>
-                                                <Alert.Heading>
-                                                    
-                                                        <>{ axiosResponseData.message || 'Unknown Error.' }</>
-                                                    
-                                                </Alert.Heading>
-                                                
+                                                <Alert.Heading>                                                    
+                                                        { axiosResponseData.message || 'Unknown Error.' }                                                    
+                                                </Alert.Heading>                                                
                                                     <p>
-                                                        
-                                                        <span>
-                                                            <b>
-                                                                { axiosResponseData.data.exception}:
-                                                            </b>
-                                                            { (axiosResponseData.data.exception === "User is disabled") && " (Please confirm your account)" }
-                                                        </span><br/>
+                                                        { !isEmpty(axiosResponseData.data.exception)  &&
+                                                            <span>                                                                 
+                                                                <b>
+                                                                    { axiosResponseData.data.exception }:
+                                                                </b>
+                                                                { (axiosResponseData.data.exception === "User is disabled")?  " Please confirm your account" : "" }
+                                                            </span>
+                                                        }
+                                                        <br/>
                                                         {
-                                                            axiosResponseData !== null && axiosResponseData.data !== null && axiosResponseData.data.errors !== null  &&                                             
+                                                            !isEmpty(axiosResponseData.data.errors)  &&                                             
                                                             axiosResponseData.data.errors.map((error: any) => { 
                                                                 const message = error.defaultMessage.replaceAll('.', ' ');
                                                                 return <><span key={ Math.random() * 10 }><b>{ capitalizeFirstCharacter(error.field) }:</b> { ' ' + capitalizeFirstCharacter(message) }</span><br/></>;

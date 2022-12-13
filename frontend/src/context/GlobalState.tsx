@@ -31,7 +31,6 @@ export const GlobalProvider = ({ children }: {children: any}) => {
         dispatch({ type: "RESET_LOGIN_DATA" });
     }
 
-
     const context: any = {
         globalAppData: state.globalAppData,
         setLoginData,
@@ -40,11 +39,9 @@ export const GlobalProvider = ({ children }: {children: any}) => {
         deleteRecipeFromMenulist
     };
 
-
     return (
         <GlobalContext.Provider value={ context }>
             { children }
         </GlobalContext.Provider>
     )
-
 }

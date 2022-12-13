@@ -19,6 +19,15 @@ const Overview = () => {
 
                 <Row className="justify-content-md-center">
                     <Col>
+                        <a href="https://www.linkedin.com/in/adam-steiger/" target="_blank" className="avatar adam">
+                            <Image roundedCircle fluid src="https://media.licdn.com/dms/image/D4D35AQFRkuDeCOSMeg/profile-framedphoto-shrink_800_800/0/1645556907104?e=1671498000&v=beta&t=QxhQYeMyiCCfhq9Mt81NHWGZIBbjb1C676OKW4ZVht0" alt="" />
+                            <h4>Adam Steiger</h4>
+                        </a>
+                    </Col>
+                </Row>
+
+                <Row className="justify-content-md-center">
+                    <Col>
                         <a href="https://www.linkedin.com/in/chiyantse/" target="_blank" className="avatar">
                             <Image roundedCircle fluid src="https://media-exp1.licdn.com/dms/image/D5635AQGYfCoxyyT-Lg/profile-framedphoto-shrink_400_400/0/1653439559038?e=1670997600&v=beta&t=NeZn6xJfj5xqvLmXjDla3nsvKm_1jq8rDjL_wh2wDpI" alt="" />
                             <h4>Chi Tse</h4>

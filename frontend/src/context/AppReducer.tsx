@@ -41,7 +41,7 @@ const AppReducer = (state: any, action: any) => {
                 ...st,
                 globalAppData: {
                     ...st.globalAppData,
-                    loginData: ""
+                    loginData: {}
                 }
             };
         }]   

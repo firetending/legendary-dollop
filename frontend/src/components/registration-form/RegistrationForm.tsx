@@ -1,13 +1,14 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useContext} from "react";
 // import {Link} from 'react-router-dom';
 import {FaBars, FaTimes, FaFacebook, FaGoogle, FaUniversity} from 'react-icons/fa';
-import './RegistrationForm.scss';
 import { Modal, Button, Form, Container, Row, Col, Alert, InputGroup} from 'react-bootstrap';
 import doAxiosFetch from '../../utils/doAxiosFetch';
-import { capitalizeFirstCharacter } from "../../utils/stringTools";
- 
+import { GlobalContext } from '../../context/GlobalState';
+import { capitalizeFirstCharacter, isEmpty } from "../../utils/extraTools";
+import './RegistrationForm.scss';
 
 const RegistrationForm = ({ showRegistration, setShowRegistration }: {showRegistration: boolean; setShowRegistration: any}) => {
+    const { resetLoginData, globalAppData } = useContext<any>(GlobalContext);
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
@@ -57,9 +58,10 @@ const RegistrationForm = ({ showRegistration, setShowRegistration }: {showRegist
             if(data === null || data['statusCode'] !== 200){                
                 setHasError(true); 
             } else {
-                
+                resetLoginData();
                 setShowRegistration(false);
                 setShowConfirmation(true);
+                
             }              
             console.log('Done!');   
         });             
@@ -193,26 +195,27 @@ const RegistrationForm = ({ showRegistration, setShowRegistration }: {showRegist
                                 <Row>
                                     { hasError &&                                 
                                         <Col>
-                                            <Alert variant="danger" onClose={() => setHasError(false)} dismissible>
-                                                <Alert.Heading>
-                                                    {
-                                                        axiosResponseData !== null && axiosResponseData.data !== null &&
-                                                        <>{axiosResponseData.message || 'Unknown Error.'}</>
-                                                    }
-                                                </Alert.Heading>
-                                                <p>
-                                                    <span><b>{axiosResponseData.data.exception}:</b></span><br/>
-                                                    {
-                                                        axiosResponseData !== null && axiosResponseData.data !== null && axiosResponseData.data.errors !== null &&
-                                                        axiosResponseData.data.errors.map((error: any) => { 
-                                                            const message = error.defaultMessage.replaceAll('.', ' ');
-                                                            return <><span key={ Math.random() * 10 }><b>{ capitalizeFirstCharacter(error.field) }:</b> { ' ' + capitalizeFirstCharacter(message) }</span><br/></>;
-                                                        })
-                                                    }
-                                                    
-                                                </p>
-                                                
-                                            </Alert> 
+                                            { 
+                                                !isEmpty(axiosResponseData) && !(axiosResponseData.data) &&
+                                                <Alert variant="danger" onClose={() => setHasError(false)} dismissible>
+                                                    <Alert.Heading>
+                                                        {axiosResponseData.message || 'Unknown Error.'}                                                        
+                                                    </Alert.Heading>
+                                                    <p>
+                                                        { !isEmpty(axiosResponseData.data.exception)  &&
+                                                            <span><b>{axiosResponseData.data.exception}:</b></span>
+                                                        }
+                                                        <br/>
+                                                        {
+                                                            !isEmpty(axiosResponseData.data.errors)  &&                                                            
+                                                            axiosResponseData.data.errors.map((error: any) => { 
+                                                                const message = error.defaultMessage.replaceAll('.', ' ');
+                                                                return <><span key={ Math.random() * 10 }><b>{ capitalizeFirstCharacter(error.field) }:</b> { ' ' + capitalizeFirstCharacter(message) }</span><br/></>;
+                                                            })                                                            
+                                                        }
+                                                    </p>                                                    
+                                                </Alert> 
+                                            }
                                         </Col>                                
                                     } 
                                 </Row> 
@@ -245,9 +248,9 @@ const RegistrationForm = ({ showRegistration, setShowRegistration }: {showRegist
                 </Modal.Header>
                 <Modal.Body>
                     {
-                        axiosResponseData !== null && axiosResponseData.message !== null &&
+                        axiosResponseData !== null && !isEmpty(axiosResponseData.data) &&
                         <>
-                            <h3>{ axiosResponseData.message}</h3>
+                            <h3>{ axiosResponseData.message }</h3>
                             <p>
                                 <b>Congratulatios, {capitalizeFirstCharacter(axiosResponseData.data.request.firstName)}!</b> Your brand new FoodApp account is waiting for you.
                                 In short you will receive an email from us at ({axiosResponseData.data.request.email}) with a link that will allow you to confirm your email. Please click on that link to activate your account.
