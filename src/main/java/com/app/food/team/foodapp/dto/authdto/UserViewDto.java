@@ -1,6 +1,6 @@
 package com.app.food.team.foodapp.dto;
 
-import com.app.food.team.foodapp.model.User;
+import com.app.food.team.foodapp.model.authmodel.User;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
