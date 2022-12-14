@@ -5,7 +5,7 @@ import { FaDatabase, FaAsterisk, FaGoogle, FaFacebook, FaUniversity, FaHospital 
 import { useSearchParams,  useNavigate } from 'react-router-dom';
 import { GlobalContext } from '../../context/GlobalState';
 import doAxiosFetch from '../../utils/doAxiosFetch';
-import isEmpty from "../../utils/extraTools";
+import { isEmpty, capitalizeFirstCharacter } from "../../utils/extraTools";
 import './Confirmation.scss';
 
 
@@ -16,14 +16,13 @@ const Confirmation = () => {
     const [token, setToken] = useState<any>(null);
     const [counter, setCounter] = useState<number>(timerInitialValue);
     const [axiosResponseData, setAxiosResponseData] = useState<any>(null);
-    let navigate = useNavigate(); 
+    const [hasError, setHasError] = useState(false);
+    const navigate = useNavigate(); 
     
     const confirmUser = async (): Promise<void> => {
       console.log('Starting Confirmation...');
-      setToken(await queryParameters.get("confirmation-token"));      
-       
   
-      doAxiosFetch({
+      await doAxiosFetch({
         method: "GET",
         url: "http://localhost:8081/api/v1/registration/confirm?confirmation-token=" + token, 
         headers: {  }  
@@ -31,20 +30,26 @@ const Confirmation = () => {
       }).then((result: any) => { 
         console.log('Result: ' + JSON.stringify(result));
         const data = result.data;
+        if(data !== null && data.statusCode !== 200){
+          setHasError(true);
+        }
         setAxiosResponseData(data);
         console.log('Data: ' + axiosResponseData);
-
-
         resetLoginData();
+
+        
       });
     };
 
-    useEffect(() => {      
-      confirmUser();
+    useEffect(() => {  
+      setToken(queryParameters.get("confirmation-token")); 
     }, []);
 
+    useEffect(() => {            
+      if(token !== null){ confirmUser(); }
+    }, [token]);
+
     useEffect(() => {      
-      
       const timer: any = axiosResponseData !== null && counter > -2 && setInterval(() => setCounter(counter - 1), 1000);
 
       return () => { 
@@ -54,25 +59,27 @@ const Confirmation = () => {
           navigate("/home");
         }     
       };
-    }, [counter]);
-   
+    }, [axiosResponseData, counter]);   
       
-    return (
-      
+    return (      
         <Container fluid>
           <Row className="confirmation-section">
             { 
-              !axiosResponseData !== null &&
+              axiosResponseData !== null &&
               <Col>
                 <h2>Account Confirmation was successful</h2>
                 <p>
                   <b>
-                    Congratulations! Your account has been confirmed using Access Token: {token}
+                    {
+                      (!hasError)? 'Congratulations! Your account has been confirmed using Access Token:' + token
+                      : axiosResponseData.message + ' ' + capitalizeFirstCharacter(axiosResponseData.data.exception)
+                    }
                   </b>
                   <br/>
                   You will be redirected in {counter} seconds
                 </p>
               </Col>
+              
             }
           </Row>
         </Container>        

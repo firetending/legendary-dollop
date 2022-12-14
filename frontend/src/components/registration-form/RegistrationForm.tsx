@@ -195,8 +195,8 @@ const RegistrationForm = ({ showRegistration, setShowRegistration }: {showRegist
                                 <Row>
                                     { hasError &&                                 
                                         <Col>
-                                            { 
-                                                !isEmpty(axiosResponseData) && !(axiosResponseData.data) &&
+                                            { axiosResponseData !== null &&
+                                                
                                                 <Alert variant="danger" onClose={() => setHasError(false)} dismissible>
                                                     <Alert.Heading>
                                                         {axiosResponseData.message || 'Unknown Error.'}                                                        
@@ -248,7 +248,7 @@ const RegistrationForm = ({ showRegistration, setShowRegistration }: {showRegist
                 </Modal.Header>
                 <Modal.Body>
                     {
-                        axiosResponseData !== null && !isEmpty(axiosResponseData.data) &&
+                        axiosResponseData !== null &&
                         <>
                             <h3>{ axiosResponseData.message }</h3>
                             <p>

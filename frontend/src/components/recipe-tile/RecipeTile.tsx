@@ -1,11 +1,15 @@
 import React, { useContext } from 'react';
 import { GlobalContext } from '../../context/GlobalState';
+import { isEmpty, capitalizeFirstCharacter } from "../../utils/extraTools";
 import "./RecipeTile.css";
 
 
-export const RecipeTile = ({ recipe }) => {
-  const { addRecipeToMenulist, deleteRecipeFromMenulist, menulist } = useContext(GlobalContext);  
-  let storedRecipe = menulist.find( o => o.recipe.calories === recipe.recipe.calories);
+export const RecipeTile = ({ recipe }: any) => {
+  const { addRecipeToMenuList, deleteRecipeFromMenuList, globalAppData } = useContext<any>(GlobalContext);  
+  let storedRecipe = !isEmpty(globalAppData.menulist)?
+    globalAppData.menulist.find( (o: any) => o.recipe.calories === recipe.recipe.calories)
+    : null;
+  
   const menulistDisabled = storedRecipe ? true : false;
   
   return (
@@ -31,7 +35,7 @@ export const RecipeTile = ({ recipe }) => {
           <button
           className='btn'
           disabled = {menulistDisabled}
-          onClick = { () => addRecipeToMenulist(recipe)}
+          onClick = { () => addRecipeToMenuList(recipe)}
           > Add to Meun List
           </button>
         </div> 

@@ -30,8 +30,14 @@ const NavegationBar = () => {
     
 
     useEffect(() => {
+        
         setUser(
-            ( !isEmpty(globalAppData.loginData) && !isEmpty(globalAppData.loginData.data) && !isEmpty(globalAppData.loginData.data.user))?
+            ( 
+                !isEmpty(globalAppData)
+                && !isEmpty(globalAppData.loginData) 
+                && !isEmpty(globalAppData.loginData.data) 
+                && !isEmpty(globalAppData.loginData.data.user)
+            )?
                 globalAppData.loginData.data.user
                 : {}
         );

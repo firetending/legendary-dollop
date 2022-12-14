@@ -10,10 +10,9 @@ export const capitalizeFirstCharacter = (str: String): String => {
 
 export const isEmpty = (object: any): boolean => {
     return (
-        object !== null
-        && object !== undefined          
-        && Object.keys(object).length === 0 
-        && object.constructor === Object
+        typeof object === 'undefined' 
+        || object === null         
+        || (Object.keys(object).length === 0 && object.constructor === Object)
     )
 }
 

@@ -1,8 +1,8 @@
 import React, {useContext} from 'react';
 import { GlobalContext } from '../../context/GlobalState';
 
-export const MenuCard = ( {recipe} ) => {
-  const { deleteRecipeFromMenulist } = useContext(GlobalContext);
+export const MenuCard = ( {recipe}: any ) => {
+  const { deleteRecipeFromMenuList } = useContext<any>(GlobalContext);
 
   return (
     <div>
@@ -16,7 +16,7 @@ export const MenuCard = ( {recipe} ) => {
       <div>
         <button
           className='btn'
-            onClick = { () => deleteRecipeFromMenulist(recipe.recipe.calories)}
+            onClick = { () => deleteRecipeFromMenuList(recipe.recipe.calories)}
         > Delete
         </button>
       </div>

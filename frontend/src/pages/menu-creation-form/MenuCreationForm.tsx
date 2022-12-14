@@ -2,30 +2,37 @@ import React from 'react';
 import Axios from 'axios';
 import { useState } from 'react';
 import { RecipeTile } from '../../components/recipe-tile/RecipeTile';
+import doAxiosFetch from '../../utils/doAxiosFetch';
 import './MenuCreationForm.css';
 
 
 function MenuCreationForm() {
-
+  console.log('Menu creation');
   const [query, setQuery] = useState("");
   const [recipes, setRecipes] = useState([]);
   const [healthLabel, sethealthLabel] = useState("dairy-free");
 
-  var url = `https://api.edamam.com/search?q=${query}&
-  app_id=${process.env.REACT_APP_YOUR_APP_ID}
-  &app_key=&${process.env.REACT_APP_YOUR_APP_KEY}&health=${healthLabel}`;
+  const url = `https://api.edamam.com/search?q=${query}&
+    app_id=${process.env.REACT_APP_YOUR_APP_ID}
+    &app_key=&${process.env.REACT_APP_YOUR_APP_KEY}&health=${healthLabel}`;
 
   async function getRecipes(){
-    var result = await Axios.get(url);
-    if(!result.errors) {
-      setRecipes(result.data.hits);
-    }else {
-      setRecipes([]);
-    }
-    // console.log(result.data);
+
+    await doAxiosFetch({
+      method: "GET",
+      url: url, 
+      headers: {  }  
+
+    }).then(async (result: any) => { 
+      console.log('Result: ' + JSON.stringify(result));      
+      await setRecipes(result.data.hits);
+      console.log('Data: ' + recipes);
+      
+    }).then(() => console.log('Data: ' + recipes))
+    .catch(() => setRecipes([]));
   }
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: any) => {
     e.preventDefault();
     getRecipes();
     setQuery(e.target.value);
@@ -72,18 +79,16 @@ function MenuCreationForm() {
 
 
       <div className="MenuCreationForm__recipes">
-
         <ul>
-        {recipes.map((recipe) => (
-          <li key={recipe.id}>
-          <RecipeTile  recipe={recipe}/>;
-          </li>
-        ))}
+        {
+          recipes.map((recipe: any) => (
+            <li key={recipe.id}>
+            <RecipeTile  recipe={recipe}/>;
+            </li>
+          ))
+        }
         </ul>
-
       </div>
-
-
     </div>
   );
 }
