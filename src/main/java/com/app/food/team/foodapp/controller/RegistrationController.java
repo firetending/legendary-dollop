@@ -100,7 +100,7 @@ public class RegistrationController {
                 .statusCode(HttpStatus.NOT_ACCEPTABLE.value())
                 .reason(ise.getMessage())
                 .data(new HashMap<>(){{
-                    put("Exception", ise.getMessage());
+                    put("exception", ise.getMessage());
                     put("confirmation-token", token);
                 }});
         }
@@ -108,9 +108,7 @@ public class RegistrationController {
         return ResponseEntity.ok(
                 responseDtoBuilder.build()
         );
-
     }
-
 }
 
 
