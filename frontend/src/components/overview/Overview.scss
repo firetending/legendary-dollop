@@ -1,0 +1,103 @@
+
+
+.overview{
+    padding-top: 100px;
+
+    height: 1600px;
+    background-color: #fafafa; 
+
+    .team{
+        margin-bottom: 180px;        
+        h2{
+            font-family: 'Work Sans', sans-serif;
+            text-align: center;
+            margin-bottom: 20px;            
+        }
+        p{
+            font-family: "Open Sans", sans-serif;
+            text-align: center;
+            width: 60%;
+            margin: 0 auto 15px auto;
+        }
+    }
+    h2{
+        font-family: 'Work Sans', sans-serif;
+        font-weight: 400;
+    }
+    h2.app-name{
+        font-family: 'Lily Script One', sans-serif;
+        font-size: 5em;
+        
+    }
+    
+    .recomendations{
+        max-width: 70%;
+    }
+
+    .used-by{
+        font-family: 'Work Sans', sans-serif;
+        text-align: center;
+    }
+    
+    .icons{        
+        display: flex; 
+        text-align: center;
+        svg{
+            font-size: 1.7em;
+            line-height: 3em;
+        }
+        span{
+            margin: 0 10px 0 15px;
+            font-family: "Open Sans", sans-serif;
+        }
+    } 
+}
+
+.avatar{
+    display: block;
+    text-decoration: none;
+    font-family: 'Work Sans', sans-serif;
+    
+    width: 100px !important;
+    height: 100px !important;
+    background-color: rgb(23, 147, 126);
+    border-radius: 50%;
+    margin: 50px auto;
+    padding: auto auto;
+    color: black;
+    transition: all 0.3s;
+    box-shadow: 0 0 1px rgb(0, 0, 0);
+
+    .img-fluid{ 
+        display: block;
+        margin: 0 auto;    
+        position: relative;
+        top: 50%;
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
+        
+        width: 90% !important;
+        height: 90% !important;        
+    }
+
+    h4{
+        margin-top: 15px;
+        width: 100% !important;
+        text-align: center;
+        font-weight: 100;
+        
+    }
+}
+.avatar:hover{
+    transform: scale(1.7);
+    color: black;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 0 70px rgb(172, 172, 172);
+
+}
+
+.adam{
+    background-color: rgb(251, 233, 169);
+    transform: scale(1.1);
+    margin-bottom: 100px;
+}
