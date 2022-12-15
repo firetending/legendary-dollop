@@ -1,14 +1,12 @@
 package com.app.food.team.foodapp.controller;
 
-import com.app.food.team.foodapp.dto.LoginRequestDto;
+import com.app.food.team.foodapp.dto.authdto.LoginRequestDto;
 import com.app.food.team.foodapp.dto.ResponseDto;
 import com.app.food.team.foodapp.service.JwtTokenService;
 import com.app.food.team.foodapp.service.UserService;
 import com.app.food.team.foodapp.service.ValidationService;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +15,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.Errors;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;

@@ -2,16 +2,15 @@ package com.app.food.team.foodapp.service;
 
 
 import com.app.food.team.foodapp.constants.AppConstants;
-import com.app.food.team.foodapp.dto.RegistrationRequestDto;
+import com.app.food.team.foodapp.dto.authdto.RegistrationRequestDto;
 import com.app.food.team.foodapp.enums.Role;
-import com.app.food.team.foodapp.model.ConfirmationToken;
-import com.app.food.team.foodapp.model.User;
+import com.app.food.team.foodapp.model.authmodel.ConfirmationToken;
+import com.app.food.team.foodapp.model.authmodel.User;
 import com.app.food.team.foodapp.service.interfaces.EmailServiceInterface;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.Errors;
 
 import java.time.LocalDateTime;
 import static java.time.LocalDateTime.now;

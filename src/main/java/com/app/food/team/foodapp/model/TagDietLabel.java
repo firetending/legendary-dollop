@@ -9,7 +9,6 @@ public class TagDietLabel extends AbstractRecipeTag {
     public TagDietLabel() {
         super();
     }
-
     public TagDietLabel(String tag) {
         super(tag);
     }

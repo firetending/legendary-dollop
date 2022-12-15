@@ -13,8 +13,8 @@ import java.util.Set;
 
 @Entity
 @Table(name = "menus")
-//@AllArgsConstructor
-//@NoArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 public class Menu extends AbstractEntity {
 
     //TODO organization id, @ManyToOne
@@ -29,10 +29,6 @@ public class Menu extends AbstractEntity {
 
     public Menu(List<Item> menuItems) {
         this.menuItems = menuItems;
-    }
-
-    public Menu() {
-
     }
 }
 

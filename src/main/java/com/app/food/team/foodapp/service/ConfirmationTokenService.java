@@ -1,8 +1,8 @@
 package com.app.food.team.foodapp.service;
 
 
-import com.app.food.team.foodapp.model.ConfirmationToken;
-import com.app.food.team.foodapp.repository.ConfirmationTokenRepository;
+import com.app.food.team.foodapp.model.authmodel.ConfirmationToken;
+import com.app.food.team.foodapp.repository.authrepository.ConfirmationTokenRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

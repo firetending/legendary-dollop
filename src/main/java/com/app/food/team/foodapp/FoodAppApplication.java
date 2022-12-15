@@ -3,8 +3,8 @@ package com.app.food.team.foodapp;
 
 import com.app.food.team.foodapp.config.PropertiesConfiguration;
 import com.app.food.team.foodapp.enums.Role;
-import com.app.food.team.foodapp.model.User;
-import com.app.food.team.foodapp.repository.UserRepository;
+import com.app.food.team.foodapp.model.authmodel.User;
+import com.app.food.team.foodapp.repository.authrepository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

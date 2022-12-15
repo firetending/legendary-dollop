@@ -1,5 +1,6 @@
-package com.app.food.team.foodapp.model;
+package com.app.food.team.foodapp.model.authmodel;
 
+import com.app.food.team.foodapp.model.authmodel.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

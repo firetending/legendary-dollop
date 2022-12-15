@@ -1,4 +1,4 @@
-package com.app.food.team.foodapp.model;
+package com.app.food.team.foodapp.model.authmodel;
 
 import com.app.food.team.foodapp.enums.Role;
 import jakarta.persistence.*;

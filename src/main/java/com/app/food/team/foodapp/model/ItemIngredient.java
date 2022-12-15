@@ -8,19 +8,20 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "ingredients")
+@Getter @Setter
 @NoArgsConstructor
-//@AllArgsConstructor
+@AllArgsConstructor
 public class ItemIngredient extends AbstractEntity {
 
     @ManyToOne(cascade = CascadeType.ALL)
 //    @JoinColumn(insertable = false,updatable = false)
-    private @Getter @Setter Item item;
-    private @Getter @Setter String text;
-    private @Getter @Setter int quantity;
-    private @Getter @Setter String measure;
-    private @Getter @Setter String food;
-    private @Getter @Setter int weight;
-    private @Getter @Setter String foodId;
+    private  Item item;
+    private String text;
+    private int quantity;
+    private String measure;
+    private String food;
+    private int weight;
+    private String foodId;
 
     @Override
     public String toString() {
