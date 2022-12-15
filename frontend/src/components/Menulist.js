@@ -23,7 +23,6 @@ const { menulist } = useContext(GlobalContext);
         ))}
         </div>
 
-
         </div>
 
 

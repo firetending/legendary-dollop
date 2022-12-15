@@ -11,7 +11,8 @@ export default function AppReducer(state, action) {
             menulist: state.menulist.filter( 
                 recipe => recipe.recipe.calories
                 !== action.payload),
-        }
+        } 
+
         default:
             return state;
     }
