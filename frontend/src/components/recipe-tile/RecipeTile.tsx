@@ -36,7 +36,7 @@ export const RecipeTile = ({ recipe }: any) => {
           className='btn'
           disabled = {menulistDisabled}
           onClick = { () => addRecipeToMenuList(recipe)}
-          > Add to Meun List
+          > Add to Menu List
           </button>
         </div> 
       </div>

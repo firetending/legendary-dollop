@@ -1,4 +1,4 @@
-.reciipeTile{
+.MenuCard{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -7,8 +7,7 @@
     font-family: 'Raleway', sans-serif;
     font-style: normal;
     font-size: 18px;
-    color:white; 
-
+    color:white;
 }
 
 .recipeTile__img{
@@ -16,23 +15,24 @@
     width: 200px;
     object-fit: cover;
     border-radius: 8px;
-    align-items: center;
+    padding:6px 24px;
 }
 
 .recipeTile__name{
-    max-width: 200px ;
+    max-width: 200px;
     text-align: center;
     margin: 12px 0px;
     font-family: 'Raleway', sans-serif;
-
-} 
+    padding:6px 24px;
+    border-radius:6px;
+}
 
 .btn{
     box-shadow:inset 0px 1px 0px 0px #3dc21b;
-    background:linear-gradient(to bottom, #44c767 5%, #5cbf2a 100%);
-    background-color:#44c767;
+    background:linear-gradient(to bottom, rgb(163, 31, 31), rgb(119, 40, 40));
+    background-color:rgb(163, 31, 31);
     border-radius:6px;
-    border:1px solid #18ab29;
+    border:1px solid rgb(163, 31, 31);
     display:inline-block;
     cursor:pointer;
     color:#ffffff;
@@ -41,6 +41,6 @@
     font-weight:bold;
     padding:6px 24px;
     text-decoration:none;
-    text-shadow:0px 1px 0px #2f6627;
+    text-shadow:0px 1px 0px rgb(163, 31, 31);
     align-items: center; 
 }

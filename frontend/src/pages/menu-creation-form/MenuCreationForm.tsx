@@ -41,7 +41,7 @@ function MenuCreationForm() {
 
   return (
     <div className="MenuCreationForm">
-      <h1>Food Recipes</h1>
+      <h1>Select Your Meal</h1>
       <br />
       <form className="MenuCreationForm__searchForm" onSubmit={onSubmit} >
         <input type="text"
@@ -53,7 +53,7 @@ function MenuCreationForm() {
 
 
         <div className="MenuCreationForm__healthLabel">
-        <label>Please Select: </label>
+        <label>Select Restrictions: </label>
 
         <select 
           className="MenuCreationForm__healthLabel"
@@ -64,7 +64,7 @@ function MenuCreationForm() {
           <option value="dairy-free">Dairy free</option>
           <option value="gluten-free" >Gluten free</option>
           <option value="peanut-free" >Peanut Free</option>
-          <option value="shellfish-free">shellfish free</option>
+          <option value="shellfish-free">Shellfish free</option>
           <option value="low-sugar" >Low sugar</option>
           <option value="vegan" >Vegan</option>
           <option value="vegetarian" >Vegetarian</option> 

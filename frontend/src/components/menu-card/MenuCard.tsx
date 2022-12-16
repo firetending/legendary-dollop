@@ -1,11 +1,12 @@
 import React, {useContext} from 'react';
 import { GlobalContext } from '../../context/GlobalState';
+import "./MenuCard.css";
 
 export const MenuCard = ( {recipe}: any ) => {
   const { deleteRecipeFromMenuList } = useContext<any>(GlobalContext);
 
   return (
-    <div>
+    <div className="MenuCard">
       <div>
         <img className="recipeTile__img" src={recipe["recipe"]["image"]} alt="food pictures"/>
         <a href={recipe['recipe']['url']}>
