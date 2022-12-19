@@ -9,7 +9,7 @@ const Footer = () => {
         <Container fluid className="footer">              
             <Row>
                 <Col>
-                    <div>Footer here</div>
+                    <div>Copyright 2022</div>
                 </Col>
             </Row>
         </Container>
