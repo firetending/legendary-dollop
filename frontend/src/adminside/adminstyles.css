@@ -6,7 +6,7 @@
     z-index: 100;
     box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
     background-color: gray;
-    color: white;
+    position: sticky;
 }
 
 #sidebar-wrapper .sidebar-heading {

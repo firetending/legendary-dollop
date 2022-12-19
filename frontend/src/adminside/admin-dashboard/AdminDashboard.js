@@ -9,7 +9,7 @@ const MenuScrollList = (props) => {
         return (
             <p>
                 <label>
-                    <input type="radio" name="menuSelection" onClick={() => props.selectMenu(menu.id)} />
+                    <input type="radio" name="menuSelection" onClick={() => props.selectMenu(menu.items)} />
                     {menu.name} - {props.getTotalOrders(menu.items)} Orders
                 </label>
             </p>
@@ -19,7 +19,10 @@ const MenuScrollList = (props) => {
     selectables.unshift(
         <p>
             <label>
-                <input type="radio" name="menuSelection" />
+                <input type="radio" name="menuSelection"
+                    onClick={() => props.selectMenu(props.menuListData.map((menu) => {
+                        return menu.items
+                    }).flat(1))} />
                 All Menus - {props.getAllOrders(props.menuListData)} Orders
             </label>
         </p>
@@ -30,12 +33,15 @@ const MenuScrollList = (props) => {
 
 // Takes in an array of a single menu and then displays a list of all of its items and their orders.
 const ItemList = (props) => {
-    let reactLovesToBreak = props.menuData;
-    if (reactLovesToBreak === null || reactLovesToBreak.length <= 0) {
-        return <div className='itemList'><p>Click on a menu to see its orders.</p></div>
+    if (props.items === null || props.items.length <= 0) {
+        return (
+            <Card>
+                <Card.Title>Click on a menu to see its items.</Card.Title>
+                <Card.Subtitle>Order counts on each individual item will be displayed here in a list.</Card.Subtitle>
+            </Card>
+        )
     } else {
-        const items = reactLovesToBreak[0].items;
-        const listedItems = items.map((item) => {
+        const listedItems = props.items.map((item) => {
             return (
                 <Card border="light" style={{ width: '30rem' }} className='menuItem'>
                     <Card.Body>
@@ -71,7 +77,7 @@ class AdminDashboardPage extends Component {
             items.push(
                 {
                     name: `Item ${Math.round(Math.random() * 100)}`,
-                    description: 'Food Food Food Food Food Food Food Food Food Food Food Food Food Food Food Food Food Food Food',
+                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
                     image: 'https://picsum.photos/100',
                     orders: Math.round(Math.random() * 8)
                 }
@@ -132,33 +138,19 @@ class AdminDashboardPage extends Component {
                 items: this.fakeItems()
             },
         ],
-        selectedMenu: []
+        selectedMenuItems: []
     }
 
     //Selects a menu by id.
-    selectMenu = (id) => {
-        const { menus } = this.state;
+    selectMenuItems = (items) => {
+        const { selectedMenuItems } = this.state;
         this.setState({
-            selectedMenu: menus.filter((menu) => {
-                return menu.id === id
-            })
-        })
-    }
-
-    selectAllMenus = () => {
-        const { menus } = this.state;
-        this.setState({
-            selectedMenu: {
-                id: -1,
-                name: "All Menus",
-                orders: 0,
-                items: 'a'
-            }
+            selectedMenuItems: items
         })
     }
 
     render() {
-        const { menus, selectedMenu } = this.state;
+        const { menus, selectedMenuItems } = this.state;
 
         return (
             <Container fluid>
@@ -166,7 +158,7 @@ class AdminDashboardPage extends Component {
                     <Col md="auto" className='sidebar'>
                         <Sidebar />
                     </Col>
-                    <Col>
+                    <Col className='main'>
                         <div className='top'>
                             <h1 className='title'>Dashboard</h1>
                             <h1 className='largetitle'>Hello, admin</h1>
@@ -175,15 +167,19 @@ class AdminDashboardPage extends Component {
                         <div className='bottom'>
                             <Container>
                                 <Row>
-                                    <th>Menus</th><a href=''>Manage Menus</a>
-                                    <th>Orders</th><a href=''>Order List</a>
+                                    <Col>
+                                        <h2>Menus</h2><a href=''>Manage Menus</a>
+                                    </Col>
+                                    <Col>
+                                        <h2>Orders</h2> <a href=''>Order Log</a>
+                                    </Col>
                                 </Row>
                                 <Row>
                                     <Col md='auto'>
-                                        <MenuScrollList menuListData={menus} selectMenu={this.selectMenu} getTotalOrders={this.getTotalOrders} getAllOrders={this.getAllOrders} />
+                                        <MenuScrollList menuListData={menus} selectMenu={this.selectMenuItems} getTotalOrders={this.getTotalOrders} getAllOrders={this.getAllOrders} />
                                     </Col>
                                     <Col>
-                                        <ItemList menuData={selectedMenu} />
+                                        <ItemList items={selectedMenuItems} />
                                     </Col>
                                 </Row>
                             </Container>

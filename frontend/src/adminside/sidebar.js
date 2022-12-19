@@ -8,19 +8,19 @@ class Sidebar extends Component {
         return (
             <Nav className="navbar navbar-light flex-column" activeKey="/home" id="sidebar" >
                 <Nav.Item>
-                    <Nav.Link href="/home">Dashboard</Nav.Link>
+                    <Nav.Link href="/home" style={{ color: 'white' }}>Dashboard</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link href="/home">Menus</Nav.Link>
+                    <Nav.Link href="/home" style={{ color: 'white' }}>Menus</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link href="/home">Administration</Nav.Link>
+                    <Nav.Link href="/home" style={{ color: 'white' }}>Administration</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link href="/home">Reports</Nav.Link>
+                    <Nav.Link href="/home" style={{ color: 'white' }}>Reports</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link href="/home">Order Log</Nav.Link>
+                    <Nav.Link href="/home" style={{ color: 'white' }}>Order Log</Nav.Link>
                 </Nav.Item>
             </Nav>
         )
