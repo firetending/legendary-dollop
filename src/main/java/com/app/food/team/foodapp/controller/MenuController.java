@@ -111,6 +111,7 @@ public class MenuController {
         return menuRepo.findAll();
     }
 
+    //returns menu data like title and created/updated dates
     @GetMapping(path = "menu/metadata", produces = MediaType.APPLICATION_JSON_VALUE)
     public String getAllMenuMetadata() {
         return new Gson().toJson(menuRepo.getAllMenuMetadata());
@@ -130,11 +131,6 @@ public class MenuController {
         return responseJson;
     }
 
-
-
-    // example arguments
-    // @RequestHeader(value="User-Agent") String userAgent
-    // @RequestParam(value = "ID", defaultValue = "") String id
     // returns recipe close to edamam format, some nested data displayed differently like tags for diet labels, etc
     @GetMapping(path = "menu/items", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<RecipeApiWrapper> getItemByInternalId(@RequestParam(value = "internalId") int internalId){

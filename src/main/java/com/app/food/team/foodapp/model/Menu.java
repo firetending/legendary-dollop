@@ -6,25 +6,27 @@ import lombok.*;
 import java.time.LocalDateTime;
 import java.util.*;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "menus")
-//@AllArgsConstructor
-//@NoArgsConstructor
 public class Menu extends AbstractEntity {
 
-    //TODO organization id, @ManyToOne
+    //TODO? user id @ManyToOne
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private @NonNull @Getter List<Item> menuItems = new ArrayList<>();
-
-    private @Getter @Setter String title;
+    @Setter(AccessLevel.NONE) //getter only, no setter
+    @NonNull
+    private List<Item> menuItems = new ArrayList<>();
+    private String title;
     @Temporal(TemporalType.TIMESTAMP)
-    private final @Getter LocalDateTime createdDateTime;
+    @Setter(AccessLevel.NONE) //getter only, no setter
+    private final LocalDateTime createdDateTime;
     @Temporal(TemporalType.TIMESTAMP)
-    private @Getter @Setter LocalDateTime editedDateTime;
+    private LocalDateTime editedDateTime;
     @Temporal(TemporalType.TIMESTAMP)
-    private @Getter @Setter LocalDateTime startDateTime;
+    private LocalDateTime startDateTime;
     @Temporal(TemporalType.TIMESTAMP)
-    private @Getter @Setter LocalDateTime endDateTime;
+    private LocalDateTime endDateTime;
 
     public Menu(List<Item> menuItems) {
         this.menuItems = menuItems;
@@ -62,8 +64,3 @@ public class Menu extends AbstractEntity {
         return generatedString;
     }
 }
-
-//- Menu ID (PK)
-//- Organization ID (FK)
-//- Title
-//- Dates

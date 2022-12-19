@@ -12,7 +12,6 @@ import java.util.List;
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 @Data
-//@SuperBuilder // https://en.wikipedia.org/wiki/Builder_pattern#Java
 @JsonInclude(NON_NULL)  // https://www.javaguides.net/2019/04/jackson-jsoninclude-example.html
 public class MenuConverterDto {
     @Expose //field to be serialized by Gson

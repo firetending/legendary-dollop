@@ -8,16 +8,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "items")
-@AllArgsConstructor @NoArgsConstructor
 public class Item extends AbstractEntity {
 
     private String externalId; //parse from uri; api doc says field exists but doesn't respond with it
-    private @NonNull @Getter @Setter @EqualsAndHashCode.Include String uri; //edamam path, have to parse id after #  http://www.edamam.com/ontologies/edamam.owl#recipe_b5e1c34c9042a35a534069f438ec86fc
-    private @NonNull @Getter @Setter String label; //title
+    @NonNull
+    private String uri; //edamam path, have to parse id after #  http://www.edamam.com/ontologies/edamam.owl#recipe_b5e1c34c9042a35a534069f438ec86fc
+    @NonNull
+    private String label; //title
     @Column(length=3000)
-    private @NonNull @Getter @Setter String image;
+    @NonNull
+    private String image;
     //        "images": {
     //        "THUMBNAIL": {
     //        "url": "string",
@@ -43,10 +49,11 @@ public class Item extends AbstractEntity {
     //        "source": "string",
     //        "url": "string",
     //        "shareAs": "string",
-    private @Getter @Setter int yield;
+    private int yield;
 
     @ManyToMany(cascade = CascadeType.PERSIST)
-    private @NonNull @Getter @Setter TagDietLabel[] dietLabels;
+    @NonNull
+    private TagDietLabel[] dietLabels;
 //    @ManyToOne
 //    private @NonNull @Getter @Setter Set<TagHealthLabel> healthLabels;
 //    @ManyToOne
@@ -54,7 +61,8 @@ public class Item extends AbstractEntity {
 //    @Column(length = 1000)
 //    private @NonNull @Getter @Setter List<String> ingredientLines;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private @NonNull @Getter @Setter List<ItemIngredient> ingredients = new ArrayList<>();
+    @NonNull
+    private List<ItemIngredient> ingredients = new ArrayList<>();
     //        [
         //        {
         //        "text": "string",
@@ -65,11 +73,11 @@ public class Item extends AbstractEntity {
         //        "foodId": "string"
         //        }
     //        ],
-    private @Getter @Setter int calories;
-    private @Getter @Setter int glycemicIndex;
+    private int calories;
+    private int glycemicIndex;
 //    private int totalCO2Emissions;
     //        "co2EmissionsClass": "A+",
-    private @Getter @Setter float totalWeight;
+    private float totalWeight;
 //    @ManyToOne
 //    private @NonNull @Getter @Setter Set<TagCuisineType> cuisineType;
 //    @ManyToOne
@@ -79,7 +87,8 @@ public class Item extends AbstractEntity {
     //        "instructions": [
     //        "string"
     //        ],
-    private @NonNull @Getter @Setter List<String> tags;
+    @NonNull
+    private List<String> tags;
     //        "externalId": "string",
     //        "totalNutrients": {},
     //        "totalDaily": {},
@@ -96,13 +105,10 @@ public class Item extends AbstractEntity {
     //        }
     //        ]
 
-//this.externalId = uri.substring(uri.indexOf('#'),uri.length()-1);
-
     public boolean setExternalId() {
         this.externalId = this.uri.substring(this.uri.indexOf('#')+1);
         return true;
     }
-    public String getExternalId() { return externalId;}
 
     @Override
     public boolean equals(Object o) {
@@ -122,28 +128,6 @@ public class Item extends AbstractEntity {
         return result;
     }
 
-//    @Override
-//    public String toString() {
-//        return "Item{" +
-//                "\nexternalId='" + externalId + '\'' +
-//                ",\nuri='" + uri + '\'' +
-//                ",\nlabel='" + label + '\'' +
-//                ",\nimage='" + image + '\'' +
-//                ",\nyield=" + yield +
-//                ",\ndietLabels=" + dietLabels +
-//                ",\nhealthLabels=" + healthLabels +
-//                ",\ncautions=" + cautions +
-//                ",\ningredientLines=" + ingredientLines +
-//                ",\ningredients=" + ingredients +
-//                ",\ncalories=" + calories +
-//                ",\nglycemicIndex=" + glycemicIndex +
-//                ",\ntotalWeight=" + totalWeight +
-//                ",\ncuisineType=" + cuisineType +
-//                ",\nmealType=" + mealType +
-//                ",\ndishType=" + dishType +
-//                ",\ntags=" + tags +
-//                '}';
-//    }
 }
 
 
