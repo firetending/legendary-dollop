@@ -1,4 +1,4 @@
-package com.app.food.team.foodapp.model;
+package com.app.food.team.foodapp.model.menurecipemodel;
 
 public class RecipeApiWrapper {
     private Item recipe;

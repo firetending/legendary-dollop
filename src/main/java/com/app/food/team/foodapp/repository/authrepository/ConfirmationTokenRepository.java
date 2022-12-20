@@ -1,4 +1,4 @@
-package com.app.food.team.foodapp.repository;
+package com.app.food.team.foodapp.repository.authrepository;
 
 import com.app.food.team.foodapp.model.authmodel.ConfirmationToken;
 import org.springframework.data.jpa.repository.JpaRepository;

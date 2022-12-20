@@ -77,7 +77,7 @@ public class SecurityConfiguration {
                 ).permitAll()
                 .requestMatchers(mapping + "data/admin/**").hasAuthority("SCOPE_ADMIN")
                 .requestMatchers(mapping + "data/user/**").hasAuthority("SCOPE_USER")
-                .anyRequest().authenticated()
+                .anyRequest().authenticated() //.authenticated() //.permitAll()
             )
             .sessionManagement(session -> session
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

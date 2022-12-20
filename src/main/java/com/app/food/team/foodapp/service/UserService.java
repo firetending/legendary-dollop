@@ -1,9 +1,9 @@
 package com.app.food.team.foodapp.service;
 
-import com.app.food.team.foodapp.dto.UserViewDto;
-import com.app.food.team.foodapp.model.ConfirmationToken;
-import com.app.food.team.foodapp.model.User;
-import com.app.food.team.foodapp.repository.UserRepository;
+import com.app.food.team.foodapp.dto.authdto.UserViewDto;
+import com.app.food.team.foodapp.model.authmodel.ConfirmationToken;
+import com.app.food.team.foodapp.model.authmodel.User;
+import com.app.food.team.foodapp.repository.authrepository.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;

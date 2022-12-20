@@ -1,7 +1,7 @@
 package com.app.food.team.foodapp.service;
 
-import com.app.food.team.foodapp.dto.LoginRequestDto;
-import com.app.food.team.foodapp.dto.RegistrationRequestDto;
+import com.app.food.team.foodapp.dto.authdto.LoginRequestDto;
+import com.app.food.team.foodapp.dto.authdto.RegistrationRequestDto;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

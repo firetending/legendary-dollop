@@ -18,11 +18,6 @@ public class GetRecipeByIdEdamam {
         String fields = "&field=uri&field=label&field=image&field=images&field=source&field=url" +
                 "&field=shareAs&field" +
                 "=yield&field=dietLabels&field=healthLabels&field=cautions&field=ingredientLines&field=ingredients&field=calories&field=glycemicIndex&field=totalCO2Emissions&field=co2EmissionsClass&field=totalWeight&field=totalTime&field=cuisineType&field=mealType&field=dishType&field=tags";
-        // https://api.edamam.com/api/recipes/v2/
-        // recipe_b5e1c34c9042a35a534069f438ec86fc
-        // ?type=public&app_id=5af3ae0a&app_key=1bf2959a73a85fa063cd713ec55636c5
-        // &field=uri&field=label&field=image&field=images&field=source&field=url&field=shareAs&field=yield&field=dietLabels&field=healthLabels&field=cautions&field=ingredientLines&field=ingredients&field=calories&field=glycemicIndex&field=totalCO2Emissions&field=co2EmissionsClass&field=totalWeight&field=totalTime&field=cuisineType&field=mealType&field=dishType&field=tags
-
 
         HttpRequest getRequest = HttpRequest.newBuilder()
                 .uri(new URI("https://api.edamam.com/api/recipes/v2/"+recipeId+keys+fields))
@@ -32,15 +27,5 @@ public class GetRecipeByIdEdamam {
         HttpClient httpClient = HttpClient.newHttpClient();
         HttpResponse<String> getResponse = httpClient.send(getRequest, HttpResponse.BodyHandlers.ofString());
         System.out.println(getResponse.body());
-
-        // parse response into Item object
-        // response is an outer object {"recipe":{recipe Json object}}
-        // using a wrapper class to let gson deserialize the inner object
-//        ResponseWrapper responseObj = gson.fromJson(getResponse.body(), ResponseWrapper.class);
-//        Item newItem = gson.fromJson(responseObj.getRecipe(),Item.class);
-//        newItem.setExternalId(); //has to parse id from uri field
-
-
-//        System.out.println(newItem);
     }
 }
