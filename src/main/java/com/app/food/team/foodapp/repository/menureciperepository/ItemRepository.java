@@ -1,8 +1,7 @@
-package com.app.food.team.foodapp.repository;
+package com.app.food.team.foodapp.repository.menureciperepository;
 
-import com.app.food.team.foodapp.model.Item;
+import com.app.food.team.foodapp.model.menurecipemodel.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository

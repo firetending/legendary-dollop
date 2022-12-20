@@ -1,0 +1,228 @@
+{
+  "recipe": {
+    "uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_b5e1c34c9042a35a534069f438ec86fc",
+    "label": "Popeye Tso's Chicken (General Tso's Chicken Made with Popeye's Chicken Nuggets) Recipe",
+    "image": "https://edamam-product-images.s3.amazonaws.com/web-img/0c5/0c5ba5e925e8de4a16deaa1864cb1812.jpg?X-Amz-Security-Token=IQoJb3JpZ2luX2VjEHsaCXVzLWVhc3QtMSJGMEQCIEU7J9Bdnz6kiaOSQLmLCs56%2FEE1IPxKAcgXfuRu1wlpAiBJWiotXohyUMTCqEltfUt5YSNCiSlePkaZCw2f%2FsBV3CrVBAiU%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDE4NzAxNzE1MDk4NiIM4e3ubhpQ52JeZxLRKqkEqBxEfnNPU3oDs5KEbfy0CqoUtihZRKzziJh2N0g3Hgvt7YsnGZp0F4epNxggudekUY%2Fn2yzls06KRmrK1ag0eWStxTnUw2UFp0bNvz5e3ytGHImNPlpSRUhkbHvWvoXtF1HKM2934CBrnrjyVJM1e6yDZMO9sJ5ReN5g5F6TSrVSx4hxhWQG1%2Bb2dyG3QQ9ro9bgYBdJR9gur0dca6G3mGfBJ%2BHC4FjFtpGuzlli5PnslUiJLLL2ZbxMrgz%2BPLWriDrcfPnixV3cUkJrzSRWjKNdbScRJuHO3kJmHTxjNlU0fUXnitc%2Fxw7ARCseVAgXQ4eERC25ER7VgNjLLOlKCr909uQCLaeTsVKt4lastDmNgPJnqBtI5YRhl153STslovjsInn1SAdCZ5b4PKQ5UhC0Zmp23u24a5LYr8ilNWg1BfP0dXHiH8UG%2BYjmHRC49ak4kUlYEFSaiOvkGSC0kQibV6W2ZRBqlCR%2BThdSEkEUmWCX6J7%2BWFcJW1Q%2BB8e2PabDBqycvYZ%2BejO0ckUWmRUr4g5chR6MpQwn8%2BIXPSDcZuIq6NcORTGxlWhZZEvRA30NmNwHj0wOR%2FIfnMTKONsapbzA8t4BTH8r6cTVAXuPtzGXfaEPArGy52S2RbNmXhnh2v10quu0orbvbLchC9Pp7ksgwxHR5qV6B0OVepBiXTN2ybbdChPCxaE9ns43LlZi8t2gZxw0PsmbQwHu1DIoHHfEdpg9AzCN6aOcBjqqAT5Ca374yaQBOXVTzHlw%2Bl0VOzkTuDsTRk1g9J0RU0u9TGkjsJEE%2BISW2S6Z%2FzYvDsRQej7BeJMXMF8RHeAcar%2BnBd3FQflFDfsqTnnfugEHpKyJrN1zV5WrbcGGl2mO6dEPlcS2%2BcJsgcKSE6P3jf66%2Fvp2mSPGZMTE20oj0cx6RHXnkN7yN5niSLl4yM55V1AtxDklxZ3mGed15VK7s%2B0Q%2FD4dOM0IwjF6&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20221201T194331Z&X-Amz-SignedHeaders=host&X-Amz-Expires=3600&X-Amz-Credential=ASIASXCYXIIFMHQFP6NE%2F20221201%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=7fb03f938c50005ac0790a87655fd674bd62437c85cc95b727e5a29fd6f2c894",
+    "images": {
+      "THUMBNAIL": {
+        "url": "https://edamam-product-images.s3.amazonaws.com/web-img/0c5/0c5ba5e925e8de4a16deaa1864cb1812-s.jpg?X-Amz-Security-Token=IQoJb3JpZ2luX2VjEHsaCXVzLWVhc3QtMSJGMEQCIEU7J9Bdnz6kiaOSQLmLCs56%2FEE1IPxKAcgXfuRu1wlpAiBJWiotXohyUMTCqEltfUt5YSNCiSlePkaZCw2f%2FsBV3CrVBAiU%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDE4NzAxNzE1MDk4NiIM4e3ubhpQ52JeZxLRKqkEqBxEfnNPU3oDs5KEbfy0CqoUtihZRKzziJh2N0g3Hgvt7YsnGZp0F4epNxggudekUY%2Fn2yzls06KRmrK1ag0eWStxTnUw2UFp0bNvz5e3ytGHImNPlpSRUhkbHvWvoXtF1HKM2934CBrnrjyVJM1e6yDZMO9sJ5ReN5g5F6TSrVSx4hxhWQG1%2Bb2dyG3QQ9ro9bgYBdJR9gur0dca6G3mGfBJ%2BHC4FjFtpGuzlli5PnslUiJLLL2ZbxMrgz%2BPLWriDrcfPnixV3cUkJrzSRWjKNdbScRJuHO3kJmHTxjNlU0fUXnitc%2Fxw7ARCseVAgXQ4eERC25ER7VgNjLLOlKCr909uQCLaeTsVKt4lastDmNgPJnqBtI5YRhl153STslovjsInn1SAdCZ5b4PKQ5UhC0Zmp23u24a5LYr8ilNWg1BfP0dXHiH8UG%2BYjmHRC49ak4kUlYEFSaiOvkGSC0kQibV6W2ZRBqlCR%2BThdSEkEUmWCX6J7%2BWFcJW1Q%2BB8e2PabDBqycvYZ%2BejO0ckUWmRUr4g5chR6MpQwn8%2BIXPSDcZuIq6NcORTGxlWhZZEvRA30NmNwHj0wOR%2FIfnMTKONsapbzA8t4BTH8r6cTVAXuPtzGXfaEPArGy52S2RbNmXhnh2v10quu0orbvbLchC9Pp7ksgwxHR5qV6B0OVepBiXTN2ybbdChPCxaE9ns43LlZi8t2gZxw0PsmbQwHu1DIoHHfEdpg9AzCN6aOcBjqqAT5Ca374yaQBOXVTzHlw%2Bl0VOzkTuDsTRk1g9J0RU0u9TGkjsJEE%2BISW2S6Z%2FzYvDsRQej7BeJMXMF8RHeAcar%2BnBd3FQflFDfsqTnnfugEHpKyJrN1zV5WrbcGGl2mO6dEPlcS2%2BcJsgcKSE6P3jf66%2Fvp2mSPGZMTE20oj0cx6RHXnkN7yN5niSLl4yM55V1AtxDklxZ3mGed15VK7s%2B0Q%2FD4dOM0IwjF6&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20221201T194331Z&X-Amz-SignedHeaders=host&X-Amz-Expires=3600&X-Amz-Credential=ASIASXCYXIIFMHQFP6NE%2F20221201%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=ae3c4761da1cce5a0dc2764955fff5835cb75b34630f8cbe76be6cfa952ab15c",
+        "width": 100,
+        "height": 100
+      },
+      "SMALL": {
+        "url": "https://edamam-product-images.s3.amazonaws.com/web-img/0c5/0c5ba5e925e8de4a16deaa1864cb1812-m.jpg?X-Amz-Security-Token=IQoJb3JpZ2luX2VjEHsaCXVzLWVhc3QtMSJGMEQCIEU7J9Bdnz6kiaOSQLmLCs56%2FEE1IPxKAcgXfuRu1wlpAiBJWiotXohyUMTCqEltfUt5YSNCiSlePkaZCw2f%2FsBV3CrVBAiU%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDE4NzAxNzE1MDk4NiIM4e3ubhpQ52JeZxLRKqkEqBxEfnNPU3oDs5KEbfy0CqoUtihZRKzziJh2N0g3Hgvt7YsnGZp0F4epNxggudekUY%2Fn2yzls06KRmrK1ag0eWStxTnUw2UFp0bNvz5e3ytGHImNPlpSRUhkbHvWvoXtF1HKM2934CBrnrjyVJM1e6yDZMO9sJ5ReN5g5F6TSrVSx4hxhWQG1%2Bb2dyG3QQ9ro9bgYBdJR9gur0dca6G3mGfBJ%2BHC4FjFtpGuzlli5PnslUiJLLL2ZbxMrgz%2BPLWriDrcfPnixV3cUkJrzSRWjKNdbScRJuHO3kJmHTxjNlU0fUXnitc%2Fxw7ARCseVAgXQ4eERC25ER7VgNjLLOlKCr909uQCLaeTsVKt4lastDmNgPJnqBtI5YRhl153STslovjsInn1SAdCZ5b4PKQ5UhC0Zmp23u24a5LYr8ilNWg1BfP0dXHiH8UG%2BYjmHRC49ak4kUlYEFSaiOvkGSC0kQibV6W2ZRBqlCR%2BThdSEkEUmWCX6J7%2BWFcJW1Q%2BB8e2PabDBqycvYZ%2BejO0ckUWmRUr4g5chR6MpQwn8%2BIXPSDcZuIq6NcORTGxlWhZZEvRA30NmNwHj0wOR%2FIfnMTKONsapbzA8t4BTH8r6cTVAXuPtzGXfaEPArGy52S2RbNmXhnh2v10quu0orbvbLchC9Pp7ksgwxHR5qV6B0OVepBiXTN2ybbdChPCxaE9ns43LlZi8t2gZxw0PsmbQwHu1DIoHHfEdpg9AzCN6aOcBjqqAT5Ca374yaQBOXVTzHlw%2Bl0VOzkTuDsTRk1g9J0RU0u9TGkjsJEE%2BISW2S6Z%2FzYvDsRQej7BeJMXMF8RHeAcar%2BnBd3FQflFDfsqTnnfugEHpKyJrN1zV5WrbcGGl2mO6dEPlcS2%2BcJsgcKSE6P3jf66%2Fvp2mSPGZMTE20oj0cx6RHXnkN7yN5niSLl4yM55V1AtxDklxZ3mGed15VK7s%2B0Q%2FD4dOM0IwjF6&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20221201T194331Z&X-Amz-SignedHeaders=host&X-Amz-Expires=3600&X-Amz-Credential=ASIASXCYXIIFMHQFP6NE%2F20221201%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=445c7c9bb62a840eacff2510c1d33ac03c564f9232d45b2fcc2bd776231fce24",
+        "width": 200,
+        "height": 200
+      },
+      "REGULAR": {
+        "url": "https://edamam-product-images.s3.amazonaws.com/web-img/0c5/0c5ba5e925e8de4a16deaa1864cb1812.jpg?X-Amz-Security-Token=IQoJb3JpZ2luX2VjEHsaCXVzLWVhc3QtMSJGMEQCIEU7J9Bdnz6kiaOSQLmLCs56%2FEE1IPxKAcgXfuRu1wlpAiBJWiotXohyUMTCqEltfUt5YSNCiSlePkaZCw2f%2FsBV3CrVBAiU%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDE4NzAxNzE1MDk4NiIM4e3ubhpQ52JeZxLRKqkEqBxEfnNPU3oDs5KEbfy0CqoUtihZRKzziJh2N0g3Hgvt7YsnGZp0F4epNxggudekUY%2Fn2yzls06KRmrK1ag0eWStxTnUw2UFp0bNvz5e3ytGHImNPlpSRUhkbHvWvoXtF1HKM2934CBrnrjyVJM1e6yDZMO9sJ5ReN5g5F6TSrVSx4hxhWQG1%2Bb2dyG3QQ9ro9bgYBdJR9gur0dca6G3mGfBJ%2BHC4FjFtpGuzlli5PnslUiJLLL2ZbxMrgz%2BPLWriDrcfPnixV3cUkJrzSRWjKNdbScRJuHO3kJmHTxjNlU0fUXnitc%2Fxw7ARCseVAgXQ4eERC25ER7VgNjLLOlKCr909uQCLaeTsVKt4lastDmNgPJnqBtI5YRhl153STslovjsInn1SAdCZ5b4PKQ5UhC0Zmp23u24a5LYr8ilNWg1BfP0dXHiH8UG%2BYjmHRC49ak4kUlYEFSaiOvkGSC0kQibV6W2ZRBqlCR%2BThdSEkEUmWCX6J7%2BWFcJW1Q%2BB8e2PabDBqycvYZ%2BejO0ckUWmRUr4g5chR6MpQwn8%2BIXPSDcZuIq6NcORTGxlWhZZEvRA30NmNwHj0wOR%2FIfnMTKONsapbzA8t4BTH8r6cTVAXuPtzGXfaEPArGy52S2RbNmXhnh2v10quu0orbvbLchC9Pp7ksgwxHR5qV6B0OVepBiXTN2ybbdChPCxaE9ns43LlZi8t2gZxw0PsmbQwHu1DIoHHfEdpg9AzCN6aOcBjqqAT5Ca374yaQBOXVTzHlw%2Bl0VOzkTuDsTRk1g9J0RU0u9TGkjsJEE%2BISW2S6Z%2FzYvDsRQej7BeJMXMF8RHeAcar%2BnBd3FQflFDfsqTnnfugEHpKyJrN1zV5WrbcGGl2mO6dEPlcS2%2BcJsgcKSE6P3jf66%2Fvp2mSPGZMTE20oj0cx6RHXnkN7yN5niSLl4yM55V1AtxDklxZ3mGed15VK7s%2B0Q%2FD4dOM0IwjF6&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20221201T194331Z&X-Amz-SignedHeaders=host&X-Amz-Expires=3600&X-Amz-Credential=ASIASXCYXIIFMHQFP6NE%2F20221201%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=7fb03f938c50005ac0790a87655fd674bd62437c85cc95b727e5a29fd6f2c894",
+        "width": 300,
+        "height": 300
+      }
+    },
+    "source": "Serious Eats",
+    "url": "http://www.seriouseats.com/recipes/2011/10/popeye-tsos-chicken-general-tsos-chicken-made-with-popeyes-chicken-nuggets-recipe.html",
+    "shareAs": "http://www.edamam.com/recipe/popeye-tso-s-chicken-general-tso-s-chicken-made-with-popeye-s-chicken-nuggets-recipe-b5e1c34c9042a35a534069f438ec86fc/-",
+    "yield": 4.0,
+    "dietLabels": [
+      "Balanced",
+      "High-Fiber"
+    ],
+    "healthLabels": [
+      "Dairy-Free",
+      "Egg-Free",
+      "Peanut-Free",
+      "Tree-Nut-Free",
+      "Fish-Free",
+      "Pork-Free",
+      "Crustacean-Free",
+      "Celery-Free",
+      "Mustard-Free",
+      "Lupine-Free",
+      "Mollusk-Free",
+      "Alcohol-Free",
+      "Kosher"
+    ],
+    "cautions": [
+      "Gluten",
+      "Wheat",
+      "Sulfites"
+    ],
+    "ingredientLines": [
+      "1/4 cup low sodium chicken stock",
+      "1 tablespoon soy sauce",
+      "1 tablespoon rice wine vinegar",
+      "2 tablespoons hoisin sauce",
+      "1 teaspoon Chinese chili paste",
+      "2 teaspoons sesame oil",
+      "3 tablespoons sugar",
+      "2 teaspoons cornstarch",
+      "2 tablespons vegetable oil",
+      "2 cloves minced garlic (about 2 teaspoons",
+      "1 teapsoon minced fresh ginger",
+      "A half dozen dried red whole chilis",
+      "18 to 24 pieces Popeye's Chicken Nuggets, or 3 order Popeye's Popcorn Shrimp",
+      "3 scallion greens, sliced"
+    ],
+    "ingredients": [
+      {
+        "text": "1/4 cup low sodium chicken stock",
+        "quantity": 0.25,
+        "measure": "cup",
+        "food": "low sodium chicken stock",
+        "weight": 60.0,
+        "foodCategory": "canned soup",
+        "foodId": "food_axg87lea13vni7a0lc9adauqgcs9",
+        "image": "https://www.edamam.com/food-img/2eb/2eb3c708f58f5fa1543022650ff0ae8d.png"
+      },
+      {
+        "text": "1 tablespoon soy sauce",
+        "quantity": 1.0,
+        "measure": "tablespoon",
+        "food": "soy sauce",
+        "weight": 16.0,
+        "foodCategory": "plant-based protein",
+        "foodId": "food_a5g9yevb1iactoaiimbvjbkrxueh",
+        "image": "https://www.edamam.com/food-img/f56/f562e461eb0618f367f538b836c17b82.jpg"
+      },
+      {
+        "text": "1 tablespoon rice wine vinegar",
+        "quantity": 1.0,
+        "measure": "tablespoon",
+        "food": "rice wine vinegar",
+        "weight": 14.9,
+        "foodCategory": "Condiments and sauces",
+        "foodId": "food_axlcd4tack2d20bveizm4ayu0h2w",
+        "image": "https://www.edamam.com/food-img/5f6/5f69b84c399d778c4728e9ab4f8065a2.jpg"
+      },
+      {
+        "text": "2 tablespoons hoisin sauce",
+        "quantity": 2.0,
+        "measure": "tablespoon",
+        "food": "hoisin sauce",
+        "weight": 32.0,
+        "foodCategory": "canned soup",
+        "foodId": "food_a50yq9jao6jvt5a4oxygsbmfbeuy",
+        "image": "https://www.edamam.com/food-img/c52/c529c507459e9133ad8689cec193f713.jpg"
+      },
+      {
+        "text": "1 teaspoon Chinese chili paste",
+        "quantity": 1.0,
+        "measure": "teaspoon",
+        "food": "chili paste",
+        "weight": 5.104166666925555,
+        "foodCategory": "canned soup",
+        "foodId": "food_ayjzfd9bhvwqorb6m5iq3bekq7cj",
+        "image": "https://www.edamam.com/food-img/12f/12f4b9a8e738f35b7dd787a5360e4a45.jpg"
+      },
+      {
+        "text": "2 teaspoons sesame oil",
+        "quantity": 2.0,
+        "measure": "teaspoon",
+        "food": "sesame oil",
+        "weight": 9.0,
+        "foodCategory": "Oils",
+        "foodId": "food_b2id9opa0l5afvbw2do5xa1fnz4q",
+        "image": "https://www.edamam.com/food-img/b87/b874ddcfb6770adc7a155355a902ffb8.jpg"
+      },
+      {
+        "text": "3 tablespoons sugar",
+        "quantity": 3.0,
+        "measure": "tablespoon",
+        "food": "sugar",
+        "weight": 37.4999999993661,
+        "foodCategory": "sugars",
+        "foodId": "food_axi2ijobrk819yb0adceobnhm1c2",
+        "image": "https://www.edamam.com/food-img/ecb/ecb3f5aaed96d0188c21b8369be07765.jpg"
+      },
+      {
+        "text": "2 teaspoons cornstarch",
+        "quantity": 2.0,
+        "measure": "teaspoon",
+        "food": "cornstarch",
+        "weight": 5.33333333360384,
+        "foodCategory": null,
+        "foodId": "food_bevnfkfbvjm45pbbgj9nsb3ypntm",
+        "image": "https://www.edamam.com/food-img/f9b/f9b74d9495b40c0aea955c37a1fc39dc.jpg"
+      },
+      {
+        "text": "2 tablespons vegetable oil",
+        "quantity": 2.0,
+        "measure": "<unit>",
+        "food": "vegetable",
+        "weight": 575.7575757575758,
+        "foodCategory": "vegetables",
+        "foodId": "food_bitqzx8b319psvbib2dufarphbxy",
+        "image": "https://www.edamam.com/food-img/f3f/f3fa6996eba331be219778406f67a5a3.jpg"
+      },
+      {
+        "text": "2 cloves minced garlic (about 2 teaspoons",
+        "quantity": 2.0,
+        "measure": "clove",
+        "food": "garlic",
+        "weight": 6.0,
+        "foodCategory": "vegetables",
+        "foodId": "food_avtcmx6bgjv1jvay6s6stan8dnyp",
+        "image": "https://www.edamam.com/food-img/6ee/6ee142951f48aaf94f4312409f8d133d.jpg"
+      },
+      {
+        "text": "1 teapsoon minced fresh ginger",
+        "quantity": 1.0,
+        "measure": "<unit>",
+        "food": "fresh ginger",
+        "weight": 60.0,
+        "foodCategory": "vegetables",
+        "foodId": "food_bi2ki2xb5zmmvbaiwf7ztbgktzp6",
+        "image": "https://www.edamam.com/food-img/b9c/b9c06ef451ef29513880af0a53ebbaa6.jpg"
+      },
+      {
+        "text": "A half dozen dried red whole chilis",
+        "quantity": 6.0,
+        "measure": "<unit>",
+        "food": "chilis",
+        "weight": 36.599999999999994,
+        "foodCategory": "vegetables",
+        "foodId": "food_akybxs9atrgwona5nz3jgbo3vor5",
+        "image": "https://www.edamam.com/food-img/e3d/e3d161d6cfe5ef287053aed5461738ba.jpg"
+      },
+      {
+        "text": "18 to 24 pieces Popeye's Chicken Nuggets, or 3 order Popeye's Popcorn Shrimp",
+        "quantity": 21.0,
+        "measure": "piece",
+        "food": "Chicken Nuggets",
+        "weight": 420.0,
+        "foodCategory": "frozen poultry",
+        "foodId": "food_bdxovpmabzq0y1b37dux7abl5muq",
+        "image": "https://www.edamam.com/food-img/853/853b7c281a7108739b5b987fe290e60e.jpg"
+      },
+      {
+        "text": "3 scallion greens, sliced",
+        "quantity": 3.0,
+        "measure": "<unit>",
+        "food": "scallion",
+        "weight": 45.0,
+        "foodCategory": "vegetables",
+        "foodId": "food_bknlkyzbuzo27pb11whr4bttkuy6",
+        "image": "https://www.edamam.com/food-img/b89/b89986ed6aa466285bdd99bac34b3c46.jpg"
+      }
+    ],
+    "calories": 1931.0363295440866,
+    "totalWeight": 1323.1950757574714,
+    "totalTime": 5.0,
+    "cuisineType": [
+      "chinese"
+    ],
+    "mealType": [
+      "lunch/dinner"
+    ],
+    "dishType": [
+      "main course"
+    ]
+  },
+  "_links": {
+    "self": {
+      "title": "Self",
+      "href": "https://api.edamam.com/api/recipes/v2/recipe_b5e1c34c9042a35a534069f438ec86fc/b5e1c34c9042a35a534069f438ec86fc?type=public&app_id=5af3ae0a&app_key=1bf2959a73a85fa063cd713ec55636c5"
+    }
+  }
+}

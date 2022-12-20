@@ -1,8 +1,6 @@
-package com.app.food.team.foodapp.model;
+package com.app.food.team.foodapp.model.menurecipemodel;
 
 import jakarta.persistence.Entity;
-
-import java.util.List;
 
 @Entity
 public class TagDietLabel extends AbstractRecipeTag {

@@ -1,4 +1,4 @@
-package com.app.food.team.foodapp.model;
+package com.app.food.team.foodapp.model.authmodel;
 
 import jakarta.persistence.*;
 import lombok.Getter;

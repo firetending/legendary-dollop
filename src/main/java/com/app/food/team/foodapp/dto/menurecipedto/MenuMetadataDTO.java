@@ -1,9 +1,7 @@
-package com.app.food.team.foodapp.dto;
+package com.app.food.team.foodapp.dto.menurecipedto;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Persister;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.time.LocalDateTime;
 

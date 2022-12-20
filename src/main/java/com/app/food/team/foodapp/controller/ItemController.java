@@ -1,16 +1,14 @@
 package com.app.food.team.foodapp.controller;
 
 import com.app.food.team.foodapp.dto.ResponseDto;
-import com.app.food.team.foodapp.model.Item;
-import com.app.food.team.foodapp.model.RecipeApiWrapper;
-import com.app.food.team.foodapp.repository.ItemRepository;
+import com.app.food.team.foodapp.model.menurecipemodel.Item;
+import com.app.food.team.foodapp.model.menurecipemodel.RecipeApiWrapper;
+import com.app.food.team.foodapp.repository.menureciperepository.ItemRepository;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;

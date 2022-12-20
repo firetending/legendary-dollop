@@ -1,7 +1,6 @@
-package com.app.food.team.foodapp.repository;
+package com.app.food.team.foodapp.repository.menureciperepository;
 
-import com.app.food.team.foodapp.dto.MenuMetadataDTO;
-import com.app.food.team.foodapp.model.Menu;
+import com.app.food.team.foodapp.model.menurecipemodel.Menu;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -17,7 +16,7 @@ public interface MenuRepository extends JpaRepository<Menu,Integer> {
 //    @Query(value = "SELECT internal_id, title FROM menus", nativeQuery = true)
 //    List<MenuMetadataDTO> getAllMenuMetadata();
 
-//    @Query("SELECT NEW com.app.food.team.foodapp.dto.MenuMetadataDTO(m.internal_id, m.title, m" +
+//    @Query("SELECT NEW com.app.food.team.foodapp.dto.menurecipedto.MenuMetadataDTO(m.internal_id, m.title, m" +
 //            ".created_date_time, m.edited_date_time) FROM " +
 //            "menus m")
 //    MenuMetadataDTO getAllMenuMetadata();

@@ -1,6 +1,6 @@
 package com.app.food.team.foodapp.controller;
 
-import com.app.food.team.foodapp.dto.RegistrationRequestDto;
+import com.app.food.team.foodapp.dto.authdto.RegistrationRequestDto;
 import com.app.food.team.foodapp.dto.ResponseDto;
 import com.app.food.team.foodapp.service.RegistrationService;
 import com.app.food.team.foodapp.service.UserService;

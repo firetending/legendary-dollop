@@ -1,6 +1,6 @@
-package com.app.food.team.foodapp.model;
+package com.app.food.team.foodapp.model.menurecipemodel;
 
-import jakarta.persistence.Column;
+import com.app.food.team.foodapp.model.AbstractEntity;
 import jakarta.persistence.MappedSuperclass;
 
 @MappedSuperclass

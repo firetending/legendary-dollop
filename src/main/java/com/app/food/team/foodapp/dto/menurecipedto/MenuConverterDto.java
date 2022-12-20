@@ -1,6 +1,8 @@
-package com.app.food.team.foodapp.dto;
+package com.app.food.team.foodapp.dto.menurecipedto;
 
-import com.app.food.team.foodapp.model.*;
+import com.app.food.team.foodapp.model.menurecipemodel.Item;
+import com.app.food.team.foodapp.model.menurecipemodel.Menu;
+import com.app.food.team.foodapp.model.menurecipemodel.RecipeApiWrapper;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

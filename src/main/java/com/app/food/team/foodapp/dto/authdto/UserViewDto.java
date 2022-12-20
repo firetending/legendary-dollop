@@ -1,4 +1,4 @@
-package com.app.food.team.foodapp.dto;
+package com.app.food.team.foodapp.dto.authdto;
 
 import com.app.food.team.foodapp.model.authmodel.User;
 import com.fasterxml.jackson.annotation.JsonInclude;

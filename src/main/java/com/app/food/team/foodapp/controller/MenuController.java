@@ -1,17 +1,13 @@
 package com.app.food.team.foodapp.controller;
 
-import com.app.food.team.foodapp.dto.MenuConverterDto;
-import com.app.food.team.foodapp.dto.MenuMetadataDTO;
+import com.app.food.team.foodapp.dto.menurecipedto.MenuConverterDto;
 import com.app.food.team.foodapp.dto.ResponseDto;
-import com.app.food.team.foodapp.model.Item;
-import com.app.food.team.foodapp.model.Menu;
-import com.app.food.team.foodapp.model.RecipeApiWrapper;
-import com.app.food.team.foodapp.repository.ItemRepository;
-import com.app.food.team.foodapp.repository.MenuRepository;
+import com.app.food.team.foodapp.model.menurecipemodel.Item;
+import com.app.food.team.foodapp.model.menurecipemodel.Menu;
+import com.app.food.team.foodapp.model.menurecipemodel.RecipeApiWrapper;
+import com.app.food.team.foodapp.repository.menureciperepository.ItemRepository;
+import com.app.food.team.foodapp.repository.menureciperepository.MenuRepository;
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +15,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;

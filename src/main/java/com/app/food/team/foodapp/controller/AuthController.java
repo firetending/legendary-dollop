@@ -1,6 +1,6 @@
 package com.app.food.team.foodapp.controller;
 
-import com.app.food.team.foodapp.dto.LoginRequestDto;
+import com.app.food.team.foodapp.dto.authdto.LoginRequestDto;
 import com.app.food.team.foodapp.dto.ResponseDto;
 import com.app.food.team.foodapp.service.JwtTokenService;
 import com.app.food.team.foodapp.service.UserService;
